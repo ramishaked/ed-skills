@@ -39,23 +39,14 @@ h1{font-family:var(--f-display);font-weight:400;font-size:clamp(1.9rem,4vw,2.7re
 .search input{flex:1;min-width:0;border:0;background:none;font:inherit;font-size:1.05rem;color:var(--ink);outline:none}
 .search:focus-within{outline:3px solid var(--accent);outline-offset:2px}
 .tools{display:flex;gap:10px;align-items:center;flex:0 1 auto}
-.tools .search{flex:1 1 360px}
+.tools .search{flex:1 1 300px}
+.tbtn.icon{width:54px;padding:0;justify-content:center}
 .tbtn{height:54px;padding:0 18px;border-radius:27px;border:0;background:var(--tile);box-shadow:var(--shadow);font-weight:700;font-size:.95rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .tbtn svg{flex:none}
 
 .lede{max-width:64ch;color:var(--muted);margin:18px 0 0;font-size:1.02rem}
-.concepts{display:grid;gap:10px;margin-top:18px}
-.concept{background:var(--tile);border-radius:var(--r);box-shadow:0 1px 0 var(--line);border-inline-start:6px solid var(--accent)}
-.concept summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
-.concept summary::-webkit-details-marker{display:none}
-.concept .c-lbl{font-size:.78rem;font-weight:800;color:var(--accent);letter-spacing:.03em}
-.concept .c-name{font-family:var(--f-display);font-size:1.5rem;line-height:1}
-.concept .c-lead{flex:1 1 320px;color:var(--muted);min-width:0}
-.concept .c-more{font-size:.88rem;font-weight:700;color:var(--accent);white-space:nowrap}
-.concept[open] .c-more{display:none}
-.concept .c-body{padding:0 20px 18px;display:grid;gap:10px;max-width:78ch}
-.concept .c-body p{margin:0;line-height:1.7}
-.concept .c-note{font-size:.9rem;color:var(--muted)}
+.dlg .def{font-size:1.05rem;line-height:1.75;color:var(--ink)}
+.dlg .soon{background:var(--ground);border-radius:16px;padding:14px 16px;color:var(--muted);font-size:.95rem}
 
 /* filters */
 .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:22px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);padding-block:10px}
@@ -152,6 +143,7 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
   .tools{width:100%;flex-wrap:wrap}
   .tools .search{flex-basis:100%}
   .tbtn{height:44px;flex:1;justify-content:center}
+  .tbtn.icon{flex:0 0 44px;width:44px}
   .count{margin-inline-start:0;width:100%}
   .bar{position:static}
 
@@ -174,13 +166,12 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input id="q" type="search" placeholder="חפשו מיומנות, ערך או יכולת ליבה" aria-label="חיפוש" autocomplete="off">
       </label>
+      <button type="button" class="tbtn" id="spacesBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>מרחבים</button>
       <button type="button" class="tbtn" id="aboutBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>אודות</button>
-      <button type="button" class="tbtn" id="themeBtn" aria-pressed="false"></button>
+      <button type="button" class="tbtn icon" id="themeBtn" aria-pressed="false"></button>
     </div>
   </header>
   <p class="lede">כל המיומנויות והערכים של דמות הבוגר, לצד כשירויות וערכים ממסגרות משלימות. לחצו על אריח כדי לפתוח אותו: הגדרה, יכולות ליבה וקשרים לפריטים אחרים.</p>
-
-  <div class="concepts" id="concepts"></div>
 
   <div class="bar">
     <button type="button" class="pill" data-kind="all" aria-pressed="true">הכול</button>
@@ -193,6 +184,15 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
 
   <main id="main"></main>
   <p class="empty" id="empty" hidden>לא נמצאו פריטים. נסו מילה אחרת.</p>
+
+  <dialog id="spaces" aria-labelledby="spaces-title">
+    <div class="dlg" dir="rtl">
+      <div class="dlg-head"><h2 id="spaces-title">מרחבים</h2>
+        <button type="button" class="dlg-x" data-x="spaces" aria-label="סגירה"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <p class="def" id="spacesDef"></p>
+      <p class="soon">בשלב הבא יוגדרו המרחבים עצמם, וכל מיומנות וערך ישויכו למרחב.</p>
+    </div>
+  </dialog>
 
   <dialog id="about" aria-labelledby="about-title">
     <div class="dlg" dir="rtl">
@@ -330,16 +330,6 @@ function render(){
   document.getElementById("empty").hidden=shown.length>0||!!openIt;
   document.getElementById("count").textContent=`${shown.length} מתוך ${mains.length}`;
   renderCats(mains);
-  if(!document.getElementById("concepts").childElementCount) renderConcepts();
-}
-function renderConcepts(){
-  const list=DB.items.filter(i=>i.type==="מושג יסוד");
-  document.getElementById("concepts").innerHTML=list.map(c=>{
-    const parts=(c.definition||"").split(/(?<=\.)\s+/), lead=parts.shift()||"";
-    return `<details class="concept"><summary><span class="c-lbl">מושג יסוד</span><span class="c-name">${esc(c.name)}</span>
-      <span class="c-lead">${esc(lead)}</span><span class="c-more">קראו עוד</span></summary>
-      <div class="c-body">${parts.length?`<p>${esc(parts.join(" "))}</p>`:""}</div></details>`;
-  }).join("");
 }
 function renderCats(mains){
   const order=[], n={};
@@ -387,7 +377,7 @@ function toggleCats(force){
   p.hidden=!show; b.setAttribute("aria-expanded",show);
 }
 document.addEventListener("keydown",e=>{
-  if(e.key!=="Escape"||dlg.open) return;
+  if(e.key!=="Escape"||dlg.open||sdlg.open) return;
   const p=document.getElementById("cats");
   if(!p.hidden){ toggleCats(false); document.getElementById("catBtn").focus(); return; }
   if(state.open) closeItem();
@@ -399,7 +389,8 @@ const MOON='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="
 function setTheme(m){
   document.documentElement.dataset.theme=m;
   const b=document.getElementById("themeBtn");
-  b.innerHTML=m==="dark"?SUN+"מצב יום":MOON+"מצב לילה";
+  b.innerHTML=m==="dark"?SUN:MOON;
+  const l=m==="dark"?"מעבר למצב יום":"מעבר למצב לילה"; b.setAttribute("aria-label",l); b.title=l;
   b.setAttribute("aria-pressed",m==="dark");
 }
 setTheme("light");
@@ -416,6 +407,13 @@ function renderAbout(){
 const dlg=document.getElementById("about");
 document.getElementById("aboutBtn").addEventListener("click",()=>{ renderAbout(); dlg.showModal(); });
 document.getElementById("aboutClose").addEventListener("click",()=>dlg.close());
+const sdlg=document.getElementById("spaces");
+document.getElementById("spacesBtn").addEventListener("click",()=>{
+  const c=DB.items.find(i=>i.type==="מושג יסוד"&&i.name==="מרחב");
+  document.getElementById("spacesDef").textContent=c?c.definition:"";
+  sdlg.showModal(); });
+sdlg.querySelector("[data-x]").addEventListener("click",()=>sdlg.close());
+sdlg.addEventListener("click",e=>{ if(e.target===sdlg) sdlg.close(); });
 dlg.addEventListener("click",e=>{ if(e.target===dlg) dlg.close(); });
 
 function parseCSV(t){
@@ -439,5 +437,5 @@ async function loadLive(){
 
 index(SNAPSHOT); render();
 const h=decodeURIComponent(location.hash.slice(1)); if(h&&byId.has(h)) openItem(h);
-loadLive().then(d=>{ index(d); renderConcepts(); render(); const s=document.getElementById("status"); s.textContent="נתונים: מעודכנים מהגיליון"; s.classList.add("live"); }).catch(()=>{});
+loadLive().then(d=>{ index(d); render(); const s=document.getElementById("status"); s.textContent="נתונים: מעודכנים מהגיליון"; s.classList.add("live"); }).catch(()=>{});
 </script>

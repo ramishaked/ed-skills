@@ -44,6 +44,18 @@ h1{font-family:var(--f-display);font-weight:400;font-size:clamp(1.9rem,4vw,2.7re
 .tbtn svg{flex:none}
 
 .lede{max-width:64ch;color:var(--muted);margin:18px 0 0;font-size:1.02rem}
+.concepts{display:grid;gap:10px;margin-top:18px}
+.concept{background:var(--tile);border-radius:var(--r);box-shadow:0 1px 0 var(--line);border-inline-start:6px solid var(--accent)}
+.concept summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.concept summary::-webkit-details-marker{display:none}
+.concept .c-lbl{font-size:.78rem;font-weight:800;color:var(--accent);letter-spacing:.03em}
+.concept .c-name{font-family:var(--f-display);font-size:1.5rem;line-height:1}
+.concept .c-lead{flex:1 1 320px;color:var(--muted);min-width:0}
+.concept .c-more{font-size:.88rem;font-weight:700;color:var(--accent);white-space:nowrap}
+.concept[open] .c-more{display:none}
+.concept .c-body{padding:0 20px 18px;display:grid;gap:10px;max-width:78ch}
+.concept .c-body p{margin:0;line-height:1.7}
+.concept .c-note{font-size:.9rem;color:var(--muted)}
 
 /* filters */
 .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:22px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);padding-block:10px}
@@ -167,6 +179,8 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
     </div>
   </header>
   <p class="lede">כל המיומנויות והערכים של דמות הבוגר, לצד כשירויות וערכים ממסגרות משלימות. לחצו על אריח כדי לפתוח אותו: הגדרה, יכולות ליבה וקשרים לפריטים אחרים.</p>
+
+  <div class="concepts" id="concepts"></div>
 
   <div class="bar">
     <button type="button" class="pill" data-kind="all" aria-pressed="true">הכול</button>
@@ -316,6 +330,16 @@ function render(){
   document.getElementById("empty").hidden=shown.length>0||!!openIt;
   document.getElementById("count").textContent=`${shown.length} מתוך ${mains.length}`;
   renderCats(mains);
+  if(!document.getElementById("concepts").childElementCount) renderConcepts();
+}
+function renderConcepts(){
+  const list=DB.items.filter(i=>i.type==="מושג יסוד");
+  document.getElementById("concepts").innerHTML=list.map(c=>{
+    const parts=(c.definition||"").split(/(?<=\.)\s+/), lead=parts.shift()||"";
+    return `<details class="concept"><summary><span class="c-lbl">מושג יסוד</span><span class="c-name">${esc(c.name)}</span>
+      <span class="c-lead">${esc(lead)}</span><span class="c-more">קראו עוד</span></summary>
+      <div class="c-body">${parts.length?`<p>${esc(parts.join(" "))}</p>`:""}</div></details>`;
+  }).join("");
 }
 function renderCats(mains){
   const order=[], n={};
@@ -415,5 +439,5 @@ async function loadLive(){
 
 index(SNAPSHOT); render();
 const h=decodeURIComponent(location.hash.slice(1)); if(h&&byId.has(h)) openItem(h);
-loadLive().then(d=>{ index(d); render(); const s=document.getElementById("status"); s.textContent="נתונים: מעודכנים מהגיליון"; s.classList.add("live"); }).catch(()=>{});
+loadLive().then(d=>{ index(d); renderConcepts(); render(); const s=document.getElementById("status"); s.textContent="נתונים: מעודכנים מהגיליון"; s.classList.add("live"); }).catch(()=>{});
 </script>

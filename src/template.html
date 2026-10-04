@@ -46,6 +46,9 @@ h1{font-family:var(--f-display);font-weight:400;font-size:clamp(1.9rem,4vw,2.7re
 
 .lede{max-width:64ch;color:var(--muted);margin:18px 0 0;font-size:1.02rem}
 .dlg .def{font-size:1.05rem;line-height:1.75;color:var(--ink)}
+.spc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.spc li{background:var(--ground);border-radius:14px;padding:12px 14px;font-weight:700;display:flex;align-items:center;gap:10px}
+.spc li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--muted)}
 .dlg .soon{background:var(--ground);border-radius:16px;padding:14px 16px;color:var(--muted);font-size:.95rem}
 
 /* filters */
@@ -190,7 +193,9 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
       <div class="dlg-head"><h2 id="spaces-title">מרחבים</h2>
         <button type="button" class="dlg-x" data-x="spaces" aria-label="סגירה"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
       <p class="def" id="spacesDef"></p>
-      <p class="soon">בשלב הבא יוגדרו המרחבים עצמם, וכל מיומנות וערך ישויכו למרחב.</p>
+      <h3 id="spcTitle">דוגמאות למרחבים</h3>
+      <ul class="spc" id="spcList"></ul>
+      <p class="soon">אלה דוגמאות בשלב זה. בהמשך תתווסף לכל מרחב המשגה, ותהיה אפשרות להוסיף מרחבים ולשבץ כל מיומנות וערך למרחב.</p>
     </div>
   </dialog>
 
@@ -411,6 +416,9 @@ const sdlg=document.getElementById("spaces");
 document.getElementById("spacesBtn").addEventListener("click",()=>{
   const c=DB.items.find(i=>i.type==="מושג יסוד"&&i.name==="מרחב");
   document.getElementById("spacesDef").textContent=c?c.definition:"";
+  const sp=DB.items.filter(i=>i.type==="מרחב");
+  document.getElementById("spcTitle").hidden=!sp.length;
+  document.getElementById("spcList").innerHTML=sp.map(s=>`<li>${esc(s.name)}</li>`).join("");
   sdlg.showModal(); });
 sdlg.querySelector("[data-x]").addEventListener("click",()=>sdlg.close());
 sdlg.addEventListener("click",e=>{ if(e.target===sdlg) sdlg.close(); });

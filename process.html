@@ -225,6 +225,11 @@ h3{font-size:1.15rem;font-weight:800;margin:0}
 .hero h1{font-size:clamp(1.9rem,4.4vw,3.1rem);line-height:1.12;max-width:22ch;text-wrap:balance}
 .hero .yr{display:inline-block;background:var(--accent);color:var(--accent-ink);border-radius:14px;padding:2px 14px 4px;margin-inline-end:8px}
 .hero-sub{margin:10px 0 0;font-size:clamp(1.05rem,2vw,1.3rem);color:var(--muted);font-weight:500}
+.challenge{margin-top:22px;display:flex;gap:14px;align-items:flex-start;background:var(--accent-soft);border-radius:20px;padding:18px 20px;max-width:900px}
+.ch-lbl{flex:none;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:.9rem;border-radius:12px;padding:6px 12px;margin-top:2px}
+.challenge p{margin:0;font-size:1.08rem;line-height:1.7;color:var(--ink)}
+.challenge b{color:var(--accent)}
+@media (max-width:520px){.challenge{flex-direction:column;gap:10px}}
 .quote{margin:22px 0 0;padding:0 18px 0 0;border-inline-start:3px solid var(--accent);max-width:64ch}
 .quote p{margin:0;font-style:italic;color:var(--muted);line-height:1.7}
 .quote cite{display:block;margin-top:4px;font-style:normal;font-size:.85rem;font-weight:700;color:var(--accent)}
@@ -274,6 +279,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
   <section class="hero" aria-labelledby="h-year">
     <h1 id="h-year"><span class="yr">תשפ"ז</span> שנת קידום המיומנויות במערכת החינוך בחולון</h1>
     <p class="hero-sub">בראי הבוגר העתידי והמציאות המשתנה</p>
+    <div class="challenge"><span class="ch-lbl">האתגר</span><p>גיבוש ופיתוח <b>"מערכת עירונית"</b> שתאפשר לצוות הניהולי והחינוכי לנהל באופן הוליסטי, יעיל ופשוט תהליכי הוראה-למידה-הערכה של כשירויות (מיומנויות וערכים), כך שהבוגר יפעל וישגשג באופן מיטבי במציאות המשתנה.</p></div>
     <blockquote class="quote">
       <p>האנאלפביתים של המאה ה-21 לא יהיו אלו שאינם יודעים קרוא וכתוב, אלא אלו שאינם מסוגלים ללמוד, לשכוח את מה שלמדו וללמוד מחדש.</p>
       <cite><bdi>Alvin Toffler</bdi></cite>

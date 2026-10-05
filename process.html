@@ -172,6 +172,7 @@ h3{font-size:1.15rem;font-weight:800;margin:0}
 .meet-body{padding:6px 22px 26px;background:var(--ground);border-radius:0 0 var(--r) var(--r)}
 .meet-body .sec{margin-top:30px}
 .meet-body .sec.first{margin-top:18px}
+.goal{margin:0 0 14px;background:var(--tile);border-radius:18px;padding:16px 18px;border-inline-start:5px solid var(--accent);font-size:1.05rem;line-height:1.7}
 .tbd{margin:14px 0 0;color:var(--muted)}
 .meets li a.soon{background:none;border:1.5px dashed var(--line);color:var(--muted)}
 .guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
@@ -202,6 +203,10 @@ h3{font-size:1.15rem;font-weight:800;margin:0}
 .g-legend i{display:inline-block;width:26px;height:12px;border-radius:6px}
 .lg-s{background:var(--accent)}
 .lg-e{background:repeating-linear-gradient(-45deg,var(--accent-soft) 0 5px,color-mix(in srgb,var(--accent) 22%,var(--tile)) 5px 10px);border:1.5px dashed var(--accent)}
+.lg-f{width:12px!important;height:12px!important;border-radius:2px!important;transform:rotate(45deg);background:var(--tile);border:2.5px solid var(--accent)}
+.g-bar.s2b{background:color-mix(in srgb,var(--accent) 55%,var(--tile))}
+.g-flag{position:absolute;top:47px;font-size:.7rem;font-weight:800;color:var(--accent);transform:translateX(50%);white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:0;line-height:1;z-index:2}
+.g-flag i{position:absolute;top:-33px;width:12px;height:12px;background:var(--tile);border:2.5px solid var(--accent);transform:rotate(45deg)}
 .lg-d{width:14px!important;height:14px!important;border-radius:50%!important;background:var(--accent)}
 .ms-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:16px}
 .ms{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--tile);border-radius:18px;padding:14px 16px;box-shadow:0 1px 0 var(--line);text-decoration:none;color:var(--ink)}
@@ -255,18 +260,18 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     <div class="sec-head"><h2 id="h-all">התהליך כולו</h2><span class="tag">תשפ"ז</span></div>
     <div class="gantt-wrap"><div class="gantt" role="img" aria-label="לוח זמנים של התהליך, אוקטובר 2026 עד אוגוסט 2027">
       <div class="g-row g-head"><div class="g-lbl"></div><div class="g-months"><span>אוקטובר</span><span>נובמבר</span><span>דצמבר</span><span>ינואר</span><span>פברואר</span><span>מרץ</span><span>אפריל</span><span>מאי</span><span>יוני</span><span>יולי</span><span>אוגוסט</span></div></div>
-      <div class="g-row"><div class="g-lbl"><span class="g-n">1</span><div><b>סדרת מפגשי מנהלים</b><small>4 מפגשים ומפגש סיכום</small></div></div><div class="g-track"><span class="g-line" style="inset-inline-start:5.67%"></span><span class="g-line" style="inset-inline-start:24.48%"></span><span class="g-line" style="inset-inline-start:43.28%"></span><span class="g-line" style="inset-inline-start:55.82%"></span><span class="g-line" style="inset-inline-start:74.63%"></span><span class="g-bar s1" style="inset-inline-start:5.67%;width:68.96%"></span><a class="g-dot" href="#m1" style="inset-inline-start:5.67%" title="20.10.2026 מפגש מנהלים 1: רענון, הגדרה, מיקוד ותובנות עד כה ויציאה לדרך"><b>1</b></a><a class="g-dot" href="#m2" style="inset-inline-start:24.48%" title="22.12.2026 מפגש מנהלים 2: הפשטה ופירוק לצעדים"><b>2</b></a><a class="g-dot" href="#m3" style="inset-inline-start:43.28%" title="23.02.2027 מפגש מנהלים 3: מדידה והערכה מעצבת"><b>3</b></a><a class="g-dot" href="#m4" style="inset-inline-start:55.82%" title="06.04.2027 מפגש מנהלים 4: חשיפת המערכת העירונית"><b>4</b></a><a class="g-dot" href="#m5" style="inset-inline-start:74.63%" title="08.06.2027 מפגש סיכום שנה: הצגת סיפורי הצלחה ולקחים מבתי הספר"><b>ס</b></a></div></div>
-      <div class="g-row"><div class="g-lbl"><span class="g-n">2</span><div><b>תובנות ופיתוח המערכת העירונית</b><small>במקביל למפגשים</small></div></div><div class="g-track"><span class="g-line" style="inset-inline-start:5.67%"></span><span class="g-line" style="inset-inline-start:24.48%"></span><span class="g-line" style="inset-inline-start:43.28%"></span><span class="g-line" style="inset-inline-start:55.82%"></span><span class="g-line" style="inset-inline-start:74.63%"></span><span class="g-bar s2" style="inset-inline-start:5.67%;width:50.15%">עד חשיפת המערכת</span></div></div>
-      <div class="g-row"><div class="g-lbl"><span class="g-n">3</span><div><b>הטמעה מדורגת</b><small>מספר מצומצם של בתי ספר</small></div></div><div class="g-track"><span class="g-line" style="inset-inline-start:5.67%"></span><span class="g-line" style="inset-inline-start:24.48%"></span><span class="g-line" style="inset-inline-start:43.28%"></span><span class="g-line" style="inset-inline-start:55.82%"></span><span class="g-line" style="inset-inline-start:74.63%"></span><span class="g-bar est" style="inset-inline-start:27.46%;width:47.16%">טווח משוער</span></div></div>
-      <div class="g-row"><div class="g-lbl"><span class="g-n">4</span><div><b>רטרוספקטיבה והפקת לקחים</b><small>לקראת תשפ"ח</small></div></div><div class="g-track"><span class="g-line" style="inset-inline-start:5.67%"></span><span class="g-line" style="inset-inline-start:24.48%"></span><span class="g-line" style="inset-inline-start:43.28%"></span><span class="g-line" style="inset-inline-start:55.82%"></span><span class="g-line" style="inset-inline-start:74.63%"></span><span class="g-bar est" style="inset-inline-start:74.63%;width:25.37%">טווח משוער</span></div></div>
+      <div class="g-row"><div class="g-lbl"><span class="g-n">1</span><div><b>סדרת מפגשי מנהלים</b><small>4 מפגשים ומפגש סיכום</small></div></div><div class="g-track"><span class="g-line" style="inset-inline-start:5.67%"></span><span class="g-line" style="inset-inline-start:24.48%"></span><span class="g-line" style="inset-inline-start:43.28%"></span><span class="g-line" style="inset-inline-start:55.82%"></span><span class="g-line" style="inset-inline-start:74.63%"></span><span class="g-bar s1" style="inset-inline-start:5.67%;width:68.96%"></span><a class="g-dot" href="#m1" style="inset-inline-start:5.67%" title="20.10.2026 מפגש מנהלים 1: רענון, הגדרה, מיקוד ותובנות עד כה ויציאה לדרך"><b>1</b></a><a class="g-dot" href="#m2" style="inset-inline-start:24.48%" title="22.12.2026 מפגש מנהלים 2: הפשטה ופירוק לצעדים"><b>2</b></a><a class="g-dot" href="#m3" style="inset-inline-start:43.28%" title="23.02.2027 מפגש מנהלים 3: מדידה והערכה מעצבת"><b>3</b></a><a class="g-dot" href="#m4" style="inset-inline-start:55.82%" title="06.04.2027 מפגש מנהלים 4: חשיפת המערכת העירונית לכלל בתי הספר, עם שיפורים מהשטח"><b>4</b></a><a class="g-dot" href="#m5" style="inset-inline-start:74.63%" title="08.06.2027 מפגש סיכום שנה: הצגת סיפורי הצלחה ולקחים מבתי הספר, והערכות להטמעה עירונית בתשפ"ח"><b>ס</b></a></div></div>
+      <div class="g-row"><div class="g-lbl"><span class="g-n">2</span><div><b>תובנות ופיתוח המערכת העירונית</b><small>MVP בפברואר, חשיפה לכולם באפריל</small></div></div><div class="g-track"><span class="g-line" style="inset-inline-start:5.67%"></span><span class="g-line" style="inset-inline-start:24.48%"></span><span class="g-line" style="inset-inline-start:43.28%"></span><span class="g-line" style="inset-inline-start:55.82%"></span><span class="g-line" style="inset-inline-start:74.63%"></span><span class="g-bar s2" style="inset-inline-start:5.67%;width:35.22%">פיתוח עד MVP</span><span class="g-bar s2b" style="inset-inline-start:40.90%;width:14.93%">שיפורים מהשטח</span><span class="g-flag" style="inset-inline-start:40.90%"><i></i>MVP</span><span class="g-flag" style="inset-inline-start:55.82%"><i></i>חשיפה</span></div></div>
+      <div class="g-row"><div class="g-lbl"><span class="g-n">3</span><div><b>הטמעה מדורגת</b><small>מספר מצומצם של בתי ספר</small></div></div><div class="g-track"><span class="g-line" style="inset-inline-start:5.67%"></span><span class="g-line" style="inset-inline-start:24.48%"></span><span class="g-line" style="inset-inline-start:43.28%"></span><span class="g-line" style="inset-inline-start:55.82%"></span><span class="g-line" style="inset-inline-start:74.63%"></span><span class="g-bar s2" style="inset-inline-start:40.90%;width:33.73%">הטמעה בבתי ספר מובילים</span></div></div>
+      <div class="g-row"><div class="g-lbl"><span class="g-n">4</span><div><b>רטרוספקטיבה והפקת לקחים</b><small>והערכות להטמעה בתשפ"ח</small></div></div><div class="g-track"><span class="g-line" style="inset-inline-start:5.67%"></span><span class="g-line" style="inset-inline-start:24.48%"></span><span class="g-line" style="inset-inline-start:43.28%"></span><span class="g-line" style="inset-inline-start:55.82%"></span><span class="g-line" style="inset-inline-start:74.63%"></span><span class="g-bar est" style="inset-inline-start:74.63%;width:25.37%">טווח משוער</span></div></div>
     </div></div>
-    <ul class="g-legend"><li><i class="lg-s"></i>מתוכנן</li><li><i class="lg-e"></i>טווח משוער, ייקבע בהמשך</li><li><i class="lg-d"></i>מפגש מנהלים</li></ul>
+    <ul class="g-legend"><li><i class="lg-s"></i>מתוכנן</li><li><i class="lg-e"></i>טווח משוער, ייקבע בהמשך</li><li><i class="lg-d"></i>מפגש מנהלים</li><li><i class="lg-f"></i>אבן דרך של המערכת העירונית</li></ul>
     <div class="ms-list">
       <a class="ms" href="#m1"><span class="ms-n">1</span><span class="ms-d">20.10.2026<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 1</b>רענון, הגדרה, מיקוד ותובנות עד כה ויציאה לדרך</span></a>
       <a class="ms" href="#m2"><span class="ms-n">2</span><span class="ms-d">22.12.2026<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 2</b>הפשטה ופירוק לצעדים</span></a>
       <a class="ms" href="#m3"><span class="ms-n">3</span><span class="ms-d">23.02.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 3</b>מדידה והערכה מעצבת</span></a>
-      <a class="ms" href="#m4"><span class="ms-n">4</span><span class="ms-d">06.04.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 4</b>חשיפת המערכת העירונית</span></a>
-      <a class="ms" href="#m5"><span class="ms-n">ס</span><span class="ms-d">08.06.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש סיכום שנה</b>הצגת סיפורי הצלחה ולקחים מבתי הספר</span></a>
+      <a class="ms" href="#m4"><span class="ms-n">4</span><span class="ms-d">06.04.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 4</b>חשיפת המערכת העירונית לכלל בתי הספר, עם שיפורים מהשטח</span></a>
+      <a class="ms" href="#m5"><span class="ms-n">ס</span><span class="ms-d">08.06.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש סיכום שנה</b>הצגת סיפורי הצלחה ולקחים מבתי הספר, והערכות להטמעה עירונית בתשפ"ח</span></a>
     </div>
   </section>
 
@@ -298,7 +303,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
           <div class="facts">
             <div class="fact"><b>60</b><span>דקות</span></div>
             <div class="fact"><b>8-10</b><span>משתתפים בשולחן</span></div>
-            <div class="fact"><b>50-60</b><span>עיגולי מיומנויות</span></div>
+            <div class="fact"><b>50-60</b><span>דיסקיות מיומנות</span></div>
           </div>
           <p class="lead">כל שולחן מרכז מנהלים מכל רצף הגילאים של אותה שכונה: גן, יסודי, על-יסודי וחינוך מיוחד. הקבוצות לא מקבלות מודל מוכן. הן ממיינות בעצמן את המיומנויות למרחבים, ואחר כך מסמנות אילו מיומנויות צריכות להיות במיקוד ואילו מאתגרות במיוחד.</p>
           <p class="lead">לאורך כל הסדנה עומדת לרשות המשתתפים <a href="./">מפת המיומנויות והערכים</a>, שמרכזת את הפירוט של כל מיומנות ואת הגדרת המרחב.</p>
@@ -310,6 +315,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     <details class="sub">
       <summary><span class="s-num">2</span><h3 class="sub-t">רציונל הסדנה</h3><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
+      <p class="goal"><b>המטרה:</b> המשגה חוויתית של מגוון המיומנויות, מיפוי סנטימנט וזיהוי מיומנויות במיקוד, ארגון במרחבי ניהול והצבעה על אתגרים.</p>
       <div class="why">
         <article class="card">
           <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg></span>
@@ -319,7 +325,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
         <article class="card">
           <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="8" cy="8" r="3.5"/><circle cx="16" cy="16" r="3.5"/><circle cx="16.5" cy="7.5" r="2.5" stroke-dasharray="2 2"/></svg></span>
           <h3>למידה מהשטח</h3>
-          <p>העובדה שהקבוצות אינן מקבלות מודל מוכן מראש, אלא נדרשות למיין בעצמן עשרות תתי-מיומנויות, למקם אותן, לתת שם ל"מיומנויות-העל" ואף להוסיף מיומנויות משל עצמן (באמצעות עיגולים ריקים), הופכת את המנהלים לשותפים לבניית השפה העירונית, ואף להחלטה אילו מיומנויות יהיו במיקוד.</p>
+          <p>העובדה שהקבוצות אינן מקבלות מודל מוכן מראש, אלא נדרשות למיין בעצמן עשרות תתי-מיומנויות, למקם אותן, לתת שם ל"מיומנויות-העל" ואף להוסיף מיומנויות משל עצמן (באמצעות דיסקיות ריקות), הופכת את המנהלים לשותפים לבניית השפה העירונית, ואף להחלטה אילו מיומנויות יהיו במיקוד.</p>
         </article>
         <article class="card">
           <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
@@ -342,14 +348,14 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
             <p class="intro"><b>אופן העבודה בקבוצה (8-10 משתתפים):</b></p>
             <ol class="steps">
               <li><div>מתחילים עם <b>הגדרת מרחב משותפת</b>: מה זה מרחב/מיומנות-על. בראש הבריסטול יהיה מקום להגדרה משותפת של הקבוצה. לאורך כל הסדנה עומד לרשות המשתתפים כלי דיגיטלי שמרכז את כל הידע הרלוונטי למשימה: פירוט המיומנויות והגדרת המרחב (<a href="./">מפת המיומנויות והערכים</a>).</div></li>
-              <li><div>מניחים על השולחן את כל 50-60 העיגולים המכילים את שמות המיומנויות ותתי-המיומנויות.</div></li>
+              <li><div>מניחים על השולחן את כל 50-60 דיסקיות המיומנות המכילות את שמות המיומנויות ותתי-המיומנויות.</div></li>
               <li><div>בפני הקבוצה עומד בריסטול גדול ריק, ובו אפשרויות ראשוניות למרחבי-על, לצד מרחבים ריקים לכתיבה חופשית.</div></li>
-              <li><div><b>הדיון הקבוצתי:</b> המשתתפים ממיינים יחד את העיגולים לתוך מרחבי-העל, מתווכחים על השיוך הנכון, מנסחים וכותבים מחדש את שמות מרחבי-העל לפי הצורך, ומשתמשים בעיגולים הריקים כדי להוסיף מיומנויות שחסרות להם מעולמם המקצועי.</div></li>
+              <li><div><b>הדיון הקבוצתי:</b> המשתתפים ממיינים יחד את הדיסקיות לתוך מרחבי-העל, מתווכחים על השיוך הנכון, מנסחים וכותבים מחדש את שמות מרחבי-העל לפי הצורך, ומשתמשים בדיסקיות הריקות כדי להוסיף מיומנויות שחסרות להם מעולמם המקצועי.</div></li>
             </ol>
           </div>
           <aside class="side">
             <div><h4>תוצר מצופה</h4><p class="out">בריסטול קבוצתי המסודר כמפה קוגניטיבית של מיומנויות-על/מרחבים, והמיומנויות המשויכות תחתיהן.</p></div>
-            <div><h4>על השולחן</h4><ul><li>בריסטול עם הצעות למרחבים ומרחבים ריקים</li><li>50-60 עיגולי מיומנויות ועיגולים ריקים</li><li>מפת המיומנויות לעיון</li></ul></div>
+            <div><h4>על השולחן</h4><ul><li>בריסטול עם הצעות למרחבים ומרחבים ריקים</li><li>50-60 דיסקיות מיומנות ודיסקיות ריקות</li><li>מפת המיומנויות לעיון</li></ul></div>
           </aside>
           </div>
         </details>
@@ -358,17 +364,17 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
           <summary class="part-head"><span class="tag">חלק שני</span><h3>מיומנויות במיקוד</h3><span class="min">25 דקות</span><span class="chev" aria-hidden="true"></span></summary>
           <div class="part-grid">
           <div class="part-main">
-            <p class="intro"><b>חלוקת מדבקות צבעוניות:</b> לכל משתתף ניתנות 5 מדבקות <b>בצבע ייחודי המאפיין את הגיל והאגף שלו</b> (לדוגמה: יסודי בצבע א', על-יסודי בצבע ב', חינוך מיוחד בצבע ג', גני ילדים בצבע ד' וכו'), ועוד 5 מדבקות כוכב המציינות אתגר, כלומר מיומנויות מאתגרות.</p>
+            <p class="intro"><b>חלוקת מדבקות צבעוניות:</b> לכל משתתף ניתנות 5 מדבקות ניקוד, <b>SP (Skills Points)</b>, <b>בצבע ייחודי המאפיין את הגיל והאגף שלו</b> (לדוגמה: יסודי בצבע א', על-יסודי בצבע ב', חינוך מיוחד בצבע ג', גני ילדים בצבע ד' וכו'), ועוד 5 מדבקות כוכב המציינות אתגר, כלומר מיומנויות מאתגרות.</p>
             <p class="intro"><b>המשימה האישית-קבוצתית:</b></p>
             <ol class="steps">
-              <li><div>כל מנהל/משתתף לוקח את 5 המדבקות שלו ומדביק אותן על גבי העיגולים המועדפים עליו ביותר: אלו שהוא תופס כ<b>מיומנויות במיקוד עליון</b>, שצריכות לקבל עדיפות מערכתית. ניתן לפזר את המדבקות (למשל: 3 על מיומנות א', 2 על מיומנות ב' וכו') או לרכז אותן. כך גם מפזרים את מדבקות הכוכב, המציינות מיומנויות מאתגרות לעבודה.</div></li>
+              <li><div>כל מנהל/משתתף לוקח את 5 מדבקות SP שלו ומדביק אותן על גבי הדיסקיות המועדפות עליו ביותר: אלו שהוא תופס כ<b>מיומנויות במיקוד עליון</b>, שצריכות לקבל עדיפות מערכתית. ניתן לפזר את מדבקות SP (למשל: 3 על מיומנות א', 2 על מיומנות ב' וכו') או לרכז אותן. כך גם מפזרים את מדבקות הכוכב, המציינות מיומנויות מאתגרות לעבודה.</div></li>
               <li><div><b>התבוננות ושיח קצר בשולחן:</b> מסתכלים על המפה. היכן נוצר צבר של מדבקות? האם יש צבעים שריכזו את רוב המדבקות על מיומנויות מסוימות לעומת אחרים? האם יש הבדל בתפיסה ובמיומנויות בין היסודי לעל-יסודי?</div></li>
             </ol>
             <p class="intro">אוספים את הבריסטולים ומצלמים כבסיס לניתוח נתונים עירוני.</p>
           </div>
           <aside class="side">
             <div><h4>תוצר מצופה</h4><p class="out">מפת עדיפויות לפי שלבי חינוך. הבריסטולים נאספים ומצולמים כבסיס לניתוח נתונים עירוני.</p></div>
-            <div><h4>לכל משתתף</h4><ul><li>5 מדבקות בצבע שלב הגיל והאגף</li><li>5 מדבקות כוכב (מיומנות מאתגרת)</li></ul></div>
+            <div><h4>לכל משתתף</h4><ul><li>5 מדבקות SP בצבע שלב הגיל והאגף</li><li>5 מדבקות כוכב (מיומנות מאתגרת)</li></ul></div>
           </aside>
           </div>
         </details>
@@ -382,6 +388,13 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
               <li>האם התגלה קונצנזוס מפתיע בין שלבי החינוך?</li>
               <li>איזה פער מעניין או נקודת עיוורון התגלו בדיון על הרציפות?</li>
             </ul>
+            <p class="intro"><b>אפשרויות נוספות להצגה במליאה:</b></p>
+            <ul class="qs">
+              <li>דיון מעניין על מרחב חדש שהקבוצה הגדירה.</li>
+              <li>סוגיות תיעדוף: על מה התווכחו כשחילקו את מדבקות SP, ואיך הוכרע.</li>
+              <li>אתגר מעניין שעלה בהקשר של מיומנות מסוימת (מדבקות הכוכב).</li>
+              <li>מיומנות שהקבוצה הוסיפה בדיסקית ריקה, ולמה היא חסרה ברשימה.</li>
+            </ul>
           </div>
           <aside class="side">
             <div><h4>אחרי המפגש</h4><p>ניתוח עירוני של הבריסטולים המצולמים: שיוך המיומנויות למרחבים ומפת העדיפויות לפי שלבי חינוך.</p></div>
@@ -393,17 +406,17 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     </details>
 
     <details class="sub">
-      <summary><span class="s-num">4</span><h3 class="sub-t">עיגול אחד, שלושה שלבים</h3><span class="s-note">כך נראית מיומנות אחת לאורך הסדנה.</span><span class="chev" aria-hidden="true"></span></summary>
+      <summary><span class="s-num">4</span><h3 class="sub-t">דיסקית אחת, שלושה שלבים</h3><span class="s-note">כך נראית מיומנות אחת לאורך הסדנה.</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
       <div class="ill-grid">
         <figure class="fig"><svg viewBox="0 0 300 250" role="img" class="ill"><rect class="tbl" x="0" y="0" width="300" height="250" rx="18"/><circle class="cir faint" cx="62" cy="58" r="40"/><text class="lbl2" x="62" y="62" text-anchor="middle" direction="rtl" font-size="12">עבודת צוות</text><circle class="cir faint" cx="250" cy="70" r="36"/><text class="lbl2" x="250" y="74" text-anchor="middle" direction="rtl" font-size="12">טיעון</text><circle class="cir faint" cx="238" cy="200" r="38"/><text class="lbl2" x="238" y="204" text-anchor="middle" direction="rtl" font-size="12">יצירתיות</text><circle class="cir faint" cx="52" cy="196" r="40"/><text class="lbl2" x="52" y="200" text-anchor="middle" direction="rtl" font-size="12">הנעה עצמית</text><circle class="cir main" cx="150" cy="128" r="62"/><text class="lbl" x="150" y="133" text-anchor="middle" direction="rtl" font-size="17">ויסות עצמי</text></svg>
-          <figcaption><span class="n">1</span><div><b>על השולחן</b><span>העיגול "ויסות עצמי" מונח על השולחן בין עשרות עיגולים, עוד בלי שיוך.</span></div></figcaption>
+          <figcaption><span class="n">1</span><div><b>על השולחן</b><span>הדיסקית "ויסות עצמי" מונחת על השולחן בין עשרות דיסקיות, עוד בלי שיוך.</span></div></figcaption>
         </figure>
         <figure class="fig"><svg viewBox="0 0 300 250" role="img" class="ill"><rect class="tbl" x="0" y="0" width="300" height="250" rx="18"/><rect class="brs" x="8" y="10" width="284" height="230" rx="8"/><rect class="spc" x="198" y="22" width="86" height="104" rx="10"/><text class="spcl" x="241.0" y="37" text-anchor="middle" direction="rtl" font-size="9.5">חברתי-רגשי</text><circle class="cir ghost" cx="210" cy="114" r="8"/><rect class="ttl" x="205.6" y="112.8" width="8.8" height="2.4" rx="1.2"/><circle class="cir ghost" cx="272" cy="40" r="7"/><rect class="ttl" x="268.2" y="38.8" width="7.7" height="2.4" rx="1.2"/><circle class="cir main" cx="242" cy="82" r="29"/><text class="lbl" x="242" y="86" text-anchor="middle" direction="rtl" font-size="10.5">ויסות עצמי</text><rect class="spc2" x="107" y="22" width="86" height="104" rx="10"/><rect class="ttl" x="128.0" y="30" width="44" height="5" rx="2.5"/><circle class="cir ghost" cx="129" cy="62" r="10"/><rect class="ttl" x="123.5" y="60.8" width="11.0" height="2.4" rx="1.2"/><circle class="cir ghost" cx="169" cy="58" r="9"/><rect class="ttl" x="164.1" y="56.8" width="9.9" height="2.4" rx="1.2"/><circle class="cir ghost" cx="147" cy="88" r="11"/><rect class="ttl" x="140.9" y="86.8" width="12.1" height="2.4" rx="1.2"/><circle class="cir ghost" cx="177" cy="96" r="9"/><rect class="ttl" x="172.1" y="94.8" width="9.9" height="2.4" rx="1.2"/><circle class="cir ghost" cx="125" cy="108" r="8"/><rect class="ttl" x="120.6" y="106.8" width="8.8" height="2.4" rx="1.2"/><rect class="spc2" x="16" y="22" width="86" height="104" rx="10"/><rect class="ttl" x="37.0" y="30" width="44" height="5" rx="2.5"/><circle class="cir ghost" cx="40" cy="60" r="9"/><rect class="ttl" x="35.0" y="58.8" width="9.9" height="2.4" rx="1.2"/><circle class="cir ghost" cx="76" cy="66" r="11"/><rect class="ttl" x="70.0" y="64.8" width="12.1" height="2.4" rx="1.2"/><circle class="cir ghost" cx="46" cy="94" r="10"/><rect class="ttl" x="40.5" y="92.8" width="11.0" height="2.4" rx="1.2"/><circle class="cir ghost" cx="80" cy="104" r="8"/><rect class="ttl" x="75.6" y="102.8" width="8.8" height="2.4" rx="1.2"/><rect class="spc2" x="198" y="128" width="86" height="104" rx="10"/><rect class="ttl" x="219.0" y="136" width="44" height="5" rx="2.5"/><circle class="cir ghost" cx="218" cy="170" r="11"/><rect class="ttl" x="211.9" y="168.8" width="12.1" height="2.4" rx="1.2"/><circle class="cir ghost" cx="254" cy="166" r="9"/><rect class="ttl" x="249.1" y="164.8" width="9.9" height="2.4" rx="1.2"/><circle class="cir ghost" cx="242" cy="198" r="9"/><rect class="ttl" x="237.1" y="196.8" width="9.9" height="2.4" rx="1.2"/><circle class="cir ghost" cx="268" cy="190" r="8"/><rect class="ttl" x="263.6" y="188.8" width="8.8" height="2.4" rx="1.2"/><circle class="cir ghost" cx="222" cy="216" r="9"/><rect class="ttl" x="217.1" y="214.8" width="9.9" height="2.4" rx="1.2"/><rect class="spc2" x="107" y="128" width="86" height="104" rx="10"/><rect class="ttl" x="128.0" y="136" width="44" height="5" rx="2.5"/><circle class="cir ghost" cx="135" cy="168" r="10"/><rect class="ttl" x="129.5" y="166.8" width="11.0" height="2.4" rx="1.2"/><circle class="cir ghost" cx="171" cy="178" r="9"/><rect class="ttl" x="166.1" y="176.8" width="9.9" height="2.4" rx="1.2"/><circle class="cir ghost" cx="143" cy="206" r="11"/><rect class="ttl" x="136.9" y="204.8" width="12.1" height="2.4" rx="1.2"/><circle class="cir ghost" cx="175" cy="214" r="8"/><rect class="ttl" x="170.6" y="212.8" width="8.8" height="2.4" rx="1.2"/><rect class="spc2" x="16" y="128" width="86" height="104" rx="10"/><rect class="ttl" x="37.0" y="136" width="44" height="5" rx="2.5"/><circle class="cir ghost" cx="38" cy="174" r="9"/><rect class="ttl" x="33.0" y="172.8" width="9.9" height="2.4" rx="1.2"/><circle class="cir ghost" cx="74" cy="168" r="11"/><rect class="ttl" x="68.0" y="166.8" width="12.1" height="2.4" rx="1.2"/><circle class="cir ghost" cx="62" cy="204" r="9"/><rect class="ttl" x="57.0" y="202.8" width="9.9" height="2.4" rx="1.2"/><circle class="cir ghost" cx="32" cy="208" r="8"/><rect class="ttl" x="27.6" y="206.8" width="8.8" height="2.4" rx="1.2"/><circle class="cir ghost" cx="88" cy="202" r="9"/><rect class="ttl" x="83.0" y="200.8" width="9.9" height="2.4" rx="1.2"/></svg>
-          <figcaption><span class="n">2</span><div><b>על הבריסטול</b><span>מבט על הבריסטול כולו: הקבוצה ממיינת את כל העיגולים לכמה מרחבים, ו"ויסות עצמי" משויך למרחב החברתי-רגשי.</span></div></figcaption>
+          <figcaption><span class="n">2</span><div><b>על הבריסטול</b><span>מבט על הבריסטול כולו: הקבוצה ממיינת את כל הדיסקיות לכמה מרחבים, ו"ויסות עצמי" משויך למרחב החברתי-רגשי.</span></div></figcaption>
         </figure>
         <figure class="fig"><svg viewBox="0 0 300 250" role="img" class="ill"><rect class="tbl" x="0" y="0" width="300" height="250" rx="18"/><rect class="brs" x="14" y="12" width="272" height="226" rx="10"/><rect class="spc" x="28" y="44" width="244" height="182" rx="16"/><text class="spcl" x="150" y="34" text-anchor="middle" direction="rtl" font-size="13">המרחב החברתי-רגשי</text><circle class="cir faint" cx="60" cy="192" r="27"/><text class="lbl2" x="60" y="196" text-anchor="middle" direction="rtl" font-size="10">זיהוי רגשות</text><circle class="cir faint" cx="240" cy="86" r="27"/><text class="lbl2" x="240" y="90" text-anchor="middle" direction="rtl" font-size="10">הבנת האחר</text><circle class="cir main" cx="150" cy="136" r="54"/><text class="lbl" x="150" y="141" text-anchor="middle" direction="rtl" font-size="17">ויסות עצמי</text><circle class="dot" cx="204.0" cy="136.0" r="8.5" fill="var(--c-k)"/><circle class="dot" cx="196.8" cy="163.0" r="8.5" fill="var(--c-e)"/><circle class="dot" cx="177.0" cy="182.8" r="8.5" fill="var(--c-k)"/><circle class="dot" cx="150.0" cy="190.0" r="8.5" fill="var(--c-e)"/><circle class="dot" cx="123.0" cy="182.8" r="8.5" fill="var(--c-s)"/><circle class="dot" cx="103.2" cy="163.0" r="8.5" fill="var(--c-e)"/><circle class="dot" cx="96.0" cy="136.0" r="8.5" fill="var(--c-k)"/><circle class="dot" cx="103.2" cy="109.0" r="8.5" fill="var(--c-e)"/><circle class="dot" cx="196.8" cy="109.0" r="8.5" fill="var(--c-s)"/><polygon class="st" points="123.0,78.7 125.7,85.5 133.0,86.0 127.4,90.7 129.2,97.7 123.0,93.8 116.8,97.7 118.6,90.7 113.0,86.0 120.3,85.5"/><polygon class="st" points="150.0,71.5 152.7,78.3 160.0,78.8 154.4,83.4 156.2,90.5 150.0,86.6 143.8,90.5 145.6,83.4 140.0,78.8 147.3,78.3"/><polygon class="st" points="177.0,78.7 179.7,85.5 187.0,86.0 181.4,90.7 183.2,97.7 177.0,93.8 170.8,97.7 172.6,90.7 167.0,86.0 174.3,85.5"/></svg>
-          <figcaption><span class="n">3</span><div><b>עם מדבקות</b><span>בחלק השני המשתתפים מדביקים מדבקות חשיבות בצבע שלב הגיל שלהם, וכוכבים על מיומנות שהם רואים בה אתגר.</span></div></figcaption>
+          <figcaption><span class="n">3</span><div><b>עם מדבקות</b><span>בחלק השני המשתתפים מדביקים מדבקות SP בצבע שלב הגיל שלהם, וכוכבים על מיומנות שהם רואים בה אתגר.</span></div></figcaption>
         </figure>
       </div>
       <ul class="legend" aria-label="מקרא">
@@ -412,7 +425,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
         <li><i style="background:var(--c-s)"></i>על-יסודי <small>2</small></li>
         <li><svg width="16" height="16" viewBox="-10 -10 20 20" aria-hidden="true"><polygon points="0,-9 2.5,-3.4 8.6,-2.8 4,1.3 5.3,7.3 0,4.2 -5.3,7.3 -4,1.3 -8.6,-2.8 -2.5,-3.4" fill="var(--c-star)" stroke="#a16207" stroke-width="1"/></svg>מיומנות מאתגרת <small>3</small></li>
       </ul>
-      <p class="note">הנחה לצורך האיור: 8 משתתפים בשולחן (2 מגני ילדים, 3 מהיסודי ו-3 מהעל-יסודי), ולכל אחד 5 מדבקות חשיבות ו-5 כוכבים. בסך הכול 40 מדבקות חשיבות על כל השולחן, והעיגול הזה קיבל 9 מהן. קריאה אפשרית: בגנים וביסודי ויסות עצמי נתפס כמיומנות במיקוד, בעל-יסודי פחות, ושלושה משתתפים סימנו אותו כמאתגר לעבודה.</p>
+      <p class="note">הנחה לצורך האיור: 8 משתתפים בשולחן (2 מגני ילדים, 3 מהיסודי ו-3 מהעל-יסודי), ולכל אחד 5 מדבקות SP ו-5 כוכבים. בסך הכול 40 מדבקות SP על כל השולחן, והדיסקית הזו קיבלה 9 מהן. קריאה אפשרית: בגנים וביסודי ויסות עצמי נתפס כמיומנות במיקוד, בעל-יסודי פחות, ושלושה משתתפים סימנו אותו כמאתגר לעבודה.</p>
       </div>
     </details>
 
@@ -421,9 +434,9 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
       <div class="sub-body">
       <ul class="kit">
         <li><b>1</b><span>בריסטול גדול עם הצעות למרחבים ומרחבים ריקים</span></li>
-        <li><b>50-60</b><span>עיגולים עם שמות מיומנויות ותתי-מיומנויות</span></li>
-        <li><b>+</b><span>עיגולים ריקים להוספת מיומנויות</span></li>
-        <li><b>5</b><span>מדבקות צבע לכל משתתף, בצבע שלב הגיל</span></li>
+        <li><b>50-60</b><span>דיסקיות מיומנות עם שמות מיומנויות ותתי-מיומנויות</span></li>
+        <li><b>+</b><span>דיסקיות ריקות להוספת מיומנויות</span></li>
+        <li><b>5</b><span>מדבקות SP לכל משתתף, בצבע שלב הגיל</span></li>
         <li><b>5</b><span>מדבקות כוכב לכל משתתף</span></li>
         <li><b>1</b><span>טלפון או מצלמה לתיעוד הבריסטול בסוף</span></li>
       </ul>
@@ -436,7 +449,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
           <article class="card">
             <h4>לפני הסדנה</h4>
             <ul>
-              <li>לבדוק שעל השולחן כל הציוד: בריסטול עם הצעות למרחבים ומרחבים ריקים, 50-60 עיגולי מיומנויות, עיגולים ריקים, טושים, מדבקות צבע לפי שלב הגיל ומדבקות כוכב.</li>
+              <li>לבדוק שעל השולחן כל הציוד: בריסטול עם הצעות למרחבים ומרחבים ריקים, 50-60 דיסקיות מיומנות, דיסקיות ריקות, טושים, מדבקות SP לפי שלב הגיל ומדבקות כוכב.</li>
               <li>לוודא שבשולחן יושבים נציגים מכל רצף הגילאים של השכונה.</li>
               <li>לפתוח את <a href="./">מפת המיומנויות והערכים</a> על מסך או טאבלט בשולחן, כדי שאפשר יהיה לבדוק הגדרה של מיומנות או של מרחב.</li>
             </ul>
@@ -446,14 +459,15 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
             <ul>
               <li>לפתוח בהגדרה משותפת של "מרחב" ולכתוב אותה בראש הבריסטול. לא יותר מכמה דקות, ההגדרה יכולה להשתנות בהמשך.</li>
               <li>להבהיר שאין שיוך נכון אחד. הוויכוח על המיקום של מיומנות הוא חלק מהמטרה.</li>
-              <li>להזכיר את העיגולים הריקים ואת האפשרות לשנות שמות של מרחבים.</li>
-              <li>להתריע 5 דקות לפני הסוף ולעבור לחלק השני גם אם לא כל העיגולים שובצו.</li>
+              <li>להזכיר את הדיסקיות הריקות ואת האפשרות לשנות שמות של מרחבים.</li>
+              <li>להתריע 5 דקות לפני הסוף ולעבור לחלק השני גם אם לא כל הדיסקיות שובצו.</li>
             </ul>
           </article>
           <article class="card">
             <h4>חלק שני: מיומנויות במיקוד (25 דקות)</h4>
             <ul>
-              <li>לוודא שכל משתתף קיבל מדבקות בצבע של השלב שלו, ו-5 כוכבים.</li>
+              <li>לוודא שכל משתתף קיבל 5 מדבקות SP בצבע של השלב שלו, ו-5 כוכבים.</li>
+              <li><b>אין נכון ולא נכון.</b> להדגיש מראש שהשאלה "חשיבות למי?" פתוחה: לי כמנהל, לבית הספר, לבוגר העתידי. כל משתתף מחליט מאיזו נקודת מבט הוא מדביק, וזו בדיוק השאלה שכדאי להעלות בשיח אחר כך.</li>
               <li>מומלץ שההדבקה תיעשה קודם באופן אישי ובשקט, ורק אחר כך השיחה, כדי שהמשתתפים לא ישפיעו זה על זה.</li>
               <li>להוביל את השיח בעזרת שאלות ההתבוננות: היכן נוצר צבר מדבקות, איזה צבע ריכז מדבקות על אילו מיומנויות, ומה ההבדלים בין השלבים.</li>
               <li>לבחור יחד תובנה בולטת אחת ונציג שיציג אותה במליאה.</li>
@@ -462,7 +476,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
           <article class="card">
             <h4>בסיום</h4>
             <ul>
-              <li>לצלם את הבריסטול כך שכל העיגולים והמדבקות נראים בבירור, ולרשום על הבריסטול את מספר השולחן.</li>
+              <li>לצלם את הבריסטול כך שכל הדיסקיות והמדבקות נראות בבירור, ולרשום על הבריסטול את מספר השולחן.</li>
               <li>לאסוף את הבריסטול ולהעביר לצוות המוביל לניתוח העירוני.</li>
             </ul>
           </article>
@@ -480,11 +494,11 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     <div class="meet-body"><p class="tbd">תוכנית המפגש תושלם בהמשך, על בסיס התובנות מהמפגשים הקודמים.</p></div>
   </details>
   <details class="meet" id="m4">
-    <summary><span class="m-num">4</span><span class="m-title">מפגש מנהלים 4<small>חשיפת המערכת העירונית</small></span><span class="m-date">06.04.2027</span><span class="tag muted">יושלם בהמשך</span><span class="chev" aria-hidden="true"></span></summary>
+    <summary><span class="m-num">4</span><span class="m-title">מפגש מנהלים 4<small>חשיפת המערכת העירונית לכלל בתי הספר, עם שיפורים מהשטח</small></span><span class="m-date">06.04.2027</span><span class="tag muted">יושלם בהמשך</span><span class="chev" aria-hidden="true"></span></summary>
     <div class="meet-body"><p class="tbd">תוכנית המפגש תושלם בהמשך, על בסיס התובנות מהמפגשים הקודמים.</p></div>
   </details>
   <details class="meet" id="m5">
-    <summary><span class="m-num">ס</span><span class="m-title">מפגש סיכום שנה<small>הצגת סיפורי הצלחה ולקחים מבתי הספר</small></span><span class="m-date">08.06.2027</span><span class="tag muted">יושלם בהמשך</span><span class="chev" aria-hidden="true"></span></summary>
+    <summary><span class="m-num">ס</span><span class="m-title">מפגש סיכום שנה<small>הצגת סיפורי הצלחה ולקחים מבתי הספר, והערכות להטמעה עירונית בתשפ"ח</small></span><span class="m-date">08.06.2027</span><span class="tag muted">יושלם בהמשך</span><span class="chev" aria-hidden="true"></span></summary>
     <div class="meet-body"><p class="tbd">תוכנית המפגש תושלם בהמשך.</p></div>
   </details>
     </div>

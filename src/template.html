@@ -75,6 +75,13 @@ section.group{margin-top:28px}
 .ghead{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
 .ghead h2{font-family:var(--f-display);font-weight:400;font-size:1.7rem;margin:0}
 .ghead span{color:var(--muted);font-variant-numeric:tabular-nums}
+.gdef{margin:-4px 0 16px;max-width:80ch}
+.gdef summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;list-style:none;font-weight:700;font-size:.92rem;color:var(--accent)}
+.gdef summary::-webkit-details-marker{display:none}
+.gdef summary::before{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .15s;margin-top:-3px}
+.gdef[open] summary::before{transform:rotate(-135deg);margin-top:3px}
+.gdef p{margin:10px 0 0;background:var(--tile);border-radius:18px;padding:16px 18px;line-height:1.75;box-shadow:0 1px 0 var(--line);border-inline-start:5px solid var(--accent)}
+.gdef p b{display:block;font-family:var(--f-display);font-weight:400;font-size:1.25rem;margin-bottom:4px}
 .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));grid-auto-flow:row dense;gap:14px}
 
 .tile{text-align:start;border:0;background:var(--tile);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0;min-height:176px;cursor:pointer;box-shadow:0 1px 0 var(--line);transition:transform .16s,box-shadow .16s}
@@ -227,7 +234,7 @@ const MAIN_TYPES = new Set(["מיומנות","ערך ליבה","כשירות מ�
 const VALUE_TYPES = new Set(["ערך ליבה","ערך משלים"]);
 
 let DB, byId, kids, relsOf;
-const state = {q:"", kind:"all", cat:"", open:null, flash:null};
+const state = {q:"", kind:"all", cat:"", open:null, flash:null, defOpen:{}};
 const CAT_LABEL = {V00:"ערכי ליבה", C10:"אתגרי המאה ה-21", C30:"כשירויות הפמ\"ע", C00:"מושגי מפתח", C50:"Skills Builder", C60:"OECD", C90:"ערכי בינה מלאכותית"};
 const catOf=it=>it.parent||"";
 const catName=id=>CAT_LABEL[id]||(byId.get(id)||{}).name||"";
@@ -326,11 +333,17 @@ function render(){
   const mains=DB.items.filter(i=>MAIN_TYPES.has(i.type));
   const shown=mains.filter(matches).sort((a,b)=>(a.catalog!==CORE_SOURCE)-(b.catalog!==CORE_SOURCE));
   const openIt=state.open?byId.get(state.open):null;
+  const defHTML=(id,label)=>{
+    const it=byId.get(id); if(!it||!it.definition) return "";
+    const m=it.definition.match(/^(.+?\.)\s+(.*)$/s); const lead=m?m[1]:it.definition, rest=m?m[2]:"";
+    return `<details class="gdef" data-def="${id}"${state.defOpen[id]?" open":""}><summary>מה זו ${label}?</summary><p><b>${esc(lead)}</b> ${esc(rest)}</p></details>`;
+  };
   const sec=(title,arr,val)=>{
     const withOpen=openIt && isVal(openIt)===val;
     if(!arr.length && !withOpen) return "";
     const body=(withOpen?openHTML(openIt):"")+arr.filter(i=>!openIt||i.id!==openIt.id).map(tileHTML).join("");
-    return `<section class="group"><div class="ghead"><h2>${title}</h2><span>${arr.length}</span></div><div class="board">${body}</div></section>`;
+    const def=val?"":defHTML("S00","מיומנות");
+    return `<section class="group"><div class="ghead"><h2>${title}</h2><span>${arr.length}</span></div>${def}<div class="board">${body}</div></section>`;
   };
   document.getElementById("main").innerHTML=sec("מיומנויות",shown.filter(i=>!isVal(i)),false)+sec("ערכים",shown.filter(isVal),true);
   document.getElementById("empty").hidden=shown.length>0||!!openIt;
@@ -364,6 +377,7 @@ function closeItem(){
   try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
   const t=document.querySelector(`.tile[data-id="${CSS.escape(id||"")}"]`); if(t) t.focus();
 }
+document.addEventListener("toggle",e=>{ if(e.target.classList&&e.target.classList.contains("gdef")) state.defOpen[e.target.dataset.def]=e.target.open; },true);
 function syncKind(){ document.querySelectorAll(".pill").forEach(b=>b.setAttribute("aria-pressed",b.dataset.kind===state.kind)); }
 
 document.addEventListener("click",e=>{

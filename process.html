@@ -239,8 +239,27 @@ h3{font-size:1.15rem;font-weight:800;margin:0}
 .goals li b{display:block;color:var(--ink);font-size:1rem;margin-bottom:2px}
 .g-ic{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
 /* learnings */
+.did{padding-top:20px;display:grid;gap:16px}
+.did-lead{margin:0;font-size:1.02rem;line-height:1.7;color:var(--ink);max-width:70ch}
+.did-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.did-steps>li{display:flex;gap:14px;align-items:flex-start;background:var(--tile);border-radius:var(--r);padding:16px 18px;box-shadow:0 1px 0 var(--line)}
+.did-steps>li>div{flex:1;min-width:0}
+.did-steps b{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:1.02rem}
+.did-steps p{margin:4px 0 0;color:var(--muted);line-height:1.6;font-size:.94rem}
+.d-n{width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;display:grid;place-items:center;flex:none}
+.did-steps>li.cancel .d-n{background:var(--line);color:var(--muted)}
+.did-steps>li.cancel b{color:var(--muted)}
+.ws-list{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.ws{display:flex;gap:10px;align-items:flex-start;border-radius:14px;padding:12px;background:color-mix(in srgb,var(--wc) 9%,var(--tile));border-top:3px solid var(--wc)}
+.ws b{font-size:.95rem}
+.ws p{font-size:.88rem}
+.ws-n{width:26px;height:26px;border-radius:50%;background:var(--wc);color:#fff;font-weight:800;font-size:.82rem;display:grid;place-items:center;flex:none}
+.ws-d{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px;font-size:.8rem;color:var(--muted);font-weight:600}
+.ws-d bdi{font-family:"IBM Plex Mono",monospace}
+.learn-t{margin:30px 0 14px;font-family:"Secular One",sans-serif;font-weight:400;font-size:1.3rem}
+@media (max-width:900px){.ws-list{grid-template-columns:1fr}}
 .learn-box .m-title{font-size:1.25rem}
-.learn-box .meet-body .learn{padding-top:20px}
+
 .learn{display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1.1fr) 34px minmax(0,1.35fr);gap:10px;align-items:stretch}
 .ln-col{border-radius:var(--r);padding:20px;box-shadow:0 1px 0 var(--line);background:var(--tile);border-top:5px solid var(--lc);display:flex;flex-direction:column;gap:12px}
 .ln-c1{--lc:#e8664e}.ln-c2{--lc:#1f9a8f}.ln-c3{--lc:#6d4fd6}
@@ -310,8 +329,18 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
 
   <section class="sec" aria-labelledby="h-learn">
     <details class="meet learn-box">
-    <summary><span class="m-title" id="h-learn">מה למדנו עד כה<small>מו"פ המיומנויות עם צוותי המנהלים, תשפ"ו: מחסמים לתובנות</small></span><span class="tag muted">תשפ"ו</span><span class="chev" aria-hidden="true"></span></summary>
-    <div class="meet-body"><div class="learn">
+    <summary><span class="m-title" id="h-learn">מה עשינו עד כה?<small>מו"פ המיומנויות עם המנהלות והמנהלים בתשפ"ו, ומסקנות הביניים</small></span><span class="tag muted">תשפ"ו</span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="meet-body"><div class="did">
+      <p class="did-lead">בתשפ"ו יצאנו לדרך עם קבוצת מנהלות ומנהלים כדי לברר לעומק למה מיומנויות, מה מעכב את קידומן בבתי הספר, ואיך נראה ניהול שלהן בפועל.</p>
+      <ol class="did-steps">
+        <li><span class="d-n">1</span><div><b>סדנת מנהלים: מיקוד במיומנויות</b><p>למה מיומנויות? ומיפוי ראשון של החסמים בשטח.</p></div></li>
+        <li><span class="d-n">2</span><div><b>קול קורא: מו"פ מיומנויות</b><p>17 מנהלות ומנהלים נענו והצטרפו לצוותי המו"פ.</p></div></li>
+        <li><span class="d-n">3</span><div><b>3 סדנאות מו"פ, ליסודי ולעל-יסודי</b><p>שלושה מפגשים לכל שלב חינוך, עם תוצרים נפלאים.</p><ol class="ws-list"><li class="ws" style="--wc:#3b82f6"><span class="ws-n">1</span><div><b>מפגש 1 (דצמבר): <bdi>Start With Why?</bdi></b><p>הגדרת התכלית וניתוח שורשי הבעיה לעומק.</p><div class="ws-d"><span>יסודי <bdi>14.12.2025</bdi></span><span>על-יסודי <bdi>24.12.2025</bdi></span></div></div></li><li class="ws" style="--wc:#16a05a"><span class="ws-n">2</span><div><b>מפגש 2 (ינואר): <bdi>הכרת עולם</bdi></b><p>למידה מדוגמאות בינלאומיות ובניית "מחזור החיים" של התהליך הניהולי.</p><div class="ws-d"><span>יסודי <bdi>11.01.2026</bdi></span><span>על-יסודי <bdi>15.01.2026</bdi></span></div></div></li><li class="ws" style="--wc:#d9a400"><span class="ws-n">3</span><div><b>מפגש 3 (פברואר): <bdi>מתהליך לכלים</bdi></b><p>מיפוי, בחירה ותיעדוף הכלים הנדרשים לארגז הכלים שלנו.</p><div class="ws-d"><span>יסודי <bdi>01.02.2026</bdi></span><span>על-יסודי <bdi>04.02.2026</bdi></span></div></div></li></ol></div></li>
+        <li class="cancel"><span class="d-n">4</span><div><b>האקתון פיתוח <span class="tag muted">בוטל</span></b><p>תוכנן למרץ 2026 ובוטל בעקבות המצב הביטחוני.</p></div></li>
+      </ol>
+    </div>
+    <h3 class="learn-t">מסקנות ביניים עד כה</h3>
+    <div class="learn">
       <article class="ln-col ln-c1"><h3><span class="ln-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4.5M12 17.5v.5"/></svg></span>הבעיות והחסמים</h3><ul class="ln-list plain"><li>היעדר סדירויות ניהוליות ושפה ארגונית</li><li>חסמי מדידה, הערכה ופרקטיקה</li><li>שינוי תפיסת תפקיד המורה והכשרתו</li><li>חסמי זמן, סדרי עדיפויות ותרבות</li></ul></article>
       <span class="ln-arrow" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 5l-7 7 7 7"/></svg></span>
       <article class="ln-col ln-c2"><h3><span class="ln-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></span>התהליך שבוצע</h3><ol class="ln-list"><li><span class="ln-n">1</span><div><b>העמקה בתכלית וזיקוק שורשי הבעיות</b>חקירה מעמיקה של הצרכים, התהליכים והגורמים העמוקים להצלחה או לכשל.</div></li><li><span class="ln-n">2</span><div><b>למידת עולם: מודלים בינלאומיים</b>סקירת מודלים, מתודות וכלים מובילים בעולם, והתאמתם להקשר המקומי.</div></li><li><span class="ln-n">3</span><div><b>פיצוח: מתודולוגיה, תהליך, כלים</b>בניית מתודולוגיה יישומית, תהליך עבודה ברור ומאגר כלים מותאמים ליישום מיטבי.</div></li></ol></article>

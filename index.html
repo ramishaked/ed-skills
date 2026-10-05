@@ -87,6 +87,12 @@ section.group{margin-top:28px}
 .ghead{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
 .ghead h2{font-family:var(--f-display);font-weight:400;font-size:1.7rem;margin:0}
 .ghead span{color:var(--muted);font-variant-numeric:tabular-nums}
+.glink{background:none;border:0;padding:0;font:inherit;font-weight:700;font-size:.95rem;color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.glink:hover{text-decoration-thickness:2px}
+.gdefp{margin:-4px 0 16px;max-width:80ch}
+.gdefp[hidden]{display:none}
+.gdefp p{margin:0;background:var(--tile);border-radius:18px;padding:16px 18px;line-height:1.75;box-shadow:0 1px 0 var(--line);border-inline-start:5px solid var(--accent)}
+.gdefp p b{display:block;font-family:var(--f-display);font-weight:400;font-size:1.25rem;margin-bottom:4px}
 .gdef{margin:-4px 0 16px;max-width:80ch}
 .gdef summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;list-style:none;font-weight:700;font-size:.92rem;color:var(--accent)}
 .gdef summary::-webkit-details-marker{display:none}
@@ -203,7 +209,6 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
     <button type="button" class="pill" data-kind="all" aria-pressed="true">הכול</button>
     <button type="button" class="pill" data-kind="skill" aria-pressed="false">מיומנויות</button>
     <button type="button" class="pill" data-kind="value" aria-pressed="false">ערכים</button>
-    <button type="button" class="pill" id="coreBtn" aria-pressed="false" title="רק המיומנויות והערכים של משרד החינוך, בלי המסגרות המשלימות">רק משרד החינוך</button>
     <button type="button" class="catbtn" id="catBtn" aria-expanded="false" aria-controls="cats"><span id="catBtnLbl">כל הקטגוריות</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
     <span class="count" id="count"></span>
     <div class="cats" id="cats" role="group" aria-label="בחירת קטגוריה" hidden></div>
@@ -370,17 +375,18 @@ function render(){
   const ci=it=>{const i=CLUSTER_ORDER.indexOf(catOf(it)); return i<0?99:i;};
   const shown=mains.filter(matches).sort((a,b)=>ci(a)-ci(b)||(a.catalog!==CORE_SOURCE)-(b.catalog!==CORE_SOURCE));
   const openIt=state.open?byId.get(state.open):null;
-  const defHTML=(id,label)=>{
+  const defHTML=id=>{
     const it=byId.get(id); if(!it||!it.definition) return "";
     const m=it.definition.match(/^(.+?\.)\s+(.*)$/s); const lead=m?m[1]:it.definition, rest=m?m[2]:"";
-    return `<details class="gdef" data-def="${id}"${state.defOpen[id]?" open":""}><summary>מה זו ${label}?</summary><p><b>${esc(lead)}</b> ${esc(rest)}</p></details>`;
+    return `<div class="gdefp" id="def-${id}"${state.defOpen[id]?"":" hidden"}><p><b>${esc(lead)}</b> ${esc(rest)}</p></div>`;
   };
+  const defLink=id=>byId.get(id)&&byId.get(id).definition?`<span aria-hidden="true">·</span><button type="button" class="glink" data-defbtn="${id}" aria-expanded="${!!state.defOpen[id]}" aria-controls="def-${id}">המשגה</button>`:"";
   const sec=(title,arr,val)=>{
     const withOpen=openIt && isVal(openIt)===val;
     if(!arr.length && !withOpen) return "";
     const body=(withOpen?openHTML(openIt):"")+arr.filter(i=>!openIt||i.id!==openIt.id).map(tileHTML).join("");
-    const def=val?"":defHTML("S00","מיומנות");
-    return `<section class="group"><div class="ghead"><h2>${title}</h2><span>${arr.length}</span></div>${def}<div class="board">${body}</div></section>`;
+    const def=val?"":defHTML("S00"), link=val?"":defLink("S00");
+    return `<section class="group"><div class="ghead"><h2>${title}</h2>${link}<span>${arr.length}</span></div>${def}<div class="board">${body}</div></section>`;
   };
   document.getElementById("main").innerHTML=sec("מיומנויות",shown.filter(i=>!isVal(i)),false)+sec("ערכים",shown.filter(isVal),true);
   document.getElementById("empty").hidden=shown.length>0||!!openIt;
@@ -416,13 +422,14 @@ function closeItem(){
   const t=document.querySelector(`.tile[data-id="${CSS.escape(id||"")}"]`); if(t) t.focus();
 }
 document.addEventListener("toggle",e=>{ if(e.target.classList&&e.target.classList.contains("gdef")) state.defOpen[e.target.dataset.def]=e.target.open; },true);
-function syncKind(){ document.getElementById("coreBtn").setAttribute("aria-pressed",state.core); document.querySelectorAll(".pill[data-kind]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.kind===state.kind)); }
+function syncKind(){ document.querySelectorAll(".pill[data-kind]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.kind===state.kind)); }
 
 document.addEventListener("click",e=>{
+  const db=e.target.closest("[data-defbtn]"); if(db){ const id=db.dataset.defbtn, open=!state.defOpen[id]; state.defOpen[id]=open; db.setAttribute("aria-expanded",open); const pn=document.getElementById("def-"+id); if(pn) pn.hidden=!open; return; }
   const t=e.target.closest(".tile"); if(t){ openItem(t.dataset.id); return; }
   const g=e.target.closest("[data-go]"); if(g){ openItem(g.dataset.go); return; }
   if(e.target.closest("[data-close]")){ closeItem(); return; }
-  const p=e.target.closest(".pill"); if(p){ if(p.id==="coreBtn") state.core=!state.core; else state.kind=p.dataset.kind; syncKind();
+  const p=e.target.closest(".pill"); if(p){ state.kind=p.dataset.kind; syncKind();
     if(state.cat && !DB.items.some(i=>MAIN_TYPES.has(i.type)&&catOf(i)===state.cat&&kindOK(i))) state.cat="";
     render(); return; }
   if(e.target.closest("#catBtn")){ toggleCats(); return; }

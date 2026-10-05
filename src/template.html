@@ -70,7 +70,7 @@ h1{font-family:var(--f-display);font-weight:400;font-size:clamp(1.9rem,4vw,2.7re
 .catbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
 .catbtn.on{border-color:var(--accent);color:var(--accent)}
 .cats{flex-basis:100%;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px;border-radius:20px;background:var(--tile);box-shadow:var(--shadow)}
-.cats[hidden]{display:none}
+.cats[hidden],.catbtn[hidden]{display:none}
 .cat{height:34px;padding:0 14px;border-radius:17px;border:1.5px solid var(--line);background:none;font-weight:600;font-size:.9rem;cursor:pointer;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
 .cat small{font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
 .cat:hover{border-color:var(--muted)}
@@ -263,6 +263,8 @@ const VALUE_TYPES = new Set(["ערך ליבה","ערך משלים"]);
 let DB, byId, kids, relsOf;
 const state = {q:"", kind:"all", core:false, cat:"", open:null, flash:null, defOpen:{}};
 const CAT_LABEL = {S00:"מושג מפתח", V00:"ערכי ליבה", C10:"אתגרי המאה ה-21", C30:"כשירויות הפמ\"ע", C00:"מושגי מפתח", C50:"Skills Builder", C60:"OECD", C90:"ערכי בינה מלאכותית"};
+// הכותרת (אשכול) והסינון לפי אשכול מוסתרים זמנית כדי לא לקבע את המנהלים לפני הגדרת המרחבים. להחזרה: true
+const SHOW_CLUSTERS=false;
 const CLUSTER_ORDER=["אשכול קוגניטיבי","אשכול רגשי","אשכול חברתי","אשכול גופני","ערכים"];
 const catOf=it=>it.cluster||it.parent||"";
 // מזהי המאגר לא מוצגים: מסירים מהטקסט הפניות כמו (S09.2), (C10, C20) או (SRC-02, עמ' 8)
@@ -301,7 +303,7 @@ function matches(it){
 
 function tileHTML(it){
   return `<button type="button" class="tile${isVal(it)?" value":""}" data-id="${esc(it.id)}">
-    <span class="t-top"><span class="t-cat">${esc(catName(catOf(it)))}</span></span>
+    ${SHOW_CLUSTERS?`<span class="t-top"><span class="t-cat">${esc(catName(catOf(it)))}</span></span>`:""}
     <span class="t-name">${esc(it.name)}</span>
     <p class="t-def">${esc(it.definition)}</p>
     <span class="t-meta">${meta(it)}</span>
@@ -347,7 +349,7 @@ function openHTML(it){
   if(it.link) src.push(`<a href="${esc(it.link)}" target="_blank" rel="noopener">להרחבה</a>`);
   if(doc&&doc.link&&doc.link!==it.link) src.push(`<a href="${esc(doc.link)}" target="_blank" rel="noopener">למסמך המקור</a>`);
   return `<article class="open" id="open" aria-labelledby="o-title">
-    <div class="o-top"><span>${esc(catName(catOf(it)))}</span>
+    <div class="o-top"><span>${SHOW_CLUSTERS?esc(catName(catOf(it))):""}</span>
       <button type="button" class="o-close" data-close aria-label="סגירה"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <h2 id="o-title">${esc(it.name)}</h2>
     <p class="o-def">${esc(it.definition)}</p>
@@ -446,6 +448,7 @@ function setTheme(m){
   b.setAttribute("aria-pressed",m==="dark");
 }
 setTheme("light");
+if(!SHOW_CLUSTERS){ document.getElementById("catBtn").hidden=true; document.getElementById("cats").hidden=true; }
 document.getElementById("themeBtn").addEventListener("click",()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));
 // about
 function renderAbout(){

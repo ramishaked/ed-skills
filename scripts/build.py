@@ -8,6 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 template = (ROOT / "src" / "template.html").read_text(encoding="utf-8")
 data = json.loads((ROOT / "data" / "snapshot.json").read_text(encoding="utf-8"))
-html = template.replace("__DATA__", json.dumps(data, ensure_ascii=False))
+HEAD = ('<!doctype html>\n<html lang="he" dir="rtl">\n<meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">\n')
+html = HEAD + template.replace("__DATA__", json.dumps(data, ensure_ascii=False))
 (ROOT / "index.html").write_text(html, encoding="utf-8")
 print(f"index.html: {len(data['items'])} פריטים, {len(data['rels'])} קשרים, {len(data['sources'])} מקורות")

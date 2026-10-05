@@ -52,6 +52,11 @@ h1{font-family:var(--f-display);font-weight:400;font-size:clamp(1.9rem,4vw,2.7re
 .spc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
 .spc li{background:var(--ground);border-radius:14px;padding:12px 14px;font-weight:700;display:flex;align-items:center;gap:10px}
 .spc li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.dlg .rules{margin:0;padding-inline-start:20px;display:grid;gap:6px;color:var(--ink);line-height:1.6}
+.dlg .ex{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 14px;background:var(--accent-soft);border-radius:16px;padding:16px 18px}
+.dlg .ex dt{font-weight:800;color:var(--accent)}
+.dlg .ex dd{margin:0;line-height:1.6;color:var(--ink)}
+@media (max-width:520px){.dlg .ex{grid-template-columns:1fr}.dlg .ex dd{margin-bottom:6px}}
 .dlg .soon{background:var(--ground);border-radius:16px;padding:14px 16px;color:var(--muted);font-size:.95rem}
 
 /* filters */
@@ -207,9 +212,25 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
       <div class="dlg-head"><h2 id="spaces-title">מרחבים</h2>
         <button type="button" class="dlg-x" data-x="spaces" aria-label="סגירה"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
       <p class="def" id="spacesDef"></p>
-      <h3 id="spcTitle">דוגמאות למרחבים</h3>
+      <h3>עקרונות שסוכמו</h3>
+      <ul class="rules">
+        <li>לא יותר משישה מרחבים. את השמות נגבש יחד עם המנהלות והמנהלים.</li>
+        <li>מיומנות יכולה להופיע בכמה מרחבים, ולכל מרחב כמה מיומנויות וערכים במיקוד.</li>
+        <li>מודדים את המיומנות, בשפת הצעדים. המרחב הוא ההקשר שבו היא נרכשת.</li>
+        <li>במערכת השעות כל שיעור נצבע לפי המרחב שהוא משרת, עד שלושה מרחבים לשיעור.</li>
+        <li>"מרחב" הוא תמיד המובן הרעיוני. מקום פיזי נקרא "סביבת למידה".</li>
+        <li>המרחבים חלים גם על גני הילדים, אולי בשמות אחרים.</li>
+      </ul>
+      <h3>דוגמה: מרחב "עתיד דיגיטלי"</h3>
+      <dl class="ex">
+        <dt>מטרה</dt><dd>כלים ומיומנויות לאזרחות דיגיטלית אחראית.</dd>
+        <dt>במיקוד</dt><dd>אוריינות דיגיטלית, חשיבה ביקורתית, יזמות וחדשנות, שיתוף פעולה. ערכים: אחריות, יושרה, פרטיות.</dd>
+        <dt>תחומי דעת</dt><dd>מדעים, מתמטיקה, עברית (איתור מידע ובדיקת אמינות).</dd>
+        <dt>מימוש</dt><dd>כיתה ו' בודקת ידיעות ויראליות בעזרת כלי AI ומפרסמת "מדריך זיהוי פייק" לכיתות הצעירות. הפעילות משרתת גם את מרחב "מנהיגות ואזרחות".</dd>
+      </dl>
+      <h3 id="spcTitle">שמות להשראה ממודלים קודמים</h3>
       <ul class="spc" id="spcList"></ul>
-      <p class="soon">אלה דוגמאות בשלב זה. בהמשך תתווסף לכל מרחב המשגה, ותהיה אפשרות להוסיף מרחבים ולשבץ כל מיומנות וערך למרחב.</p>
+      <p class="soon">השמות לקוחים מהחממ"ה בנס ציונה ומאלפא מרחבים בפתח תקווה, ואינם רשימה סגורה. המרחבים של חולון ייקבעו עם המנהלות והמנהלים, ואז נשבץ אליהם מיומנויות וערכים.</p>
     </div>
   </dialog>
 

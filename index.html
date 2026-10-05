@@ -38,7 +38,10 @@ h1{font-family:var(--f-display);font-weight:400;font-size:clamp(1.9rem,4vw,2.7re
 .search svg{flex:none;color:var(--muted)}
 .search input{flex:1;min-width:0;border:0;background:none;font:inherit;font-size:1.05rem;color:var(--ink);outline:none}
 .search:focus-within{outline:3px solid var(--accent);outline-offset:2px}
-.tools{display:flex;gap:10px;align-items:center;flex:0 1 auto}
+.tools{display:flex;gap:10px;align-items:center;flex:1 1 100%}
+.nav{display:inline-flex;background:var(--tile);border-radius:27px;padding:5px;box-shadow:var(--shadow)}
+.nav a{height:44px;padding:0 18px;border-radius:22px;display:inline-flex;align-items:center;font-weight:700;text-decoration:none;color:var(--ink);white-space:nowrap}
+.nav a[aria-current="page"]{background:var(--ink);color:var(--ground)}
 .tools .search{flex:1 1 300px}
 .tbtn.icon{width:54px;padding:0;justify-content:center}
 .tbtn{height:54px;padding:0 18px;border-radius:27px;border:0;background:var(--tile);box-shadow:var(--shadow);font-weight:700;font-size:.95rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
@@ -171,12 +174,15 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
         <div class="sub">אגף החינוך חולון</div>
       </div>
     </div>
+    <nav class="nav" aria-label="ניווט">
+      <a href="process.html">עמוד הבית</a>
+      <a href="./" aria-current="page">מפת המיומנויות</a>
+    </nav>
     <div class="tools">
       <label class="search">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input id="q" type="search" placeholder="חפשו מיומנות, ערך או יכולת ליבה" aria-label="חיפוש" autocomplete="off">
       </label>
-      <a class="tbtn" href="process.html" style="text-decoration:none;color:var(--ink)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="12" r="2.5"/><path d="M7.5 12h9"/><circle cx="12" cy="12" r="2.5"/></svg>התהליך</a>
       <button type="button" class="tbtn" id="spacesBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>מרחבים</button>
       <button type="button" class="tbtn" id="aboutBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>אודות</button>
       <button type="button" class="tbtn icon" id="themeBtn" aria-pressed="false"></button>

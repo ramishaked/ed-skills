@@ -239,6 +239,8 @@ h3{font-size:1.15rem;font-weight:800;margin:0}
 .goals li b{display:block;color:var(--ink);font-size:1rem;margin-bottom:2px}
 .g-ic{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
 /* learnings */
+.learn-box .m-title{font-size:1.25rem}
+.learn-box .meet-body .learn{padding-top:20px}
 .learn{display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1.1fr) 34px minmax(0,1.35fr);gap:10px;align-items:stretch}
 .ln-col{border-radius:var(--r);padding:20px;box-shadow:0 1px 0 var(--line);background:var(--tile);border-top:5px solid var(--lc);display:flex;flex-direction:column;gap:12px}
 .ln-c1{--lc:#e8664e}.ln-c2{--lc:#1f9a8f}.ln-c3{--lc:#6d4fd6}
@@ -307,14 +309,16 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
   </section>
 
   <section class="sec" aria-labelledby="h-learn">
-    <div class="sec-head"><h2 id="h-learn">מה למדנו עד כה</h2><p>מו"פ המיומנויות עם צוותי המנהלים, תשפ"ו: מחסמים לתובנות</p></div>
-    <div class="learn">
+    <details class="meet learn-box">
+    <summary><span class="m-title" id="h-learn">מה למדנו עד כה<small>מו"פ המיומנויות עם צוותי המנהלים, תשפ"ו: מחסמים לתובנות</small></span><span class="tag muted">תשפ"ו</span><span class="chev" aria-hidden="true"></span></summary>
+    <div class="meet-body"><div class="learn">
       <article class="ln-col ln-c1"><h3><span class="ln-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4.5M12 17.5v.5"/></svg></span>הבעיות והחסמים</h3><ul class="ln-list plain"><li>היעדר סדירויות ניהוליות ושפה ארגונית</li><li>חסמי מדידה, הערכה ופרקטיקה</li><li>שינוי תפיסת תפקיד המורה והכשרתו</li><li>חסמי זמן, סדרי עדיפויות ותרבות</li></ul></article>
       <span class="ln-arrow" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 5l-7 7 7 7"/></svg></span>
       <article class="ln-col ln-c2"><h3><span class="ln-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></span>התהליך שבוצע</h3><ol class="ln-list"><li><span class="ln-n">1</span><div><b>העמקה בתכלית וזיקוק שורשי הבעיות</b>חקירה מעמיקה של הצרכים, התהליכים והגורמים העמוקים להצלחה או לכשל.</div></li><li><span class="ln-n">2</span><div><b>למידת עולם: מודלים בינלאומיים</b>סקירת מודלים, מתודות וכלים מובילים בעולם, והתאמתם להקשר המקומי.</div></li><li><span class="ln-n">3</span><div><b>פיצוח: מתודולוגיה, תהליך, כלים</b>בניית מתודולוגיה יישומית, תהליך עבודה ברור ומאגר כלים מותאמים ליישום מיטבי.</div></li></ol></article>
       <span class="ln-arrow" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 5l-7 7 7 7"/></svg></span>
       <article class="ln-col ln-c3"><h3><span class="ln-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18M9 3l3 18M15 3l-3 18"/></svg></span>התובנות המרכזיות שגובשו</h3><ol class="ln-list"><li><span class="ln-n">1</span><div><b>צורך בהכשרת לבבות וניהול השינוי</b>רתימה רגשית ובניית מוטיבציה בקרב הצוותים.</div></li><li><span class="ln-n">2</span><div><b>הגדרה, שקיפות ושליטה: מעבר למרחבים</b>קיטלוג וארגון המיומנויות תחת "מרחבי מיומנות" קונספטואליים, המעניקים הקשר.</div></li><li><span class="ln-n">3</span><div><b>מיקוד ותיעדוף</b>מיקוד שנתי ב-5-7 מיומנויות ליבה בלבד, למניעת התפזרות.</div></li><li><span class="ln-n">4</span><div><b>הפשטה ופירוק לצעדים (Steps)</b>פירוק המיומנויות לצעדי התקדמות קטנים ומדידים, להוראה הדרגתית.</div></li><li><span class="ln-n">5</span><div><b>פיתוח מקצועי ומאגר פרקטיקות (פסג"ה)</b>בניית מעטפת הכשרה עירונית להקנייה נכונה.</div></li><li><span class="ln-n">6</span><div><b>מערכת ניהולית לתכנון ושליטה</b>פיתוח ממשק עבודה ניהולי למנהל ולצוות, שמאפשר לנטר ולשלוט בתהליך בזמן אמת.</div></li><li><span class="ln-n">7</span><div><b>מדידה, הערכה מעצבת ו"תעודה מדברת"</b>בשפת הצעדים שהתלמיד רכש.</div></li></ol></article>
     </div>
+    </div></details>
   </section>
 
   <section class="sec" aria-labelledby="h-all">

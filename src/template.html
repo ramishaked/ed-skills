@@ -199,6 +199,7 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
     <button type="button" class="pill" data-kind="all" aria-pressed="true">הכול</button>
     <button type="button" class="pill" data-kind="skill" aria-pressed="false">מיומנויות</button>
     <button type="button" class="pill" data-kind="value" aria-pressed="false">ערכים</button>
+    <button type="button" class="pill" id="coreBtn" aria-pressed="false" title="רק המיומנויות והערכים של משרד החינוך, בלי המסגרות המשלימות">רק משרד החינוך</button>
     <button type="button" class="catbtn" id="catBtn" aria-expanded="false" aria-controls="cats"><span id="catBtnLbl">כל הקטגוריות</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
     <span class="count" id="count"></span>
     <div class="cats" id="cats" role="group" aria-label="בחירת קטגוריה" hidden></div>
@@ -260,12 +261,13 @@ const MAIN_TYPES = new Set(["מיומנות","ערך ליבה","כשירות מ�
 const VALUE_TYPES = new Set(["ערך ליבה","ערך משלים"]);
 
 let DB, byId, kids, relsOf;
-const state = {q:"", kind:"all", cat:"", open:null, flash:null, defOpen:{}};
+const state = {q:"", kind:"all", core:false, cat:"", open:null, flash:null, defOpen:{}};
 const CAT_LABEL = {S00:"מושג מפתח", V00:"ערכי ליבה", C10:"אתגרי המאה ה-21", C30:"כשירויות הפמ\"ע", C00:"מושגי מפתח", C50:"Skills Builder", C60:"OECD", C90:"ערכי בינה מלאכותית"};
-const catOf=it=>it.parent||"";
+const CLUSTER_ORDER=["אשכול קוגניטיבי","אשכול רגשי","אשכול חברתי","אשכול גופני","ערכים"];
+const catOf=it=>it.cluster||it.parent||"";
 // מזהי המאגר לא מוצגים: מסירים מהטקסט הפניות כמו (S09.2), (C10, C20) או (SRC-02, עמ' 8)
 const noCodes=s=>String(s||"").replace(/\s*\((?:(?:SRC-\d+|[SVCKP]C?\d+(?:\.[A-Z]?\d*)?)(?:,\s*)?)+(?:,?\s*עמ' [^)]*)?\)/g,"").replace(/\s+([.,;:])/g,"$1");
-const catName=id=>CAT_LABEL[id]||(byId.get(id)||{}).name||"";
+const catName=id=>CAT_LABEL[id]||(byId.get(id)||{}).name||id;
 
 function index(data){
   DB=data; byId=new Map(DB.items.map(i=>[i.id,i])); kids=new Map(); relsOf=new Map();
@@ -289,7 +291,7 @@ function meta(it){
   p.push(rc===1?"קשר אחד":`${rc} קשרים`);
   return p.join(" · ");
 }
-const kindOK=it=>state.kind==="all"||(state.kind==="value")===isVal(it);
+const kindOK=it=>(state.kind==="all"||(state.kind==="value")===isVal(it))&&(!state.core||it.catalog===CORE_SOURCE);
 function matches(it){
   if(!kindOK(it)) return false;
   if(state.cat && catOf(it)!==state.cat) return false;
@@ -359,7 +361,8 @@ function openHTML(it){
 
 function render(){
   const mains=DB.items.filter(i=>MAIN_TYPES.has(i.type));
-  const shown=mains.filter(matches).sort((a,b)=>(a.catalog!==CORE_SOURCE)-(b.catalog!==CORE_SOURCE));
+  const ci=it=>{const i=CLUSTER_ORDER.indexOf(catOf(it)); return i<0?99:i;};
+  const shown=mains.filter(matches).sort((a,b)=>ci(a)-ci(b)||(a.catalog!==CORE_SOURCE)-(b.catalog!==CORE_SOURCE));
   const openIt=state.open?byId.get(state.open):null;
   const defHTML=(id,label)=>{
     const it=byId.get(id); if(!it||!it.definition) return "";
@@ -381,6 +384,7 @@ function render(){
 function renderCats(mains){
   const order=[], n={};
   mains.filter(kindOK).forEach(it=>{ const c=catOf(it); if(!(c in n)){ n[c]=0; order.push(c); } n[c]++; });
+  const ci=c=>{const i=CLUSTER_ORDER.indexOf(c); return i<0?99:i;}; order.sort((a,b)=>ci(a)-ci(b));
   const total=order.reduce((s,c)=>s+n[c],0);
   const btn=document.getElementById("catBtn");
   document.getElementById("catBtnLbl").textContent=state.cat?`קטגוריה: ${catName(state.cat)}`:"כל הקטגוריות";
@@ -393,7 +397,7 @@ function renderCats(mains){
 function openItem(id){
   const top=topOf(id); if(!top) return;
   state.open=top.id; state.flash=(id!==top.id)?id:null;
-  if(!matches(top)){ state.q=""; document.getElementById("q").value=""; state.cat=""; state.kind="all"; syncKind(); }
+  if(!matches(top)){ state.q=""; document.getElementById("q").value=""; state.cat=""; state.kind="all"; state.core=false; syncKind(); }
   render();
   const el=document.getElementById("open");
   if(el){ el.scrollIntoView({block:"start",behavior:"smooth"}); el.querySelector(".o-close").focus({preventScroll:true}); }
@@ -406,13 +410,13 @@ function closeItem(){
   const t=document.querySelector(`.tile[data-id="${CSS.escape(id||"")}"]`); if(t) t.focus();
 }
 document.addEventListener("toggle",e=>{ if(e.target.classList&&e.target.classList.contains("gdef")) state.defOpen[e.target.dataset.def]=e.target.open; },true);
-function syncKind(){ document.querySelectorAll(".pill").forEach(b=>b.setAttribute("aria-pressed",b.dataset.kind===state.kind)); }
+function syncKind(){ document.getElementById("coreBtn").setAttribute("aria-pressed",state.core); document.querySelectorAll(".pill[data-kind]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.kind===state.kind)); }
 
 document.addEventListener("click",e=>{
   const t=e.target.closest(".tile"); if(t){ openItem(t.dataset.id); return; }
   const g=e.target.closest("[data-go]"); if(g){ openItem(g.dataset.go); return; }
   if(e.target.closest("[data-close]")){ closeItem(); return; }
-  const p=e.target.closest(".pill"); if(p){ state.kind=p.dataset.kind; syncKind();
+  const p=e.target.closest(".pill"); if(p){ if(p.id==="coreBtn") state.core=!state.core; else state.kind=p.dataset.kind; syncKind();
     if(state.cat && !DB.items.some(i=>MAIN_TYPES.has(i.type)&&catOf(i)===state.cat&&kindOK(i))) state.cat="";
     render(); return; }
   if(e.target.closest("#catBtn")){ toggleCats(); return; }
@@ -480,7 +484,7 @@ function parseCSV(t){
 async function loadLive(){
   const get=g=>Promise.race([fetch(PUB+g).then(r=>{if(!r.ok) throw 0; return r.text();}),new Promise((_,rej)=>setTimeout(()=>rej(0),6000))]);
   const [it,re,so]=await Promise.all([get(GIDS.items),get(GIDS.rels),get(GIDS.sources)]);
-  const items=parseCSV(it).filter(r=>r["מזהה"]).map(r=>({id:r["מזהה"],name:r["שם"],type:r["סוג"],parent:r["מזהה אב"],definition:r["המשגה"],src:r["מקור"],page:r["עמוד"],link:r["קישור להרחבה"],notes:r["הערות"],catalog:r["מקור (קטלוג)"],aka:r["שמות נוספים"]||""}));
+  const items=parseCSV(it).filter(r=>r["מזהה"]).map(r=>({id:r["מזהה"],name:r["שם"],type:r["סוג"],parent:r["מזהה אב"],definition:r["המשגה"],src:r["מקור"],page:r["עמוד"],link:r["קישור להרחבה"],notes:r["הערות"],catalog:r["מקור (קטלוג)"],aka:r["שמות נוספים"]||"",cluster:r["אשכול"]||""}));
   const rels=parseCSV(re).filter(r=>r["מזהה פריט א"]).map(r=>({a:r["מזהה פריט א"],b:r["מזהה פריט ב"],type:r["סוג קשר"],why:r["הסבר"],status:r["סטטוס"]}));
   const sources=Object.fromEntries(parseCSV(so).filter(r=>r["מזהה"]).map(r=>[r["מזהה"],{name:r["שם המסמך"],link:r["קישור"],org:r["גוף"]}]));
   if(items.length<10) throw 0; return {items,rels,sources};

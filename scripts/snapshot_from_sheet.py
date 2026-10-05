@@ -23,7 +23,7 @@ def rows(gid):
 
 items = [dict(id=r["מזהה"], name=r["שם"], type=r["סוג"], parent=r["מזהה אב"], definition=r["המשגה"],
               src=r["מקור"], page=r["עמוד"].lstrip("'"), link=r["קישור להרחבה"], notes=r["הערות"],
-              catalog=r["מקור (קטלוג)"], aka=r.get("שמות נוספים", ""))
+              catalog=r["מקור (קטלוג)"], aka=r.get("שמות נוספים", ""), cluster=r.get("אשכול", ""))
          for r in rows(GIDS["items"]) if r["מזהה"]]
 rels = [dict(a=r["מזהה פריט א"], b=r["מזהה פריט ב"], type=r["סוג קשר"], why=r["הסבר"], status=r["סטטוס"])
         for r in rows(GIDS["rels"]) if r["מזהה פריט א"]]

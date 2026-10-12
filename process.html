@@ -117,6 +117,10 @@ h3{font-size:1.15rem;font-weight:800;margin:0}
 .out{background:var(--tile);border-radius:14px;padding:12px 14px;font-weight:600}
 .qs{margin:0;padding:0;list-style:none;display:grid;gap:8px}
 .qs li{background:var(--ground);border-radius:14px;padding:12px 14px}
+.qs li b.qn{display:block;color:var(--accent);font-size:.85rem;margin-bottom:4px}
+.txt{margin:0 0 12px;line-height:1.7;max-width:80ch}
+.txt+.qs,.qs+.txt{margin-top:4px}
+.qs+.txt{margin-top:14px}
 
 .kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;list-style:none;margin:0;padding:0}
 .kit li{background:var(--tile);border-radius:16px;padding:14px 16px;box-shadow:0 1px 0 var(--line);display:flex;gap:12px;align-items:baseline}
@@ -388,8 +392,8 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
         <div class="card">
           <h3>לוח הזמנים</h3>
           <ol class="agenda">
-            <li><time>13:00</time><div><b>התכנסות</b><span>מפות חום</span></div></li>
-            <li><time>13:30</time><div><b>פתיחה</b><span>ריבה, הצגת ציר הזמן</span></div></li>
+            <li><time>13:00</time><div><b>התכנסות</b><span>ענן מילים מתשובות המנהלים לשאלה המקדימה</span></div></li>
+            <li><time>13:30</time><div><b>פתיחה</b><span>ריבה: ציר הזמן, ו"המיומנות שמתחת לכיסא"</span></div></li>
             <li><time>13:40</time><div><b>מיומנויות בראי המשרד</b><span>משה עיני</span></div></li>
             <li><time>13:50</time><div><b>מיומנויות: מה ולמה</b><span>הצצה למה שנעשה עד כה. אהרון ורמי</span></div></li>
             <li class="brk"><time>14:20</time><div><b>הפסקה</b></div></li>
@@ -413,7 +417,35 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     </details>
 
     <details class="sub">
-      <summary><span class="s-num">2</span><h3 class="sub-t">רציונל הסדנה</h3><span class="chev" aria-hidden="true"></span></summary>
+      <summary><span class="s-num">2</span><h3 class="sub-t">לפני המפגש: שאלה מקדימה למנהלים</h3><span class="s-note">תיבחר שאלה אחת משלוש</span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sub-body">
+      <p class="goal"><b>המטרה:</b> לפתוח את המפגש מהקול של המנהלים עצמם. השאלה נשלחת לפני המפגש, והתשובות מוצגות כענן מילים בזמן ההתכנסות.</p>
+      <p class="txt"><b>השאלות האפשריות:</b></p>
+      <ul class="qs">
+        <li><b class="qn">טביעת האצבע</b>לכל בית ספר יש "טביעת אצבע" משלו. אם היינו בוחנים היום בוגר או בוגרת שלכם, באיזו מיומנות חיים יש להם "יתרון לא הוגן" על פני אחרים, בזכות הדגשים של הצוות שלכם?</li>
+        <li><b class="qn">בזמן אמת</b>איזו מיומנות אתם רואים את התלמידים שלכם מיישמים הכי הרבה "בזמן אמת", ובאיזו פעילות שגרתית בבית הספר זרעתם את הזרעים לה?</li>
+        <li><b class="qn">האורח הסמוי</b>דמיינו שאדם זר לגמרי חוצה מחר בבוקר את שער בית הספר שלכם. הוא לא קורא את מצעד הערכים שבכניסה ולא מחליף מילה עם אף איש צוות. הוא פשוט משוטט יום שלם כרואה ואינו נראה, מתבונן בתלמידים בפעולה ורושם. איזו מיומנות מרכזית הוא יזהה מיד ככזו שמקודמת חזק בבית הספר שלכם, ובאיזו סיטואציה מדויקת הוא יראה אותה קורמת עור וגידים?</li>
+      </ul>
+      <p class="note">איסוף התשובות והצגתן כענן מילים: בתכנון, כנראה דף WEB קטן בסגנון Mentimeter.</p>
+      </div>
+    </details>
+
+    <details class="sub">
+      <summary><span class="s-num">3</span><h3 class="sub-t">פתיחה: המיומנות שמתחת לכיסא</h3><span class="s-note">ריבה, 13:30</span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sub-body">
+      <p class="goal">מתחת לכל כיסא מודבקת מעטפה קטנה, ובה דיסקית עם שם של מיומנות אחת ויכולות הליבה שלה.</p>
+      <p class="txt"><b>ההנחיה במליאה:</b> רגע לפני שמדברים על התלמידים ועל המערכת, בואו נדבר עלינו. כל מנהל מסתכל על המיומנות שקיבל וחושב עם עצמו:</p>
+      <ul class="qs">
+        <li>מה אני חושב על המיומנות הזו?</li>
+        <li>איפה אני רואה אותה אצלי?</li>
+        <li>עד כמה השתמשתי בה בשבוע האחרון, בניהול בית הספר או בחיים האישיים?</li>
+      </ul>
+      <p class="txt"><b>שיתוף קצר במליאה (2-3 דקות):</b> איזו מיומנות קיבלתם, ואיך היא באה לידי ביטוי בעשייה הניהולית שלכם לאחרונה.</p>
+      </div>
+    </details>
+
+    <details class="sub">
+      <summary><span class="s-num">4</span><h3 class="sub-t">רציונל הסדנה</h3><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
       <p class="goal"><b>המטרה:</b> המשגה חוויתית של מגוון המיומנויות, מיפוי סנטימנט וזיהוי מיומנויות במיקוד, ארגון באשכולות ניהול והצבעה על אתגרים.</p>
       <div class="why">
@@ -437,7 +469,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     </details>
 
     <details class="sub">
-      <summary><span class="s-num">3</span><h3 class="sub-t">מהלך הסדנה</h3><span class="chev" aria-hidden="true"></span></summary>
+      <summary><span class="s-num">5</span><h3 class="sub-t">מהלך הסדנה</h3><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
       <div class="bar" aria-hidden="true"><i style="flex:30"></i><i style="flex:25"></i><i style="flex:20"></i></div>
       <div class="flow">
@@ -506,7 +538,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     </details>
 
     <details class="sub">
-      <summary><span class="s-num">4</span><h3 class="sub-t">דיסקית אחת, שלושה שלבים</h3><span class="s-note">כך נראית מיומנות אחת לאורך הסדנה.</span><span class="chev" aria-hidden="true"></span></summary>
+      <summary><span class="s-num">6</span><h3 class="sub-t">דיסקית אחת, שלושה שלבים</h3><span class="s-note">כך נראית מיומנות אחת לאורך הסדנה.</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
       <div class="ill-grid">
         <figure class="fig"><svg viewBox="0 0 300 250" role="img" class="ill"><rect class="tbl" x="0" y="0" width="300" height="250" rx="18"/><circle class="cir faint" cx="62" cy="58" r="40"/><text class="lbl2" x="62" y="62" text-anchor="middle" direction="rtl" font-size="12">עבודת צוות</text><circle class="cir faint" cx="250" cy="70" r="36"/><text class="lbl2" x="250" y="74" text-anchor="middle" direction="rtl" font-size="12">טיעון</text><circle class="cir faint" cx="238" cy="200" r="38"/><text class="lbl2" x="238" y="204" text-anchor="middle" direction="rtl" font-size="12">יצירתיות</text><circle class="cir faint" cx="52" cy="196" r="40"/><text class="lbl2" x="52" y="200" text-anchor="middle" direction="rtl" font-size="12">הנעה עצמית</text><circle class="cir main" cx="150" cy="128" r="62"/><text class="lbl" x="150" y="133" text-anchor="middle" direction="rtl" font-size="17">ויסות עצמי</text></svg>
@@ -530,7 +562,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     </details>
 
     <details class="sub">
-      <summary><span class="s-num">5</span><h3 class="sub-t">ציוד לכל שולחן</h3><span class="s-note">מסוכם מתוך מהלך הסדנה.</span><span class="chev" aria-hidden="true"></span></summary>
+      <summary><span class="s-num">7</span><h3 class="sub-t">ציוד לכל שולחן</h3><span class="s-note">מסוכם מתוך מהלך הסדנה.</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
       <ul class="kit">
         <li><b>1</b><span>בריסטול גדול עם הצעות לאשכולות ואשכולות ריקים</span></li>
@@ -539,11 +571,12 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
         <li><b>5</b><span>מדבקות SP לכל משתתף, בצבע שלב הגיל</span></li>
         <li><b>5</b><span>מדבקות כוכב לכל משתתף</span></li>
         <li><b>1</b><span>טלפון או מצלמה לתיעוד הבריסטול בסוף</span></li>
+        <li><b>1</b><span>מעטפה מתחת לכל כיסא, עם דיסקית מיומנות ויכולות הליבה שלה (לפתיחה)</span></li>
       </ul>
       </div>
     </details>
     <details class="sub">
-      <summary><span class="s-num">6</span><h3 class="sub-t">הנחיות למנחה קבוצה</h3><span class="s-note">טיוטה</span><span class="chev" aria-hidden="true"></span></summary>
+      <summary><span class="s-num">8</span><h3 class="sub-t">הנחיות למנחה קבוצה</h3><span class="s-note">טיוטה</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
         <div class="guide">
           <article class="card">

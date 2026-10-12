@@ -76,7 +76,7 @@ h1{font-family:var(--f-display);font-weight:400;font-size:clamp(1.9rem,4vw,2.7re
 .cat:hover{border-color:var(--muted)}
 .cat[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .cat[aria-pressed="true"] small{color:inherit;opacity:.8}
-.count{margin-inline-start:auto;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.count{margin-inline-start:0;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
 
 /* board */
 section.group{margin-top:28px}
@@ -106,6 +106,17 @@ section.group{margin-top:28px}
 .t-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .t-cat{font-size:.78rem;font-weight:700;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tile.value .t-cat{color:color-mix(in srgb,var(--dark-ink) 72%,transparent)}
+
+.tile{position:relative}
+.tile .moe-ico{position:absolute;top:16px;inset-inline-end:16px;color:var(--accent);opacity:.9}
+.tile.value .moe-ico{color:var(--dark-ink)}
+.tile.moe{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--accent) 70%,transparent)}
+.tile.value.moe{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--dark-ink) 55%,transparent)}
+.tile.moe:hover{box-shadow:inset 0 0 0 2px var(--accent),var(--shadow)}
+.tile.moe .t-name{padding-inline-end:26px}
+.o-moe{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700}
+.legend{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;font-weight:600;color:var(--muted);margin-inline-start:auto}
+.legend .moe-ico{color:var(--accent)}
 .t-name{font-family:var(--f-display);font-size:1.6rem;line-height:1.08;text-wrap:balance}
 .t-def{font-size:.9rem;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0}
 .t-meta{margin-top:auto;font-size:.88rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -207,6 +218,7 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
     <button type="button" class="pill" data-kind="skill" aria-pressed="false">מיומנויות</button>
     <button type="button" class="pill" data-kind="value" aria-pressed="false">ערכים</button>
     <button type="button" class="catbtn" id="catBtn" aria-expanded="false" aria-controls="cats"><span id="catBtnLbl">כל הקטגוריות</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+    <span class="legend"><svg class="moe-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.4 3 8 7.5 9.5 4.5-1.5 7.5-5.1 7.5-9.500V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>מסמך של משרד החינוך</span>
     <span class="count" id="count"></span>
     <div class="cats" id="cats" role="group" aria-label="בחירת קטגוריה" hidden></div>
   </div>
@@ -274,6 +286,8 @@ const SHOW_CLUSTERS=false;
 const CLUSTER_ORDER=["אשכול קוגניטיבי","אשכול רגשי","אשכול חברתי","אשכול גופני","ערכים"];
 const catOf=it=>it.cluster||it.parent||"";
 // מזהי המאגר לא מוצגים: מסירים מהטקסט הפניות כמו (S09.2), (C10, C20) או (SRC-02, עמ' 8)
+const isMoe=it=>it.catalog===CORE_SOURCE;
+const MOE_ICO='<svg class="moe-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.4 3 8 7.5 9.5 4.5-1.5 7.5-5.1 7.5-9.500V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>';
 const noCodes=s=>String(s||"").replace(/\s*\((?:(?:SRC-\d+|[SVCKP]C?\d+(?:\.[A-Z]?\d*)?)(?:,\s*)?)+(?:,?\s*עמ' [^)]*)?\)/g,"").replace(/\s+([.,;:])/g,"$1");
 const catName=id=>CAT_LABEL[id]||(byId.get(id)||{}).name||id;
 
@@ -308,7 +322,8 @@ function matches(it){
 }
 
 function tileHTML(it){
-  return `<button type="button" class="tile${isVal(it)?" value":""}" data-id="${esc(it.id)}">
+  return `<button type="button" class="tile${isVal(it)?" value":""}${isMoe(it)?" moe":""}" data-id="${esc(it.id)}"${isMoe(it)?' title="מסמך של משרד החינוך"':""}>
+    ${isMoe(it)?MOE_ICO:""}
     ${SHOW_CLUSTERS?`<span class="t-top"><span class="t-cat">${esc(catName(catOf(it)))}</span></span>`:""}
     <span class="t-name">${esc(it.name)}</span>
     <p class="t-def">${esc(it.definition)}</p>
@@ -343,6 +358,7 @@ function kidHTML(k){
   return `<li class="kid${state.flash===k.id?" flash":""}" id="k-${esc(k.id)}"><details${state.flash===k.id?" open":""}>
     <summary>${esc(k.name)}</summary>
     ${k.definition?`<p>${esc(k.definition)}</p>`:""}
+    ${k.cs==="טיוטת צוות"?`<span class="k-aka">נוסח צוות, טיוטה</span>`:""}
     ${k.aka?`<span class="k-aka">שמות נוספים: ${esc(k.aka.split(";").map(s=>s.trim()).join(", "))}</span>`:""}
     ${sub.length?`<ul class="sub-kids">${sub.map(s=>`<li id="k-${esc(s.id)}">${esc(s.name)}${s.definition?`: ${esc(s.definition)}`:""}</li>`).join("")}</ul>`:""}
   </details></li>`;
@@ -353,8 +369,8 @@ function openHTML(it){
   const src=[`<span class="o-src">מקור: ${esc(doc?doc.name:it.catalog)}${it.page?`, עמ' ${esc(it.page)}`:""}</span>`];
   if(it.link) src.push(`<a href="${esc(it.link)}" target="_blank" rel="noopener">להרחבה</a>`);
   if(doc&&doc.link&&doc.link!==it.link) src.push(`<a href="${esc(doc.link)}" target="_blank" rel="noopener">למסמך המקור</a>`);
-  return `<article class="open" id="open" aria-labelledby="o-title">
-    <div class="o-top"><span>${SHOW_CLUSTERS?esc(catName(catOf(it))):""}</span>
+  return `<article class="open${isMoe(it)?" moe":""}" id="open" aria-labelledby="o-title">
+    <div class="o-top"><span>${SHOW_CLUSTERS?esc(catName(catOf(it))):""}${isMoe(it)?`<span class="o-moe">${MOE_ICO}מסמך של משרד החינוך</span>`:""}</span>
       <button type="button" class="o-close" data-close aria-label="סגירה"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <h2 id="o-title">${esc(it.name)}</h2>
     <p class="o-def">${esc(it.definition)}</p>

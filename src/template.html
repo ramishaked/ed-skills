@@ -111,11 +111,11 @@ section.group{margin-top:28px}
 .open,.tile{transform-origin:0 0}
 .flipping{z-index:6;will-change:transform}
 .moe-ico{flex:none;background:#fff;border-radius:50%;padding:0;box-sizing:content-box;box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 14%,transparent)}
-.tile .moe-ico{position:absolute;top:12px;inset-inline-end:12px}
+.tile .moe-ico{position:absolute;top:14px;inset-inline-end:14px}
 .tile.moe{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--accent) 70%,transparent)}
 .tile.value.moe{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--dark-ink) 55%,transparent)}
 .tile.moe:hover{box-shadow:inset 0 0 0 2px var(--accent),var(--shadow)}
-.tile.moe .t-name{padding-inline-end:56px}
+.tile.moe .t-name{padding-inline-end:34px}
 .o-moe{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700}
 .legend{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;font-weight:600;color:var(--muted);margin-inline-start:auto}
 .t-name{font-family:var(--f-display);font-size:1.6rem;line-height:1.08;text-wrap:balance}
@@ -218,7 +218,7 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
     <button type="button" class="pill" data-kind="skill" aria-pressed="false">מיומנויות</button>
     <button type="button" class="pill" data-kind="value" aria-pressed="false">ערכים</button>
     <button type="button" class="catbtn" id="catBtn" aria-expanded="false" aria-controls="cats"><span id="catBtnLbl">כל הקטגוריות</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
-    <span class="legend"><svg class="moe-ico" width="42" height="42" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>מתוך תוצרי משרד החינוך</span>
+    <span class="legend"><svg class="moe-ico" width="21" height="21" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>מתוך תוצרי משרד החינוך</span>
     <span class="count" id="count"></span>
     <div class="cats" id="cats" role="group" aria-label="בחירת קטגוריה" hidden></div>
   </div>
@@ -287,7 +287,7 @@ const CLUSTER_ORDER=["אשכול קוגניטיבי","אשכול רגשי","אש
 const catOf=it=>it.cluster||it.parent||"";
 // מזהי המאגר לא מוצגים: מסירים מהטקסט הפניות כמו (S09.2), (C10, C20) או (SRC-02, עמ' 8)
 const isMoe=it=>(it.catalog||"").includes("משרד החינוך");
-const MOE_ICO='<svg class="moe-ico" width="42" height="42" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>';
+const MOE_ICO='<svg class="moe-ico" width="21" height="21" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>';
 const noCodes=s=>String(s||"").replace(/\s*\((?:(?:SRC-\d+|[SVCKP]C?\d+(?:\.[A-Z]?\d*)?)(?:,\s*)?)+(?:,?\s*עמ' [^)]*)?\)/g,"").replace(/\s+([.,;:])/g,"$1");
 const catName=id=>CAT_LABEL[id]||(byId.get(id)||{}).name||id;
 

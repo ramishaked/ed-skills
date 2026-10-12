@@ -218,7 +218,7 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
     <button type="button" class="pill" data-kind="skill" aria-pressed="false">מיומנויות</button>
     <button type="button" class="pill" data-kind="value" aria-pressed="false">ערכים</button>
     <button type="button" class="catbtn" id="catBtn" aria-expanded="false" aria-controls="cats"><span id="catBtnLbl">כל הקטגוריות</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
-    <span class="legend"><svg class="moe-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.4 3 8 7.5 9.5 4.5-1.5 7.5-5.1 7.5-9.500V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>מסמך של משרד החינוך</span>
+    <span class="legend"><svg class="moe-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.4 3 8 7.5 9.5 4.5-1.5 7.5-5.1 7.5-9.500V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>מתוך תוצרי משרד החינוך</span>
     <span class="count" id="count"></span>
     <div class="cats" id="cats" role="group" aria-label="בחירת קטגוריה" hidden></div>
   </div>
@@ -291,8 +291,12 @@ const MOE_ICO='<svg class="moe-ico" width="18" height="18" viewBox="0 0 24 24" f
 const noCodes=s=>String(s||"").replace(/\s*\((?:(?:SRC-\d+|[SVCKP]C?\d+(?:\.[A-Z]?\d*)?)(?:,\s*)?)+(?:,?\s*עמ' [^)]*)?\)/g,"").replace(/\s+([.,;:])/g,"$1");
 const catName=id=>CAT_LABEL[id]||(byId.get(id)||{}).name||id;
 
+function dropMerged(data){
+  const gone=new Set(data.items.filter(i=>i.type==="פריט מאוחד").map(i=>i.id));
+  return {...data, items:data.items.filter(i=>!gone.has(i.id)&&!gone.has(i.parent))};
+}
 function index(data){
-  DB=data; byId=new Map(DB.items.map(i=>[i.id,i])); kids=new Map(); relsOf=new Map();
+  DB=dropMerged(data); byId=new Map(DB.items.map(i=>[i.id,i])); kids=new Map(); relsOf=new Map();
   DB.items.forEach(i=>{ if(i.parent){ if(!kids.has(i.parent)) kids.set(i.parent,[]); kids.get(i.parent).push(i);} });
   DB.rels.forEach(r=>{ if(!byId.has(r.a)||!byId.has(r.b)) return; [r.a,r.b].forEach(id=>{ if(!relsOf.has(id)) relsOf.set(id,[]); relsOf.get(id).push(r); }); });
 }
@@ -322,7 +326,7 @@ function matches(it){
 }
 
 function tileHTML(it){
-  return `<button type="button" class="tile${isVal(it)?" value":""}${isMoe(it)?" moe":""}" data-id="${esc(it.id)}"${isMoe(it)?' title="מסמך של משרד החינוך"':""}>
+  return `<button type="button" class="tile${isVal(it)?" value":""}${isMoe(it)?" moe":""}" data-id="${esc(it.id)}"${isMoe(it)?' title="מתוך תוצרי משרד החינוך"':""}>
     ${isMoe(it)?MOE_ICO:""}
     ${SHOW_CLUSTERS?`<span class="t-top"><span class="t-cat">${esc(catName(catOf(it)))}</span></span>`:""}
     <span class="t-name">${esc(it.name)}</span>
@@ -370,7 +374,7 @@ function openHTML(it){
   if(it.link) src.push(`<a href="${esc(it.link)}" target="_blank" rel="noopener">להרחבה</a>`);
   if(doc&&doc.link&&doc.link!==it.link) src.push(`<a href="${esc(doc.link)}" target="_blank" rel="noopener">למסמך המקור</a>`);
   return `<article class="open${isMoe(it)?" moe":""}" id="open" aria-labelledby="o-title">
-    <div class="o-top"><span>${SHOW_CLUSTERS?esc(catName(catOf(it))):""}${isMoe(it)?`<span class="o-moe">${MOE_ICO}מסמך של משרד החינוך</span>`:""}</span>
+    <div class="o-top"><span>${SHOW_CLUSTERS?esc(catName(catOf(it))):""}${isMoe(it)?`<span class="o-moe">${MOE_ICO}מתוך תוצרי משרד החינוך</span>`:""}</span>
       <button type="button" class="o-close" data-close aria-label="סגירה"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <h2 id="o-title">${esc(it.name)}</h2>
     <p class="o-def">${esc(it.definition)}</p>
@@ -511,7 +515,7 @@ function parseCSV(t){
 async function loadLive(){
   const get=g=>Promise.race([fetch(PUB+g).then(r=>{if(!r.ok) throw 0; return r.text();}),new Promise((_,rej)=>setTimeout(()=>rej(0),6000))]);
   const [it,re,so]=await Promise.all([get(GIDS.items),get(GIDS.rels),get(GIDS.sources)]);
-  const items=parseCSV(it).filter(r=>r["מזהה"]).map(r=>({id:r["מזהה"],name:r["שם"],type:r["סוג"],parent:r["מזהה אב"],definition:r["המשגה"],src:r["מקור"],page:r["עמוד"],link:r["קישור להרחבה"],notes:r["הערות"],catalog:r["מקור (קטלוג)"],aka:r["שמות נוספים"]||"",cluster:r["אשכול"]||""}));
+  const items=parseCSV(it).filter(r=>r["מזהה"]).map(r=>({id:r["מזהה"],name:r["שם"],type:r["סוג"],parent:r["מזהה אב"],definition:r["המשגה"],src:r["מקור"],page:r["עמוד"],link:r["קישור להרחבה"],notes:r["הערות"],catalog:r["מקור (קטלוג)"],aka:r["שמות נוספים"]||"",cluster:r["אשכול"]||"",cs:r["מקור ההמשגה"]||""}));
   const rels=parseCSV(re).filter(r=>r["מזהה פריט א"]).map(r=>({a:r["מזהה פריט א"],b:r["מזהה פריט ב"],type:r["סוג קשר"],why:r["הסבר"],status:r["סטטוס"]}));
   const sources=Object.fromEntries(parseCSV(so).filter(r=>r["מזהה"]).map(r=>[r["מזהה"],{name:r["שם המסמך"],link:r["קישור"],org:r["גוף"]}]));
   if(items.length<10) throw 0; return {items,rels,sources};

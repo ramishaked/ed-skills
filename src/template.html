@@ -108,6 +108,8 @@ section.group{margin-top:28px}
 .tile.value .t-cat{color:color-mix(in srgb,var(--dark-ink) 72%,transparent)}
 
 .tile{position:relative}
+.open,.tile{transform-origin:0 0}
+.flipping{z-index:6;will-change:transform}
 .tile .moe-ico{position:absolute;top:16px;inset-inline-end:16px;color:var(--accent);opacity:.9}
 .tile.value .moe-ico{color:var(--dark-ink)}
 .tile.moe{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--accent) 70%,transparent)}
@@ -122,8 +124,7 @@ section.group{margin-top:28px}
 .t-meta{margin-top:auto;font-size:.88rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
 
 /* opened tile */
-.open{scroll-margin-top:84px;grid-column:span 2;grid-row:span 3;background:var(--accent);color:var(--accent-ink);border-radius:30px;padding:28px;display:flex;flex-direction:column;gap:18px;min-width:0;box-shadow:var(--shadow);animation:grow .28s ease}
-@keyframes grow{from{transform:scale(.97);opacity:.6}to{transform:none;opacity:1}}
+.open{scroll-margin-top:84px;grid-column:span 2;grid-row:span 3;background:var(--accent);color:var(--accent-ink);border-radius:30px;padding:28px;display:flex;flex-direction:column;gap:18px;min-width:0;box-shadow:var(--shadow)}
 .o-top{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.88rem;font-weight:700}
 .o-top .t-id{color:inherit;opacity:.8}
 .o-close{width:40px;height:40px;border-radius:12px;border:2px solid color-mix(in srgb,var(--accent-ink) 40%,transparent);background:none;cursor:pointer;display:grid;place-items:center;flex:none}
@@ -373,7 +374,7 @@ function openHTML(it){
   const src=[`<span class="o-src">מקור: ${esc(doc?doc.name:it.catalog)}${it.page?`, עמ' ${esc(it.page)}`:""}</span>`];
   if(it.link) src.push(`<a href="${esc(it.link)}" target="_blank" rel="noopener">להרחבה</a>`);
   if(doc&&doc.link&&doc.link!==it.link) src.push(`<a href="${esc(doc.link)}" target="_blank" rel="noopener">למסמך המקור</a>`);
-  return `<article class="open${isMoe(it)?" moe":""}" id="open" aria-labelledby="o-title">
+  return `<article class="open${isMoe(it)?" moe":""}" id="open" data-id="${esc(it.id)}" aria-labelledby="o-title">
     <div class="o-top"><span>${SHOW_CLUSTERS?esc(catName(catOf(it))):""}${isMoe(it)?`<span class="o-moe">${MOE_ICO}מתוך תוצרי משרד החינוך</span>`:""}</span>
       <button type="button" class="o-close" data-close aria-label="סגירה"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <h2 id="o-title">${esc(it.name)}</h2>
@@ -401,7 +402,8 @@ function render(){
   const sec=(title,arr,val)=>{
     const withOpen=openIt && isVal(openIt)===val;
     if(!arr.length && !withOpen) return "";
-    const body=(withOpen?openHTML(openIt):"")+arr.filter(i=>!openIt||i.id!==openIt.id).map(tileHTML).join("");
+    const inArr=withOpen&&arr.some(i=>i.id===openIt.id);
+    const body=(withOpen&&!inArr?openHTML(openIt):"")+arr.map(i=>(withOpen&&i.id===openIt.id)?openHTML(openIt):tileHTML(i)).join("");
     const def=val?"":defHTML("S00"), link=val?"":defLink("S00");
     return `<section class="group"><div class="ghead"><h2>${title}</h2>${link}<span>${arr.length}</span></div>${def}<div class="board">${body}</div></section>`;
   };
@@ -423,20 +425,49 @@ function renderCats(mains){
     order.map(c=>`<button type="button" class="cat" data-cat="${esc(c)}" aria-pressed="${state.cat===c}">${esc(catName(c))} <small>${n[c]}</small></button>`).join("");
 }
 
+const REDUCED=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+const pageRect=el=>{const r=el.getBoundingClientRect(); return {x:r.left+scrollX,y:r.top+scrollY,w:r.width,h:r.height};};
+function snapshotRects(){
+  const m=new Map(); document.querySelectorAll(".tile[data-id],#open[data-id]").forEach(el=>m.set(el.dataset.id,{r:pageRect(el),open:el.id==="open"})); return m;
+}
+const EASE="cubic-bezier(.22,.8,.24,1)";
+function flipFrom(before,focusId){
+  if(REDUCED) return;
+  document.querySelectorAll(".tile[data-id],#open[data-id]").forEach(el=>{
+    const b=before.get(el.dataset.id); if(!b) return;
+    const now=pageRect(el), isOpen=el.id==="open", resized=Math.abs(b.r.w-now.w)>8||Math.abs(b.r.h-now.h)>8;
+    const dx=b.r.x-now.x, dy=b.r.y-now.y;
+    if(!resized&&Math.abs(dx)<2&&Math.abs(dy)<2) return;
+    const sx=resized?b.r.w/now.w:1, sy=resized?b.r.h/now.h:1;
+    const focus=el.dataset.id===focusId;
+    el.classList.add("flipping");
+    const a=el.animate([{transform:`translate(${dx}px,${dy}px) scale(${sx},${sy})`},{transform:"none"}],{duration:focus?480:380,easing:EASE});
+    a.onfinish=a.oncancel=()=>el.classList.remove("flipping");
+    if(resized){ const kids=[...el.children]; kids.forEach(k=>k.animate([{opacity:0},{opacity:0,offset:.35},{opacity:1}],{duration:480,easing:"ease-out"})); }
+  });
+}
+function keepVisible(el){
+  if(!el) return;
+  const r=el.getBoundingClientRect(), bar=(document.querySelector(".bar")||{offsetHeight:0}).offsetHeight||0, vh=innerHeight, pad=16;
+  if(r.top<bar+pad) scrollBy({top:r.top-bar-pad,behavior:"instant"});
+  else if(r.bottom>vh-pad) scrollBy({top:Math.min(r.bottom-vh+pad,r.top-bar-pad),behavior:"instant"});
+}
 function openItem(id){
   const top=topOf(id); if(!top) return;
+  const before=snapshotRects();
   state.open=top.id; state.flash=(id!==top.id)?id:null;
   if(!matches(top)){ state.q=""; document.getElementById("q").value=""; state.cat=""; state.kind="all"; state.core=false; syncKind(); }
   render();
   const el=document.getElementById("open");
-  if(el){ el.scrollIntoView({block:"start",behavior:"smooth"}); el.querySelector(".o-close").focus({preventScroll:true}); }
-  if(state.flash){ const f=document.getElementById("k-"+state.flash); if(f) setTimeout(()=>f.scrollIntoView({block:"center",behavior:"smooth"}),300); }
+  if(el){ keepVisible(el); flipFrom(before,top.id); el.querySelector(".o-close").focus({preventScroll:true}); }
+  if(state.flash){ const f=document.getElementById("k-"+state.flash); if(f) setTimeout(()=>f.scrollIntoView({block:"center",behavior:"smooth"}),500); }
   try{ history.replaceState(null,"","#"+top.id); }catch(e){}
 }
 function closeItem(){
-  const id=state.open; state.open=null; state.flash=null; render();
+  const id=state.open; const before=snapshotRects(); state.open=null; state.flash=null; render();
   try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
-  const t=document.querySelector(`.tile[data-id="${CSS.escape(id||"")}"]`); if(t) t.focus();
+  const t=document.querySelector(`.tile[data-id="${CSS.escape(id||"")}"]`);
+  if(t){ keepVisible(t); flipFrom(before,id); t.focus({preventScroll:true}); }
 }
 document.addEventListener("toggle",e=>{ if(e.target.classList&&e.target.classList.contains("gdef")) state.defOpen[e.target.dataset.def]=e.target.open; },true);
 function syncKind(){ document.querySelectorAll(".pill[data-kind]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.kind===state.kind)); }

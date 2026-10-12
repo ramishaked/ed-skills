@@ -427,23 +427,37 @@ function renderCats(mains){
 
 const REDUCED=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
 const pageRect=el=>{const r=el.getBoundingClientRect(); return {x:r.left+scrollX,y:r.top+scrollY,w:r.width,h:r.height};};
-function snapshotRects(){
-  const m=new Map(); document.querySelectorAll(".tile[data-id],#open[data-id]").forEach(el=>m.set(el.dataset.id,{r:pageRect(el),open:el.id==="open"})); return m;
+function snapshotRects(focusId){
+  const m=new Map();
+  document.querySelectorAll(".tile[data-id],#open[data-id]").forEach(el=>{
+    const isOpen=el.id==="open", e={r:pageRect(el),open:isOpen};
+    if(!REDUCED&&(isOpen||el.dataset.id===focusId)){ const c=el.cloneNode(true); c.removeAttribute("id"); e.clone=c; }
+    m.set(el.dataset.id,e);
+  });
+  return m;
 }
-const EASE="cubic-bezier(.22,.8,.24,1)";
-function flipFrom(before,focusId){
+const EASE="cubic-bezier(.22,.8,.24,1)", PERSP="perspective(1600px)";
+function cardFlip(el,b){
+  const now=pageRect(el), g=b.clone; if(!g) return;
+  Object.assign(g.style,{position:"absolute",left:b.r.x+"px",top:b.r.y+"px",width:b.r.w+"px",height:b.r.h+"px",margin:"0",zIndex:"60",pointerEvents:"none",transformOrigin:"50% 50%",gridColumn:"auto",gridRow:"auto"});
+  g.setAttribute("aria-hidden","true"); document.body.appendChild(g);
+  const cdx=(now.x+now.w/2)-(b.r.x+b.r.w/2), cdy=(now.y+now.h/2)-(b.r.y+b.r.h/2), sx=now.w/b.r.w, sy=now.h/b.r.h;
+  const out=g.animate([{transform:`${PERSP} rotateY(0deg)`},{transform:`${PERSP} translate(${cdx}px,${cdy}px) scale(${sx},${sy}) rotateY(90deg)`}],{duration:260,easing:"cubic-bezier(.45,0,.8,.5)",fill:"forwards"});
+  out.onfinish=out.oncancel=()=>g.remove();
+  el.classList.add("flipping");
+  const inn=el.animate([{transform:`${PERSP} rotateY(-90deg)`,transformOrigin:"50% 50%"},{transform:`${PERSP} rotateY(0deg)`,transformOrigin:"50% 50%"}],{duration:340,delay:260,easing:"cubic-bezier(.2,.8,.3,1)",fill:"backwards"});
+  inn.onfinish=inn.oncancel=()=>el.classList.remove("flipping");
+}
+function flipFrom(before){
   if(REDUCED) return;
   document.querySelectorAll(".tile[data-id],#open[data-id]").forEach(el=>{
     const b=before.get(el.dataset.id); if(!b) return;
-    const now=pageRect(el), isOpen=el.id==="open", resized=Math.abs(b.r.w-now.w)>8||Math.abs(b.r.h-now.h)>8;
-    const dx=b.r.x-now.x, dy=b.r.y-now.y;
-    if(!resized&&Math.abs(dx)<2&&Math.abs(dy)<2) return;
-    const sx=resized?b.r.w/now.w:1, sy=resized?b.r.h/now.h:1;
-    const focus=el.dataset.id===focusId;
+    const now=pageRect(el), resized=Math.abs(b.r.w-now.w)>8||Math.abs(b.r.h-now.h)>8;
+    if(resized){ cardFlip(el,b); return; }
+    const dx=b.r.x-now.x, dy=b.r.y-now.y; if(Math.abs(dx)<2&&Math.abs(dy)<2) return;
     el.classList.add("flipping");
-    const a=el.animate([{transform:`translate(${dx}px,${dy}px) scale(${sx},${sy})`},{transform:"none"}],{duration:focus?480:380,easing:EASE});
+    const a=el.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:"none"}],{duration:420,easing:EASE});
     a.onfinish=a.oncancel=()=>el.classList.remove("flipping");
-    if(resized){ const kids=[...el.children]; kids.forEach(k=>k.animate([{opacity:0},{opacity:0,offset:.35},{opacity:1}],{duration:480,easing:"ease-out"})); }
   });
 }
 function keepVisible(el){
@@ -454,20 +468,20 @@ function keepVisible(el){
 }
 function openItem(id){
   const top=topOf(id); if(!top) return;
-  const before=snapshotRects();
+  const before=snapshotRects(top.id);
   state.open=top.id; state.flash=(id!==top.id)?id:null;
   if(!matches(top)){ state.q=""; document.getElementById("q").value=""; state.cat=""; state.kind="all"; state.core=false; syncKind(); }
   render();
   const el=document.getElementById("open");
-  if(el){ keepVisible(el); flipFrom(before,top.id); el.querySelector(".o-close").focus({preventScroll:true}); }
+  if(el){ keepVisible(el); flipFrom(before); el.querySelector(".o-close").focus({preventScroll:true}); }
   if(state.flash){ const f=document.getElementById("k-"+state.flash); if(f) setTimeout(()=>f.scrollIntoView({block:"center",behavior:"smooth"}),500); }
   try{ history.replaceState(null,"","#"+top.id); }catch(e){}
 }
 function closeItem(){
-  const id=state.open; const before=snapshotRects(); state.open=null; state.flash=null; render();
+  const id=state.open; const before=snapshotRects(id); state.open=null; state.flash=null; render();
   try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
   const t=document.querySelector(`.tile[data-id="${CSS.escape(id||"")}"]`);
-  if(t){ keepVisible(t); flipFrom(before,id); t.focus({preventScroll:true}); }
+  if(t){ keepVisible(t); flipFrom(before); t.focus({preventScroll:true}); }
 }
 document.addEventListener("toggle",e=>{ if(e.target.classList&&e.target.classList.contains("gdef")) state.defOpen[e.target.dataset.def]=e.target.open; },true);
 function syncKind(){ document.querySelectorAll(".pill[data-kind]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.kind===state.kind)); }

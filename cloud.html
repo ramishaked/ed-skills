@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>התמונה העירונית: מה רואה הזר בשער</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;500;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Projection page. One 1920x1080 stage, scaled to fit any screen like a 16:9 slide. */
+:root{
+  --ground:#070b19; --tile:#10172e; --tile2:#161f3c; --ink:#f2f4fb; --muted:#9aa5c9; --line:#273055;
+  --accent:#5b76ff; --accent-deep:#2443e0; --glow:rgba(91,118,255,.55);
+  --amber:#f5b041; --amber-deep:#c7801a; --amber-glow:rgba(245,176,65,.45);
+  --f-display:"Secular One","Heebo",sans-serif;
+  --f-body:"Heebo","Segoe UI","Arial Hebrew",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.frame{position:fixed;inset:0;display:grid;place-items:center}
+.stage{position:relative;width:1920px;height:1080px;transform-origin:center;flex:none;
+  background:
+    radial-gradient(900px 600px at 78% 40%, rgba(36,67,224,.22), transparent 65%),
+    radial-gradient(700px 500px at 15% 85%, rgba(245,176,65,.10), transparent 60%),
+    var(--ground);
+  display:grid;grid-template-rows:96px 1fr 86px;grid-template-columns:1fr;overflow:hidden}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:120px 120px;mask-image:radial-gradient(60% 60% at 50% 45%,#000 20%,transparent 100%)}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;padding:0 56px;position:relative;z-index:2}
+.brand{display:flex;align-items:center;gap:16px}
+.mark{width:46px;height:46px;border-radius:14px;background:var(--accent);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:10px}
+.mark span{border-radius:3px;background:#fff}
+.mark span:nth-child(2),.mark span:nth-child(3){opacity:.55}
+.brand b{font-family:var(--f-display);font-weight:400;font-size:1.5rem;line-height:1}
+.brand small{display:block;color:var(--muted);font-size:.95rem;margin-top:4px}
+.ctl{display:flex;align-items:center;gap:10px}
+.seg{display:inline-flex;background:var(--tile);border:1px solid var(--line);border-radius:30px;padding:5px}
+.seg button{height:44px;padding:0 20px;border:0;border-radius:22px;background:transparent;font-weight:700;font-size:1.05rem;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.chips{display:inline-flex;gap:6px;background:var(--tile);border:1px solid var(--line);border-radius:30px;padding:5px}
+.chips button{height:44px;padding:0 16px;border:0;border-radius:22px;background:transparent;font-weight:700;color:var(--muted)}
+.chips button[aria-pressed="true"]{background:var(--accent-deep);color:#fff}
+.ibtn{width:54px;height:54px;border-radius:27px;border:1px solid var(--line);background:var(--tile);display:grid;place-items:center}
+.ibtn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* body */
+.body{display:grid;grid-template-columns:470px 1fr;gap:0;position:relative;z-index:1;min-height:0}
+.side{padding:18px 56px 10px 24px;display:flex;flex-direction:column;gap:18px;min-height:0}
+.q{background:var(--tile);border:1px solid var(--line);border-radius:26px;padding:26px 28px;position:relative;overflow:hidden}
+.q::after{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:6px;background:linear-gradient(var(--accent),var(--amber))}
+.q .lbl{font-size:.85rem;font-weight:800;letter-spacing:.04em;color:var(--accent);text-transform:uppercase}
+.q p{margin:8px 0 0;font-size:1.12rem;line-height:1.55;color:var(--ink)}
+.q p strong{display:block;margin-top:10px;font-family:var(--f-display);font-weight:400;font-size:1.45rem;line-height:1.25}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kpi{background:var(--tile);border:1px solid var(--line);border-radius:22px;padding:18px 20px}
+.kpi b{display:block;font-family:var(--f-display);font-weight:400;font-size:3rem;line-height:1;color:var(--ink)}
+.kpi b.am{color:var(--amber)}
+.kpi span{display:block;color:var(--muted);margin-top:6px;font-size:.95rem}
+.legend{display:flex;flex-direction:column;gap:8px;font-size:1rem;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-inline-end:10px;vertical-align:-1px}
+.legend .b i{background:var(--accent);box-shadow:0 0 12px var(--glow)}
+.legend .a i{background:var(--amber);box-shadow:0 0 12px var(--amber-glow)}
+.hint{margin-top:auto;color:var(--muted);font-size:.95rem}
+.hint kbd{font-family:var(--f-mono);background:var(--tile);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:.85rem}
+
+.main{position:relative;min-height:0;padding:10px 24px 10px 56px}
+.view{position:absolute;inset:10px 24px 10px 56px;opacity:0;visibility:hidden;transition:opacity .35s}
+.view.on{opacity:1;visibility:visible}
+
+/* cloud */
+#cloud{position:relative;width:100%;height:100%}
+.w{position:absolute;font-family:var(--f-display);font-weight:400;line-height:1;white-space:nowrap;padding:4px 12px;border-radius:14px;
+  color:var(--ink);cursor:pointer;transform:translate(-50%,-50%) scale(.6);opacity:0;transition:transform .55s cubic-bezier(.2,.9,.3,1.2),opacity .5s,filter .25s;border:0;background:transparent}
+.w.in{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.w.bank{color:#dfe5ff;text-shadow:0 0 22px var(--glow),0 0 2px rgba(255,255,255,.4)}
+.w.bank.top{color:#fff;text-shadow:0 0 34px var(--accent),0 0 6px rgba(255,255,255,.6)}
+.w.other{color:var(--amber);text-shadow:0 0 22px var(--amber-glow)}
+.w:hover,.w.sel{filter:brightness(1.25);background:rgba(255,255,255,.06)}
+.w .n{position:absolute;top:-6px;inset-inline-end:-4px;font-family:var(--f-mono);font-size:14px;background:var(--tile2);border:1px solid var(--line);border-radius:12px;padding:1px 8px;color:var(--muted);opacity:0;transition:opacity .2s}
+.w:hover .n,.w.sel .n{opacity:1}
+
+/* bars */
+.bars{display:flex;flex-direction:column;gap:10px;height:100%;justify-content:center;padding:0 10px}
+.bar{display:grid;grid-template-columns:290px 1fr 110px;align-items:center;gap:18px;font-size:1.3rem}
+.bar .lab{font-weight:800;text-align:start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .lab.other{color:var(--amber)}
+.bar .tr{height:34px;background:var(--tile);border:1px solid var(--line);border-radius:17px;overflow:hidden}
+.bar .fl{height:100%;width:0;border-radius:17px;background:linear-gradient(90deg,var(--accent-deep),var(--accent));box-shadow:0 0 18px var(--glow);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.bar .fl.other{background:linear-gradient(90deg,var(--amber-deep),var(--amber));box-shadow:0 0 18px var(--amber-glow)}
+.bar .num{font-family:var(--f-mono);color:var(--muted);display:flex;gap:10px;align-items:baseline}
+.bar .num b{color:var(--ink);font-size:1.5rem}
+
+/* quotes drawer */
+.drawer{position:absolute;inset-inline-start:0;top:0;bottom:0;width:560px;background:var(--tile);border-inline-end:1px solid var(--line);
+  padding:34px 36px;transform:translateX(100%);transition:transform .4s cubic-bezier(.2,.8,.2,1);z-index:5;display:flex;flex-direction:column;gap:18px;box-shadow:30px 0 60px rgba(0,0,0,.45)}
+.drawer.open{transform:none}
+.drawer h2{font-family:var(--f-display);font-weight:400;font-size:2.6rem;margin:0;line-height:1.05}
+.drawer h2.other{color:var(--amber)}
+.drawer .sub{color:var(--muted);font-size:1.05rem}
+.drawer .x{position:absolute;top:22px;inset-inline-end:22px}
+.qs{overflow:auto;display:flex;flex-direction:column;gap:12px;padding-inline-end:6px}
+.qs blockquote{margin:0;background:var(--ground);border:1px solid var(--line);border-radius:18px;padding:16px 18px;font-size:1.12rem;line-height:1.55}
+.qs blockquote small{display:block;margin-top:8px;color:var(--muted);font-size:.9rem;font-family:var(--f-mono)}
+
+/* bottom: provenance */
+.foot{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:0 56px;border-top:1px solid var(--line);position:relative;z-index:2;font-size:.98rem;color:var(--muted)}
+.src{display:flex;align-items:center;gap:14px;min-width:0}
+.src .dot{width:10px;height:10px;border-radius:50%;background:#2ee6a6;box-shadow:0 0 12px #2ee6a6;flex:none}
+.src b{color:var(--ink)}
+.demo{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:15px;background:rgba(245,176,65,.14);color:var(--amber);border:1px solid rgba(245,176,65,.45);font-weight:800;flex:none}
+.foot .ts{font-family:var(--f-mono);flex:none}
+</style>
+</head>
+<body>
+<div class="frame">
+<div class="stage" id="stage">
+
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div><b>התמונה העירונית: מה רואה הזר בשער</b><small>מפגש מנהלים 1 · 20.10.2026 · מינהל חינוך חולון</small></div>
+    </div>
+    <div class="ctl">
+      <div class="chips" id="stages" role="group" aria-label="סינון לפי שלב חינוך">
+        <button aria-pressed="true" data-stage="">כל העיר</button>
+        <button aria-pressed="false" data-stage="גן">גנים</button>
+        <button aria-pressed="false" data-stage="יסודי">יסודי</button>
+        <button aria-pressed="false" data-stage="על-יסודי">על-יסודי</button>
+        <button aria-pressed="false" data-stage="חינוך מיוחד">חינוך מיוחד</button>
+      </div>
+      <div class="seg" role="group" aria-label="תצוגה">
+        <button id="v-cloud" aria-pressed="true">ענן</button>
+        <button id="v-bars" aria-pressed="false">דירוג</button>
+      </div>
+      <button class="ibtn" id="fs" title="מסך מלא (F)" aria-label="מסך מלא"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    </div>
+  </header>
+
+  <div class="body">
+    <aside class="side">
+      <div class="q">
+        <div class="lbl">השאלה המקדימה</div>
+        <p>אדם זר חוצה את שער בית הספר. לא קורא את מצעד הערכים, לא מדבר עם הצוות. יום שלם הוא רק מתבונן בתלמידים ורושם.<strong>איזו מיומנות הוא יזהה מיד?</strong></p>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b id="k-n">0</b><span>מנהלים ענו</span></div>
+        <div class="kpi"><b id="k-k">0</b><span>מיומנויות שונות זוהו</span></div>
+        <div class="kpi"><b id="k-top" style="font-size:1.6rem;margin-top:8px">–</b><span>המיומנות הבולטת בעיר</span></div>
+        <div class="kpi"><b class="am" id="k-o">0</b><span>תשובות מחוץ לבנק</span></div>
+      </div>
+      <div class="legend">
+        <div class="b"><i></i>מיומנות מבנק המיומנויות של חולון</div>
+        <div class="a"><i></i>תואר במילים של המנהל, אין לו פריט בבנק</div>
+      </div>
+      <p class="hint">לחיצה על מילה פותחת את התיאורים שמאחוריה. <kbd>1</kbd> ענן <kbd>2</kbd> דירוג <kbd>F</kbd> מסך מלא</p>
+    </aside>
+
+    <main class="main">
+      <div class="view on" id="view-cloud"><div id="cloud" aria-live="polite"></div></div>
+      <div class="view" id="view-bars"><div class="bars" id="bars"></div></div>
+    </main>
+
+    <div class="drawer" id="drawer" aria-hidden="true">
+      <button class="ibtn x" id="dx" aria-label="סגירה"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <h2 id="d-title"></h2>
+      <div class="sub" id="d-sub"></div>
+      <div class="qs" id="d-qs"></div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="src">
+      <span class="dot" aria-hidden="true"></span>
+      <span><b>המקור:</b> תשובות המנהלים לשאלה המקדימה, שנאספו בטופס לפני המפגש. כל תשובה שויכה למיומנות אחת מבנק המיומנויות של חולון (דמות הבוגר ומסגרות משלימות). תשובה שאין לה פריט בבנק תויגה בצמד מילים במקום להיבלע. אנונימי, בלי שמות בתי ספר.</span>
+    </div>
+    <span class="demo">נתוני דוגמה עד קבלת התשובות</span>
+    <span class="ts">עודכן 14.10.2026</span>
+  </footer>
+
+</div>
+</div>
+
+<script>
+/* Each record: one principal's answer. skill = the canonical label after matching to the bank; bank = found in the bank; stage = education stage; text = a short excerpt from the answer. Example data. */
+const DATA = [
+ {s:"התנהלות חברתית",b:1,st:"יסודי",t:"הוא יראה ילדים שמחליטים יחד איך לחלק עבודה בקבוצה, בלי שמורה צריכה להתערב."},
+ {s:"התנהלות חברתית",b:1,st:"יסודי",t:"בהפסקה שני כיתות ד' פותרות ריב על המגרש לבד. זה מה שהיה תופס לו את העין."},
+ {s:"התנהלות חברתית",b:1,st:"על-יסודי",t:"בכל שיעור כמעט יש עבודה בצוותים, והתלמידים כבר יודעים לחלק תפקידים ולתת משוב אחד לשני."},
+ {s:"התנהלות חברתית",b:1,st:"יסודי",t:"שיתוף פעולה. פשוט כך. ילדים עוזרים זה לזה בלי שמבקשים מהם."},
+ {s:"התנהלות חברתית",b:1,st:"גן",t:"הילדים מנהלים משא ומתן על הצעצועים ומגיעים להסכמות. זה נראה לעין כל הזמן."},
+ {s:"התנהלות חברתית",b:1,st:"חינוך מיוחד",t:"תלמידים שיודעים לבקש עזרה ולהציע עזרה. אצלנו זה הישג עצום והוא גלוי."},
+ {s:"התנהלות חברתית",b:1,st:"על-יסודי",t:"הזר יראה שיח מכבד גם במחלוקת. אנחנו עובדים על זה שנים."},
+ {s:"התנהלות חברתית",b:1,st:"יסודי",t:"עבודת צוות, אחריות על החבר, חניכה של גדולים את הקטנים."},
+ {s:"התנהלות חברתית",b:1,st:"יסודי",t:"למידה בחברותות. הוא יראה זוגות של ילדים לומדים יחד בכל מקום בבניין."},
+ {s:"חשיבה ביקורתית",b:1,st:"על-יסודי",t:"תלמידים ששואלים 'מאיפה זה?' על כל מקור. הם כבר לא מקבלים מידע כמו שהוא."},
+ {s:"חשיבה ביקורתית",b:1,st:"על-יסודי",t:"דיונים בכיתה שבהם תלמיד חולק על המורה ומנמק. זה המקום שלנו."},
+ {s:"חשיבה ביקורתית",b:1,st:"יסודי",t:"ילדים מבקשים הוכחה. 'למה אתה חושב ככה?' נשמע מהמסדרון."},
+ {s:"חשיבה ביקורתית",b:1,st:"על-יסודי",t:"ויכוח מנומק, הצגת טיעון ונגד, בדיקת מקורות. זה שגרה."},
+ {s:"חשיבה ביקורתית",b:1,st:"על-יסודי",t:"הזר ישמע הרבה 'מה הראיות?' לפני שמישהו מסכים."},
+ {s:"חשיבה ביקורתית",b:1,st:"יסודי",t:"אנחנו מלמדים להטיל ספק, גם במה שכתוב בספר."},
+ {s:"חשיבה ביקורתית",b:1,st:"על-יסודי",t:"קבלת החלטות מבוססת נתונים, גם בפרויקטים של התלמידים."},
+ {s:"הכוונה עצמית",b:1,st:"יסודי",t:"ילדים עם רשימת משימות אישית שבוחרים בעצמם במה להתחיל. אף אחד לא מכוון אותם."},
+ {s:"הכוונה עצמית",b:1,st:"על-יסודי",t:"למידה עצמאית. תלמידים במרחב הפתוח, כל אחד עם הקצב והמטרה שלו."},
+ {s:"הכוונה עצמית",b:1,st:"חינוך מיוחד",t:"ויסות עצמי. תלמיד שמזהה שהוא מתפוצץ והולך לפינת הרגעה בעצמו."},
+ {s:"הכוונה עצמית",b:1,st:"יסודי",t:"הוא יראה ילדים מתכננים את השבוע שלהם בלוח אישי."},
+ {s:"הכוונה עצמית",b:1,st:"על-יסודי",t:"התמדה. פרויקטים ארוכים שהתלמידים מסיימים גם כשקשה."},
+ {s:"הכוונה עצמית",b:1,st:"גן",t:"ילד שבוחר מרכז, נשאר בו, מסיים ומסדר. הבחירה והאחריות שלו."},
+ {s:"חשיבה יצירתית",b:1,st:"יסודי",t:"בכל כיתה יש פינת יצירה והילדים ממציאים פתרונות לבעיות אמיתיות של בית הספר."},
+ {s:"חשיבה יצירתית",b:1,st:"על-יסודי",t:"הזר יראה אב-טיפוס מקרטון במסדרון. אצלנו בונים לפני שמדברים."},
+ {s:"חשיבה יצירתית",b:1,st:"גן",t:"משחק סוציו-דרמטי שהילדים ממציאים מאפס, עם חוקים משלהם."},
+ {s:"חשיבה יצירתית",b:1,st:"יסודי",t:"סקרנות ומקוריות. שאלות שלא ציפינו להן, בכל שיעור."},
+ {s:"חשיבה יצירתית",b:1,st:"על-יסודי",t:"יזמות: תלמידים מפתחים מיזמים קטנים ומציגים אותם לקהילה."},
+ {s:"מודעות עצמית",b:1,st:"יסודי",t:"ילדים שיודעים להגיד 'אני עצבני עכשיו' במילים. זה נשמע בכל פינה."},
+ {s:"מודעות עצמית",b:1,st:"חינוך מיוחד",t:"זיהוי רגשות ושיום שלהם. זה הלב של העבודה אצלנו והוא נראה."},
+ {s:"מודעות עצמית",b:1,st:"גן",t:"מפגש בוקר שבו כל ילד אומר איך הוא מרגיש היום ולמה."},
+ {s:"מודעות עצמית",b:1,st:"על-יסודי",t:"רפלקציה אחרי כל משימה. התלמידים יודעים להגיד מה היה קשה להם ולמה."},
+ {s:"אוריינות דיגיטלית",b:1,st:"על-יסודי",t:"הוא יראה תלמידים יוצרים תוכן, לא רק צורכים. סרטונים, פודקאסטים, אתרים."},
+ {s:"אוריינות דיגיטלית",b:1,st:"יסודי",t:"עבודה עם כלי AI בצורה ביקורתית כבר בכיתה ה'."},
+ {s:"אוריינות דיגיטלית",b:1,st:"על-יסודי",t:"אתיקה דיגיטלית. דיון על פרטיות ועל מה מעלים לרשת בכל שכבה."},
+ {s:"אוריינות לשונית",b:1,st:"יסודי",t:"ילדים קוראים בכל מקום. ספרייה פתוחה, שעת קריאה, והם באמת קוראים."},
+ {s:"אוריינות לשונית",b:1,st:"יסודי",t:"הבעה בעל פה. ילדים מציגים מול קהל מכיתה א' ומדברים בביטחון."},
+ {s:"אוריינות לשונית",b:1,st:"גן",t:"שיח עשיר, אוצר מילים, ילדים שמספרים סיפור שלם עם התחלה אמצע וסוף."},
+ {s:"פתרון בעיות",b:1,st:"על-יסודי",t:"חדרי בריחה, אתגרי הנדסה, בעיות פתוחות. הזר יראה תלמידים תקועים ולא מוותרים."},
+ {s:"פתרון בעיות",b:1,st:"יסודי",t:"כל בעיה בבית הספר הופכת למשימה לתלמידים: מהחצר ועד לוח הצלצולים."},
+ {s:"מנהיגות",b:1,st:"על-יסודי",t:"מועצת תלמידים שמנהלת באמת, עם תקציב והחלטות. הזר יראה תלמידים מובילים."},
+ {s:"מנהיגות",b:1,st:"יסודי",t:"תלמידים מדריכים תלמידים. הוא יראה ילדים בכיתה ו' מעבירים פעילות לכיתה ב'."},
+ {s:"אוריינות גלובלית",b:1,st:"על-יסודי",t:"פרויקטים עם בתי ספר בחו\"ל, שיח על אקלים ועל העולם. האופק רחב."},
+ {s:"אוריינות מדעית",b:1,st:"יסודי",t:"חקר. ילדים עם שאלה, השערה וניסוי בגינה של בית הספר."},
+ {s:"שייכות",b:0,st:"יסודי",t:"הוא יראה ילדים שמרגישים בבית. זה לא בדיוק מיומנות, אבל זה מה שרואים קודם."},
+ {s:"שייכות",b:0,st:"על-יסודי",t:"תחושת קהילה. תלמידים שנשארים אחרי הצלצול כי טוב להם פה."},
+ {s:"שייכות",b:0,st:"גן",t:"ילדים שרצים לגן בבוקר. הקשר למקום ולצוות הוא הדבר הראשון שנראה."},
+ {s:"עצמאות",b:0,st:"גן",t:"ילדים שמתלבשים, אוכלים ומסדרים לבד. עצמאות יומיומית."},
+ {s:"עצמאות",b:0,st:"חינוך מיוחד",t:"תפקוד עצמאי בשגרה: להגיע לכיתה, להתארגן, לבקש. הזר יראה את זה."},
+ {s:"כבוד",b:0,st:"על-יסודי",t:"דרך ארץ. תלמידים שמברכים לשלום, מחזיקים דלת, מדברים יפה. זה הדבר הראשון."},
+];
+
+const STAGE_ORDER=["גן","יסודי","על-יסודי","חינוך מיוחד"];
+let stage="", view="cloud", selected=null;
+
+function agg(){
+  const rows=DATA.filter(r=>!stage||r.st===stage);
+  const m=new Map();
+  rows.forEach(r=>{ if(!m.has(r.s)) m.set(r.s,{s:r.s,b:r.b,n:0,q:[]}); const e=m.get(r.s); e.n++; e.q.push(r); });
+  return {rows, items:[...m.values()].sort((a,b)=>b.n-a.n)};
+}
+
+function kpis(a){
+  document.getElementById('k-n').textContent=a.rows.length;
+  document.getElementById('k-k').textContent=a.items.length;
+  document.getElementById('k-top').textContent=a.items[0]?a.items[0].s:"–";
+  document.getElementById('k-o').textContent=a.rows.filter(r=>!r.b).length;
+}
+
+/* Word cloud: largest first in the centre, the rest spiral outwards until free of overlaps. Layout runs in stage coordinates, so it is independent of the screen scale. */
+function cloud(a){
+  const box=document.getElementById('cloud');
+  const W=box.offsetWidth, H=box.offsetHeight, cx=W/2, cy=H/2;
+  const max=a.items[0]?a.items[0].n:1, min=a.items[a.items.length-1]?a.items[a.items.length-1].n:1;
+  /* try at full size; if a word finds no free spot, shrink everything a little and lay out again */
+  for(let scale=1; scale>0.4; scale-=0.07){
+    box.innerHTML=''; const placed=[]; let fail=false;
+    a.items.forEach((it,i)=>{
+      if(fail) return;
+      const t=max===min?1:(Math.sqrt(it.n)-Math.sqrt(min))/(Math.sqrt(max)-Math.sqrt(min));
+      const fs=Math.round((34+t*126)*scale);
+      const el=document.createElement('button');
+      el.className='w '+(it.b?'bank':'other')+(i===0?' top':'');
+      el.style.fontSize=fs+'px';
+      el.innerHTML=`<span>${it.s}</span><span class="n">${it.n}</span>`;
+      el.setAttribute('aria-label',`${it.s}, ${it.n} תשובות`);
+      el.onclick=()=>openDrawer(it,el);
+      box.appendChild(el);
+      const w=el.offsetWidth+10, h=el.offsetHeight+2;
+      let x=cx,y=cy,ang=i*0.9,rad=0,ok=false;
+      for(let k=0;k<6000;k++){
+        x=cx+rad*Math.cos(ang)*1.4; y=cy+rad*Math.sin(ang);
+        const r={l:x-w/2,t:y-h/2,r:x+w/2,b:y+h/2};
+        if(r.l>0&&r.t>0&&r.r<W&&r.b<H&&!placed.some(p=>!(r.r<p.l||r.l>p.r||r.b<p.t||r.t>p.b))){ok=true;break;}
+        ang+=0.3; rad+=0.6;
+      }
+      if(!ok){fail=true;return;}
+      placed.push({l:x-w/2,t:y-h/2,r:x+w/2,b:y+h/2});
+      el.style.left=x+'px'; el.style.top=y+'px';
+      setTimeout(()=>el.classList.add('in'),60+i*70);
+    });
+    if(!fail) return;
+  }
+}
+
+function bars(a){
+  const box=document.getElementById('bars'); box.innerHTML='';
+  const total=a.rows.length, max=a.items[0]?a.items[0].n:1;
+  a.items.slice(0,12).forEach((it,i)=>{
+    const row=document.createElement('div'); row.className='bar';
+    row.innerHTML=`<div class="lab ${it.b?'':'other'}">${it.s}</div><div class="tr"><div class="fl ${it.b?'':'other'}"></div></div><div class="num"><b>${it.n}</b><span>${Math.round(it.n/total*100)}%</span></div>`;
+    row.querySelector('.lab').onclick=()=>openDrawer(it,row);
+    box.appendChild(row);
+    setTimeout(()=>row.querySelector('.fl').style.width=(it.n/max*100)+'%',80+i*60);
+  });
+}
+
+function openDrawer(it,el){
+  document.querySelectorAll('.w.sel').forEach(e=>e.classList.remove('sel'));
+  if(el&&el.classList.contains('w')) el.classList.add('sel');
+  const d=document.getElementById('drawer');
+  const h=document.getElementById('d-title'); h.textContent=it.s; h.className=it.b?'':'other';
+  const by={}; it.q.forEach(r=>by[r.st]=(by[r.st]||0)+1);
+  document.getElementById('d-sub').textContent=`${it.n} מנהלים · `+STAGE_ORDER.filter(s=>by[s]).map(s=>`${s} ${by[s]}`).join(' · ')+(it.b?'':' · מחוץ לבנק המיומנויות');
+  document.getElementById('d-qs').innerHTML=it.q.map(r=>`<blockquote>${r.t}<small>${r.st}</small></blockquote>`).join('');
+  d.classList.add('open'); d.setAttribute('aria-hidden','false');
+}
+function closeDrawer(){ document.getElementById('drawer').classList.remove('open'); document.getElementById('drawer').setAttribute('aria-hidden','true'); document.querySelectorAll('.w.sel').forEach(e=>e.classList.remove('sel')); }
+
+function render(){
+  closeDrawer();
+  const a=agg(); kpis(a);
+  if(view==='cloud') cloud(a); else bars(a);
+  document.getElementById('view-cloud').classList.toggle('on',view==='cloud');
+  document.getElementById('view-bars').classList.toggle('on',view==='bars');
+  document.getElementById('v-cloud').setAttribute('aria-pressed',view==='cloud');
+  document.getElementById('v-bars').setAttribute('aria-pressed',view==='bars');
+}
+
+/* fit the 16:9 stage to the window */
+function fit(){
+  const s=Math.min(innerWidth/1920, innerHeight/1080);
+  document.getElementById('stage').style.transform=`scale(${s})`;
+}
+addEventListener('resize',fit); fit();
+
+document.getElementById('stages').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  stage=b.dataset.stage;
+  document.querySelectorAll('#stages button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  render();
+});
+document.getElementById('v-cloud').onclick=()=>{view='cloud';render();};
+document.getElementById('v-bars').onclick=()=>{view='bars';render();};
+document.getElementById('dx').onclick=closeDrawer;
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+addEventListener('keydown',e=>{
+  if(e.key==='1'){view='cloud';render();}
+  if(e.key==='2'){view='bars';render();}
+  if(e.key==='f'||e.key==='F'||e.key==='כ'){document.getElementById('fs').click();}
+  if(e.key==='Escape') closeDrawer();
+});
+Promise.all([document.fonts.load('100px "Secular One"'),document.fonts.load('700 20px "Heebo"'),document.fonts.load('500 14px "IBM Plex Mono"')]).then(render,render);
+</script>
+</body>
+</html>

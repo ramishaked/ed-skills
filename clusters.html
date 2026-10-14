@@ -134,7 +134,7 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .stem{opacity:0;transition:opacity .4s .9s;margin:0 auto 8px}
 .card.open .stem{opacity:1}
 .card.open .clu-h{animation:up .5s var(--ease) backwards .15s}
-.card.open .clu .row:nth-of-type(1){animation-delay:.3s}.card.open .clu .row:nth-of-type(2){animation-delay:.5s}
+.card.open .clu .row:nth-of-type(1){animation-delay:.3s}.card.open .clu .row:nth-of-type(2){animation-delay:.5s}.card.open .clu .row:nth-of-type(3){animation-delay:.7s}
 .card.open .chip:nth-child(1){animation-delay:.7s}.card.open .chip:nth-child(2){animation-delay:.85s}.card.open .chip:nth-child(3){animation-delay:1s}
 .card.open .d:nth-child(1){transition-delay:1.5s}.card.open .d:nth-child(2){transition-delay:1.9s}.card.open .d:nth-child(3){transition-delay:2.3s}
 
@@ -142,7 +142,16 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .band{padding:0 90px;display:flex;flex-direction:column;justify-content:center;gap:12px}
 .band-h{display:flex;justify-content:space-between;align-items:baseline;font-size:1.35rem;color:var(--muted)}
 .band-h b{color:var(--ink);font-size:1.45rem}
-.names{display:flex;flex-wrap:wrap;gap:10px 12px}
+.nm-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:14px;border-radius:30px}
+.nm-btn:focus-visible{outline:3px solid var(--accent);outline-offset:6px}
+.nm-btn .plus{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;transition:transform .4s var(--ease)}
+.nm-btn[aria-expanded=true] .plus{transform:rotate(45deg)}
+.nm-note{opacity:0;transition:opacity .6s .3s}
+.band.open .nm-note{opacity:1}
+.names{display:flex;flex-wrap:wrap;gap:10px 12px;clip-path:inset(0 0 0 100%);transition:clip-path 1s var(--ease)}
+.band.open .names{clip-path:inset(0 0 0 0)}
+.names span{opacity:0;transform:translateX(30px);transition:opacity .5s,transform .6s var(--ease);transition-delay:calc(var(--i)*.07s)}
+.band.open .names span{opacity:1;transform:none}
 .names span{font-size:1.45rem;font-weight:700;padding:8px 20px;border-radius:30px;background:var(--tile);border:1.5px solid var(--line);color:var(--accent-deep)}
 .names span.cur{background:var(--accent-soft);border-color:var(--accent)}
 
@@ -169,7 +178,7 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
         <p class="lead in" style="--d:.25s">מסגרת רעיונית שמארגנת את הלמידה סביב מטרה חינוכית אחת, ומחברת ידע, מיומנויות, גישות וערכים הרלוונטיים ללומד במציאות משתנה.</p>
         <div class="pts">
           <div class="pt in" style="--d:.6s">לכל אשכול <b>מטרה מוגדרת</b>, <b>סל מצומצם של מיומנויות וערכים במיקוד</b>, זיקה לתחומי דעת ומגוון דרכי מימוש בפדגוגיה מתקדמת.</div>
-          <div class="pt in" style="--d:.85s"><b class="pu">אשכול אינו מקום פיזי ואינו מקצוע</b>: שיעור מתמטיקה, טיול או הפסקה פעילה יכולים להשתייך לאשכול, ופעילות אחת יכולה לשרת עד שלושה אשכולות.</div>
+          <div class="pt in" style="--d:.85s"><b class="pu">אשכול אינו מקום פיזי ואינו מקצוע</b>: שיעור מתמטיקה, טיול או הפסקה פעילה יכולים להשתייך לאשכול, יכולים להשתייך לאשכול אחד או יותר.</div>
           <div class="pt in" style="--d:1.1s">בית הספר אמור לתת ביטוי <b class="pu">לכל האשכולות</b> תוך בחירה באילו להעמיק. איך? ומה?<br>השאיפה: כל תלמיד עובר בכמה שיותר אשכולות במהלך השנה.</div>
         </div>
       </div>
@@ -189,6 +198,7 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
             <div class="clu">
               <div class="clu-h"><span class="tag">אשכול</span><b>אדם, טבע וסביבה</b></div>
               <div class="row"><small>מטרה</small><span class="t">חיזוק יחסי הגומלין בין התלמיד, הטבע והסביבה</span></div>
+              <div class="row"><small>זיקה לתחומי דעת</small><span class="t">מדעים, גאוגרפיה, אמנות</span></div>
               <div class="row"><small>מיומנויות וערכים במיקוד</small>
                 <div class="chips">
                   <span class="chip k1" data-k="1">שיתוף פעולה</span>
@@ -213,7 +223,7 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
     </main>
 
     <div class="band">
-      <div class="band-h"><b>שמות להשראה ממודלים קודמים</b><span>עד שישה אשכולות בעיר. את השמות נגבש יחד איתכם</span></div>
+      <div class="band-h"><button class="nm-btn" id="nmBtn" type="button" aria-expanded="false" aria-controls="names"><b>שמות להשראה ממודלים קודמים</b><span class="plus" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><span class="nm-note">עד שישה אשכולות בעיר. את השמות נגבש יחד איתכם</span></div>
       <div class="names" id="names"></div>
     </div>
   </div>
@@ -222,7 +232,11 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 const NAMES=["שלומות גוף ונפש","עתיד דיגיטלי","מנהיגות ואזרחות","האשכול הערכי","חברתי-רגשי (SEL)","אדם, טבע וסביבה","האשכול המדעי-טכנולוגי","ספורט, גוף ונפש","האשכול האומנותי","אדם וחברה"];
 const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]fx=1/.test(location.search);
 document.getElementById('names').innerHTML=NAMES.map((n,i)=>
-  `<span class="${n==='אדם, טבע וסביבה'?'cur ':''}pop" style="--d:${(2.2+i*.08).toFixed(2)}s">${n}</span>`).join('');
+  `<span style="--i:${i}">${n}</span>`).join('');
+document.getElementById('nmBtn').addEventListener('click',()=>{
+  const b=document.getElementById('nmBtn'), band=b.closest('.band'), o=band.classList.toggle('open');
+  b.setAttribute('aria-expanded',o);
+});
 if(REDUCE) document.documentElement.classList.add('still');
 
 /* fit the 16:9 slide to the window */
@@ -236,7 +250,7 @@ addEventListener('resize',fit); fit();
 const SK=[["שיתוף פעולה",1],["תכנון",2],["אחריות",3],["יצירתיות",4],["חשיבה ביקורתית",1],["סקרנות",2],
           ["תקשורת",3],["חוסן",4],["מנהיגות",1],["למידה עצמאית",2],["אמפתיה",3],["אוריינות דיגיטלית",4]];
 const GA=[0,1,2,0,1,2,0,1,2,0,1,2];                 /* cluster of each card */
-const GHOSTS=[[0,2],[4,1],[7,0]];                    /* [card, extra cluster]: one skill serving more than one cluster */
+const GHOSTS=[];                    /* [card, extra cluster]: one skill serving more than one cluster */
 const ill=document.getElementById('ill'), cap=document.getElementById('illCap');
 const ZW=270, ZG=30, X0=(870-(3*ZW+2*ZG))/2;
 const zx=i=>X0+i*(ZW+ZG);

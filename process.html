@@ -222,6 +222,10 @@ h3{font-size:1.15rem;font-weight:800;margin:0}
 .g-flag{position:absolute;top:47px;font-size:.7rem;font-weight:800;color:var(--accent);transform:translateX(50%);white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:0;line-height:1;z-index:2}
 .g-flag i{position:absolute;top:-33px;width:12px;height:12px;background:var(--tile);border:2.5px solid var(--accent);transform:rotate(45deg)}
 .lg-d{width:14px!important;height:14px!important;border-radius:50%!important;background:var(--accent)}
+.blk-t{font-family:var(--f-display);font-weight:400;font-size:1.3rem;margin:28px 0 12px}
+.blk-t.first{margin-top:4px}.blk-t.first+.ms-list{margin-top:0}
+.g-soon{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;border:1.5px dashed var(--line);border-radius:var(--r);padding:34px 22px;color:var(--muted)}
+.g-soon b{color:var(--ink);font-size:1.05rem}
 .ms-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:16px}
 .ms{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--tile);border-radius:18px;padding:14px 16px;box-shadow:0 1px 0 var(--line);text-decoration:none;color:var(--ink)}
 .ms:hover{box-shadow:var(--shadow)}
@@ -371,8 +375,21 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
 
   <section class="sec" aria-labelledby="h-all">
     <details class="meet learn-box">
-    <summary><span class="m-title" id="h-all">התהליך כולו<small>ארבעת שלבי התהליך בגאנט, ולוח מפגשי המנהלים</small></span><span class="tag">תשפ"ז</span><span class="chev" aria-hidden="true"></span></summary>
+    <summary><span class="m-title" id="h-all">התהליך כולו<small>מפגשי המנהלים, הקניית המיומנויות בתשפ"ז ומסלול מואץ</small></span><span class="tag">תשפ"ז</span><span class="chev" aria-hidden="true"></span></summary>
     <div class="meet-body">
+    <h3 class="blk-t first">מפגשי המנהלים</h3>
+    <div class="ms-list">
+      <a class="ms" href="#m1"><span class="ms-n">1</span><span class="ms-d">20.10.2026<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 1</b>רענון, הגדרה, מיקוד ותובנות עד כה ויציאה לדרך</span></a>
+      <a class="ms" href="#m2"><span class="ms-n">2</span><span class="ms-d">22.12.2026<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 2</b>הפשטה ופירוק לצעדים</span></a>
+      <a class="ms" href="#m3"><span class="ms-n">3</span><span class="ms-d">23.02.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 3</b>מדידה והערכה מעצבת</span></a>
+      <a class="ms" href="#m4"><span class="ms-n">4</span><span class="ms-d">06.04.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 4</b>חשיפת המערכת העירונית לכלל בתי הספר, עם שיפורים מהשטח</span></a>
+      <a class="ms" href="#m5"><span class="ms-n">ס</span><span class="ms-d">08.06.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש סיכום שנה</b>הצגת סיפורי הצלחה ולקחים מבתי הספר, והערכות להטמעה עירונית בתשפ"ח</span></a>
+    </div>
+    <h3 class="blk-t">הקניית מיומנויות: מימוש בתשפ"ז</h3>
+    <div class="g-soon"><b>הגאנט בבנייה</b><span>נבנה אותו יחד בהמשך.</span><span class="tag muted">יושלם בהמשך</span></div>
+    <details class="sub fast">
+      <summary><h3 class="sub-t">מסלול מואץ</h3><span class="s-note">הגאנט הנוכחי של התהליך כולו</span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sub-body">
     <div class="gantt-wrap"><div class="gantt" role="img" aria-label="לוח זמנים של התהליך, אוקטובר 2026 עד אוגוסט 2027">
       <div class="g-row g-head"><div class="g-lbl"></div><div class="g-months"><span>אוקטובר</span><span>נובמבר</span><span>דצמבר</span><span>ינואר</span><span>פברואר</span><span>מרץ</span><span>אפריל</span><span>מאי</span><span>יוני</span><span>יולי</span><span>אוגוסט</span></div></div>
       <div class="g-row"><div class="g-lbl"><span class="g-n">1</span><div><b>סדרת מפגשי מנהלים</b><small>4 מפגשים ומפגש סיכום</small></div></div><div class="g-track"><span class="g-line" style="inset-inline-start:5.67%"></span><span class="g-line" style="inset-inline-start:24.48%"></span><span class="g-line" style="inset-inline-start:43.28%"></span><span class="g-line" style="inset-inline-start:55.82%"></span><span class="g-line" style="inset-inline-start:74.63%"></span><span class="g-bar s1" style="inset-inline-start:5.67%;width:68.96%"></span><a class="g-dot" href="#m1" style="inset-inline-start:5.67%" title="20.10.2026 מפגש מנהלים 1: רענון, הגדרה, מיקוד ותובנות עד כה ויציאה לדרך"><b>1</b></a><a class="g-dot" href="#m2" style="inset-inline-start:24.48%" title="22.12.2026 מפגש מנהלים 2: הפשטה ופירוק לצעדים"><b>2</b></a><a class="g-dot" href="#m3" style="inset-inline-start:43.28%" title="23.02.2027 מפגש מנהלים 3: מדידה והערכה מעצבת"><b>3</b></a><a class="g-dot" href="#m4" style="inset-inline-start:55.82%" title="06.04.2027 מפגש מנהלים 4: חשיפת המערכת העירונית לכלל בתי הספר, עם שיפורים מהשטח"><b>4</b></a><a class="g-dot" href="#m5" style="inset-inline-start:74.63%" title="08.06.2027 מפגש סיכום שנה: הצגת סיפורי הצלחה ולקחים מבתי הספר, והערכות להטמעה עירונית בתשפ"ח"><b>ס</b></a></div></div>
@@ -382,13 +399,8 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     </div></div>
     <p class="g-hint">גללו את הגאנט לצדדים כדי לראות את כל השנה.</p>
     <ul class="g-legend"><li><i class="lg-s"></i>מתוכנן</li><li><i class="lg-e"></i>טווח משוער, ייקבע בהמשך</li><li><i class="lg-d"></i>מפגש מנהלים</li><li><i class="lg-f"></i>אבן דרך של המערכת העירונית</li></ul>
-    <div class="ms-list">
-      <a class="ms" href="#m1"><span class="ms-n">1</span><span class="ms-d">20.10.2026<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 1</b>רענון, הגדרה, מיקוד ותובנות עד כה ויציאה לדרך</span></a>
-      <a class="ms" href="#m2"><span class="ms-n">2</span><span class="ms-d">22.12.2026<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 2</b>הפשטה ופירוק לצעדים</span></a>
-      <a class="ms" href="#m3"><span class="ms-n">3</span><span class="ms-d">23.02.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 3</b>מדידה והערכה מעצבת</span></a>
-      <a class="ms" href="#m4"><span class="ms-n">4</span><span class="ms-d">06.04.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש מנהלים 4</b>חשיפת המערכת העירונית לכלל בתי הספר, עם שיפורים מהשטח</span></a>
-      <a class="ms" href="#m5"><span class="ms-n">ס</span><span class="ms-d">08.06.2027<small>יום ג'</small></span><span class="ms-t"><b>מפגש סיכום שנה</b>הצגת סיפורי הצלחה ולקחים מבתי הספר, והערכות להטמעה עירונית בתשפ"ח</span></a>
-    </div>
+      </div>
+    </details>
     </div>
     </details>
   </section>

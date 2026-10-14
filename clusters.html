@@ -48,12 +48,12 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .dia.a-open .fold.ill{grid-template-rows:0fr;opacity:0}
 
 /* illustration of skill cards that move into clusters */
-.ill-box{cursor:pointer;position:relative;width:870px;height:340px;direction:ltr;margin-top:0}
-.zone{position:absolute;top:0;width:262px;height:340px;border:3px dashed var(--accent);border-radius:30px;background:rgba(36,67,224,.05);opacity:0;transform:scale(.92);transition:opacity .7s var(--ease),transform .7s var(--ease);direction:rtl}
-.zone small{position:absolute;top:8px;inset-inline:0;text-align:center;font-weight:800;font-size:1.15rem;color:var(--accent-deep);opacity:.75}
+.ill-box{cursor:pointer;position:relative;width:870px;height:600px;direction:ltr;margin-top:0}
+.zone{position:absolute;top:0;width:270px;height:600px;border:3px dashed var(--accent);border-radius:30px;background:rgba(36,67,224,.05);opacity:0;transform:scale(.92);transition:opacity .7s var(--ease),transform .7s var(--ease);direction:rtl}
+.zone small{position:absolute;top:14px;inset-inline:0;text-align:center;font-weight:800;font-size:1.3rem;color:var(--accent-deep);opacity:.75}
 .ill-box.g .zone{opacity:1;transform:none}
-.sk{position:absolute;width:220px;height:44px;transition:left 1.3s var(--ease),top 1.3s var(--ease),opacity .6s;direction:rtl}
-.sk i{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:var(--tile);border-radius:24px;border:2px solid var(--line);border-inline-start:8px solid var(--k);font-style:normal;font-weight:700;font-size:1.3rem;box-shadow:0 6px 16px rgba(17,24,56,.09);transform:rotate(var(--r,0deg));transition:transform 1.3s var(--ease)}
+.sk{position:absolute;width:236px;height:64px;transition:left 1.3s var(--ease),top 1.3s var(--ease),opacity .6s;direction:rtl}
+.sk i{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:var(--tile);border-radius:24px;border:2px solid var(--line);border-inline-start:8px solid var(--k);font-style:normal;font-weight:700;font-size:1.55rem;box-shadow:0 6px 16px rgba(17,24,56,.09);transform:rotate(var(--r,0deg));transition:transform 1.3s var(--ease)}
 .ill-box.g .sk i{transform:none}
 .sk.ghost{opacity:0}
 .sk.ghost i{border-style:dashed}
@@ -65,6 +65,8 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 /* example 1: the cluster */
 .card{width:100%;background:var(--tile);border:2px solid var(--line);border-radius:32px;box-shadow:0 10px 30px rgba(17,24,56,.07);overflow:hidden;transition:border-color .3s,background .4s}
 .card.open{border-color:var(--accent)}
+#cA{opacity:0;transform:translateY(24px);pointer-events:none;transition:opacity .7s var(--ease),transform .7s var(--ease),border-color .3s,background .4s}
+#cA.ready{opacity:1;transform:none;pointer-events:auto}
 .card#cA.open{background:rgba(255,255,255,.55);border-width:4px}
 .ex-btn{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:18px;padding:20px 32px;cursor:pointer}
 .ex-btn:focus-visible{outline:3px solid var(--accent);outline-offset:-3px;border-radius:30px}
@@ -166,7 +168,7 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
           <div class="ill-cap" id="illCap">לחצו כדי לארגן את המיומנויות באשכולות</div>
         </div></div>
 
-        <div class="card in" id="cA" style="--d:.9s">
+        <div class="card" id="cA">
           <button class="ex-btn" type="button" aria-expanded="false" aria-controls="bodyA">
             <h3>דוגמה למימוש אשכול</h3>
             <span class="plus" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
@@ -224,14 +226,14 @@ const SK=[["שיתוף פעולה",1],["תכנון",2],["אחריות",3],["יצ
 const GA=[0,1,2,0,1,2,0,1,2,0,1,2];                 /* cluster of each card */
 const GHOSTS=[[0,2],[4,1],[7,0]];                    /* [card, extra cluster]: one skill serving more than one cluster */
 const ill=document.getElementById('ill'), cap=document.getElementById('illCap');
-const ZW=262, ZG=42, X0=(870-(3*ZW+2*ZG))/2;
+const ZW=270, ZG=30, X0=(870-(3*ZW+2*ZG))/2;
 const zx=i=>X0+i*(ZW+ZG);
 const TILT=[-3,2,-2,3,-1,2,-3,1,3,-2,2,-1];
 ill.innerHTML=[0,1,2].map(i=>`<div class="zone" style="left:${zx(i)}px"><small>אשכול</small></div>`).join('')+
   SK.map((s,i)=>`<div class="sk" style="--k:var(--c${s[1]});--r:${TILT[i]}deg"><i>${s[0]}</i></div>`).join('')+
   GHOSTS.map((g,j)=>`<div class="sk ghost" style="--k:var(--c${SK[g[0]][1]});--r:0deg"><i>${SK[g[0]][0]}</i></div>`).join('');
 const cards=[...ill.querySelectorAll('.sk:not(.ghost)')], ghosts=[...ill.querySelectorAll('.sk.ghost')];
-const SCAT=[[20,10],[290,34],[560,6],[110,92],[400,100],[620,84],[10,176],[250,198],[500,190],[640,170],[130,268],[400,284]];
+const SCAT=[[14,18],[330,0],[620,30],[0,190],[300,170],[630,200],[20,350],[320,340],[610,370],[10,510],[300,520],[620,500]];
 const place=(el,x,y)=>{ el.style.left=x+'px'; el.style.top=y+'px'; };
 cards.forEach((c,i)=>place(c,SCAT[i][0],SCAT[i][1]));
 ghosts.forEach((g,j)=>{ const s=SCAT[GHOSTS[j][0]]; place(g,s[0],s[1]); });
@@ -240,10 +242,11 @@ cap.classList.add('hint');
 function organize(){
   if(organized) return; organized=true;
   const cnt=[0,0,0];
-  cards.forEach((c,i)=>{ const z=GA[i]; place(c,zx(z)+21,40+cnt[z]*54); cnt[z]++; });
-  ghosts.forEach((g,j)=>{ const z=GHOSTS[j][1]; place(g,zx(z)+21,40+cnt[z]*54); cnt[z]++; g.classList.add('on'); });
+  cards.forEach((c,i)=>{ const z=GA[i]; place(c,zx(z)+17,64+cnt[z]*104); cnt[z]++; });
+  ghosts.forEach((g,j)=>{ const z=GHOSTS[j][1]; place(g,zx(z)+17,64+cnt[z]*104); cnt[z]++; g.classList.add('on'); });
   ill.classList.add('g');
   cap.classList.remove('hint');
+  setTimeout(()=>document.getElementById('cA').classList.add('ready'),REDUCE?0:1700);
   cap.style.opacity=0; setTimeout(()=>{cap.textContent='מיומנויות מתארגנות סביב מטרות, ומיומנות אחת יכולה לשרת כמה אשכולות';cap.style.opacity=1;},350);
 }
 ill.addEventListener('click',organize);

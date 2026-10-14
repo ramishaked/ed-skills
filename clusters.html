@@ -249,13 +249,13 @@ addEventListener('resize',fit); fit();
 /* ---- illustration: generic skill cards; one click moves them into unnamed clusters, once ---- */
 const SK=[["שיתוף פעולה",1],["תכנון",2],["אחריות",3],["יצירתיות",4],["חשיבה ביקורתית",1],["סקרנות",2],
           ["תקשורת",3],["חוסן",4],["מנהיגות",1],["למידה עצמאית",2],["אמפתיה",3],["אוריינות דיגיטלית",4]];
-const GA=[0,1,2,0,1,2,0,1,2,0,1,2];                 /* cluster of each card */
+const GA=[2,2,2,1,1,2,0,0,0,1,0,1];                 /* cluster of each card */
 const GHOSTS=[];                    /* [card, extra cluster]: one skill serving more than one cluster */
 const ill=document.getElementById('ill'), cap=document.getElementById('illCap');
 const ZW=270, ZG=30, X0=(870-(3*ZW+2*ZG))/2;
 const zx=i=>X0+i*(ZW+ZG);
 const TILT=[-11,7,-5,12,-8,4,10,-13,6,-4,9,-9];
-ill.innerHTML=[0,1,2].map(i=>`<div class="zone" style="left:${zx(i)}px"><small>אשכול</small></div>`).join('')+
+ill.innerHTML=[0,1,2].map(i=>`<div class="zone" style="left:${zx(i)}px"><small>אשכול ${["ג'","ב'","א'"][i]}</small></div>`).join('')+
   SK.map((s,i)=>`<div class="sk" style="--k:var(--c${s[1]});--r:${TILT[i]}deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${s[0]}</i></div>`).join('')+
   GHOSTS.map((g,j)=>`<div class="sk ghost" style="--k:var(--c${SK[g[0]][1]});--r:0deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${SK[g[0]][0]}</i></div>`).join('');
 const cards=[...ill.querySelectorAll('.sk:not(.ghost)')], ghosts=[...ill.querySelectorAll('.sk.ghost')];

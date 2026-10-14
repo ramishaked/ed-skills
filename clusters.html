@@ -52,11 +52,12 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .zone{position:absolute;top:0;width:270px;height:600px;border:3px dashed var(--accent);border-radius:30px;background:rgba(36,67,224,.05);opacity:0;transform:scale(.92);transition:opacity .7s var(--ease),transform .7s var(--ease);direction:rtl}
 .zone small{position:absolute;top:14px;inset-inline:0;text-align:center;font-weight:800;font-size:1.3rem;color:var(--accent-deep);opacity:.75}
 .ill-box.g .zone{opacity:1;transform:none}
-.sk{position:absolute;width:236px;height:64px;transition:left 1.3s var(--ease),top 1.3s var(--ease),opacity .6s;direction:rtl}
-.sk i{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:var(--tile);border-radius:24px;border:2px solid var(--line);border-inline-start:8px solid var(--k);font-style:normal;font-weight:700;font-size:1.55rem;box-shadow:0 6px 16px rgba(17,24,56,.09);transform:rotate(var(--r,0deg));transition:transform 1.3s var(--ease)}
+.sk{position:absolute;width:240px;height:76px;transition:left 1.3s var(--ease),top 1.3s var(--ease),opacity .6s;direction:rtl}
+.sk i{position:relative;display:flex;align-items:center;width:100%;height:100%;background:var(--tile);border-radius:22px;border:2px solid color-mix(in srgb,var(--accent) 70%,transparent);padding:8px 16px;padding-inline-end:44px;font-style:normal;font-family:var(--f-display);font-weight:400;font-size:1.55rem;line-height:1.1;text-wrap:balance;text-align:start;box-shadow:0 1px 0 var(--line),0 8px 18px rgba(17,24,56,.08);transform:rotate(var(--r,0deg));transition:transform 1.3s var(--ease)}
+.sk .moe-ico{position:absolute;top:10px;inset-inline-end:10px;background:#fff;border-radius:50%;box-shadow:0 0 0 1px rgba(17,24,56,.14)}
 .ill-box.g .sk i{transform:none}
 .sk.ghost{opacity:0}
-.sk.ghost i{border-style:dashed}
+.sk.ghost i{border-style:dashed;background:rgba(255,255,255,.85)}
 .sk.ghost.on{opacity:1}
 .ill-cap.hint{animation:hint 1.8s ease-in-out infinite}
 @keyframes hint{0%,100%{opacity:1}50%{opacity:.45}}
@@ -230,8 +231,8 @@ const ZW=270, ZG=30, X0=(870-(3*ZW+2*ZG))/2;
 const zx=i=>X0+i*(ZW+ZG);
 const TILT=[-3,2,-2,3,-1,2,-3,1,3,-2,2,-1];
 ill.innerHTML=[0,1,2].map(i=>`<div class="zone" style="left:${zx(i)}px"><small>אשכול</small></div>`).join('')+
-  SK.map((s,i)=>`<div class="sk" style="--k:var(--c${s[1]});--r:${TILT[i]}deg"><i>${s[0]}</i></div>`).join('')+
-  GHOSTS.map((g,j)=>`<div class="sk ghost" style="--k:var(--c${SK[g[0]][1]});--r:0deg"><i>${SK[g[0]][0]}</i></div>`).join('');
+  SK.map((s,i)=>`<div class="sk" style="--k:var(--c${s[1]});--r:${TILT[i]}deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${s[0]}</i></div>`).join('')+
+  GHOSTS.map((g,j)=>`<div class="sk ghost" style="--k:var(--c${SK[g[0]][1]});--r:0deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${SK[g[0]][0]}</i></div>`).join('');
 const cards=[...ill.querySelectorAll('.sk:not(.ghost)')], ghosts=[...ill.querySelectorAll('.sk.ghost')];
 const SCAT=[[14,18],[330,0],[620,30],[0,190],[300,170],[630,200],[20,350],[320,340],[610,370],[10,510],[300,520],[620,500]];
 const place=(el,x,y)=>{ el.style.left=x+'px'; el.style.top=y+'px'; };
@@ -242,8 +243,8 @@ cap.classList.add('hint');
 function organize(){
   if(organized) return; organized=true;
   const cnt=[0,0,0];
-  cards.forEach((c,i)=>{ const z=GA[i]; place(c,zx(z)+17,64+cnt[z]*104); cnt[z]++; });
-  ghosts.forEach((g,j)=>{ const z=GHOSTS[j][1]; place(g,zx(z)+17,64+cnt[z]*104); cnt[z]++; g.classList.add('on'); });
+  cards.forEach((c,i)=>{ const z=GA[i]; place(c,zx(z)+15,64+cnt[z]*104); cnt[z]++; });
+  ghosts.forEach((g,j)=>{ const z=GHOSTS[j][1]; place(g,zx(z)+15,64+cnt[z]*104); cnt[z]++; g.classList.add('on'); });
   ill.classList.add('g');
   cap.classList.remove('hint');
   setTimeout(()=>document.getElementById('cA').classList.add('ready'),REDUCE?0:1700);

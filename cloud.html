@@ -281,12 +281,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       <div class="kpis">
         <div class="kpi"><b id="k-n">0</b><span>מנהלים ענו</span></div>
         <div class="kpi"><b id="k-k">0</b><span>מיומנויות שונות זוהו</span></div>
-        <div class="kpi"><b id="k-top" style="font-size:1.6rem;margin-top:8px">–</b><span>המיומנות הבולטת בעיר</span></div>
-        <div class="kpi"><b class="am" id="k-o">0</b><span>מנהלים עם תיוג מחוץ לבנק</span></div>
-      </div>
-      <div class="legend">
-        <div class="b"><i></i>מיומנות מבנק המיומנויות של חולון</div>
-        <div class="a"><i></i>תואר במילים של המנהל, אין לו פריט בבנק</div>
+        <div class="kpi" style="grid-column:1/-1"><b id="k-top" style="font-size:1.6rem;margin-top:8px">–</b><span>המיומנות הבולטת בעיר</span></div>
       </div>
       <p class="hint">לחיצה על מילה פותחת את התיאורים שמאחוריה. <kbd>1</kbd> ענן <kbd>2</kbd> דירוג <kbd>3</kbd> לפי שלב <kbd>R</kbd> הפעלה מחדש <kbd>F</kbd> מסך מלא</p>
     </aside>
@@ -308,7 +303,7 @@ button{font:inherit;color:inherit;cursor:pointer}
   <footer class="foot">
     <div class="src">
       <span class="dot" aria-hidden="true"></span>
-      <span><b>המקור:</b> תשובות המנהלים לשאלה המקדימה, שנאספו בטופס לפני המפגש. כל מנהל כתב פסקה חופשית, ומתוכה זוהו עד שלוש מיומנויות מבנק המיומנויות של חולון (דמות הבוגר ומסגרות משלימות). מנהל נספר פעם אחת בכל מיומנות. דבר שאין לו פריט בבנק תויג בצמד מילים במקום להיבלע. שמות המנהלים ובתי הספר נשמרים אצל המארגנים בלבד ולא מוצגים.</span>
+      <span><b>המקור:</b> תשובות המנהלים לשאלה המקדימה, שנאספו בטופס לפני המפגש. כל מנהל כתב פסקה חופשית, ומתוכה זוהו עד שלוש מיומנויות. מנהל נספר פעם אחת בכל מיומנות. שמות המנהלים ובתי הספר נשמרים אצל המארגנים בלבד ולא מוצגים.</span>
     </div>
     <span class="demo">נתוני דוגמה עד קבלת התשובות</span>
     <span class="ts">עודכן 14.10.2026</span>
@@ -370,6 +365,8 @@ const DATA = [
  {m:25,s:"עצמאות",b:0,st:"חינוך מיוחד",t:"תפקוד עצמאי בשגרה: להגיע לכיתה, להתארגן, לבקש. הזר יראה את זה."},
  {m:18,s:"כבוד",b:0,st:"על-יסודי",t:"דרך ארץ. תלמידים שמברכים לשלום, מחזיקים דלת, מדברים יפה. זה הדבר הראשון."},
 ];
+/* no bank / non-bank distinction in the display: every skill renders the same */
+DATA.forEach(r=>{r.b=1;});
 
 const STAGE_ORDER=["גן","יסודי","על-יסודי","חינוך מיוחד"];
 let stage="", view="cloud", selected=null;
@@ -430,7 +427,6 @@ function countTo(el,to,dur){
 function kpis(a,dur,topDelay){
   countTo(document.getElementById('k-n'),a.mg,dur);
   countTo(document.getElementById('k-k'),a.items.length,dur);
-  countTo(document.getElementById('k-o'),mcount(a.rows.filter(r=>!r.b)),dur);
   const t=document.getElementById('k-top'), txt=a.items[0]?a.items[0].s:'–';
   setTimeout(()=>{ if(t.textContent===txt) return; t.textContent=txt; t.classList.remove('flip'); void t.offsetWidth; t.classList.add('flip'); },REDUCE?0:topDelay);
 }
@@ -536,7 +532,7 @@ function openDrawer(it,el){
   const d=document.getElementById('drawer');
   const h=document.getElementById('d-title'); h.textContent=it.s; h.className=it.b?'':'other';
   const by={}; it.q.forEach(r=>by[r.st]=(by[r.st]||0)+1);
-  document.getElementById('d-sub').textContent=`${it.n} מנהלים · `+STAGE_ORDER.filter(s=>by[s]).map(s=>`${s} ${by[s]}`).join(' · ')+(it.b?'':' · מחוץ לבנק המיומנויות');
+  document.getElementById('d-sub').textContent=`${it.n} מנהלים · `+STAGE_ORDER.filter(s=>by[s]).map(s=>`${s} ${by[s]}`).join(' · ');
   document.getElementById('d-qs').innerHTML=it.q.map((r,i)=>`<blockquote style="animation-delay:${(.28+Math.min(i,10)*.07).toFixed(2)}s">${r.t}<small>${r.st}</small></blockquote>`).join('');
   d.classList.add('open'); d.setAttribute('aria-hidden','false');
 }

@@ -49,8 +49,8 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .dia.a-open .fold.ill{grid-template-rows:0fr;opacity:0}
 
 /* illustration of skill cards that move into clusters */
-.ill-box{cursor:pointer;position:relative;width:870px;height:600px;direction:ltr;margin-top:0}
-.zone{position:absolute;top:0;width:270px;height:600px;border:3px dashed var(--accent);border-radius:30px;background:rgba(36,67,224,.05);opacity:0;transform:scale(.92);transition:opacity .7s var(--ease),transform .7s var(--ease);direction:rtl}
+.ill-box{cursor:pointer;position:relative;width:870px;height:570px;direction:ltr;margin-top:0}
+.zone{position:absolute;top:0;width:270px;height:570px;border:3px dashed var(--accent);border-radius:30px;background:rgba(36,67,224,.05);opacity:0;transform:scale(.92);transition:opacity .7s var(--ease),transform .7s var(--ease);direction:rtl}
 .zone small{position:absolute;top:14px;inset-inline:0;text-align:center;font-weight:800;font-size:1.3rem;color:var(--accent-deep);opacity:.75}
 .ill-box.g .zone{opacity:1;transform:none}
 .sk{position:absolute;width:240px;height:76px;transition:left 1.3s var(--ease),top 1.3s var(--ease),opacity .6s;direction:rtl}
@@ -62,7 +62,7 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .sk.ghost.on{opacity:1}
 .ill-cap.hint{animation:hint 1.8s ease-in-out infinite}
 @keyframes hint{0%,100%{opacity:1}50%{opacity:.45}}
-.ill-cap{height:44px;display:flex;align-items:center;font-size:1.55rem;font-weight:700;color:var(--accent-deep);margin-top:10px;transition:opacity .35s}
+.ill-cap{height:80px;line-height:1.35;display:flex;align-items:center;font-size:1.55rem;font-weight:700;color:var(--accent-deep);margin-top:10px;transition:opacity .35s}
 
 /* example 1: the cluster */
 .card{width:100%;background:var(--tile);border:2px solid var(--line);border-radius:32px;box-shadow:0 10px 30px rgba(17,24,56,.07);overflow:hidden;transition:border-color .3s,background .4s}
@@ -235,7 +235,7 @@ ill.innerHTML=[0,1,2].map(i=>`<div class="zone" style="left:${zx(i)}px"><small>�
   SK.map((s,i)=>`<div class="sk" style="--k:var(--c${s[1]});--r:${TILT[i]}deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${s[0]}</i></div>`).join('')+
   GHOSTS.map((g,j)=>`<div class="sk ghost" style="--k:var(--c${SK[g[0]][1]});--r:0deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${SK[g[0]][0]}</i></div>`).join('');
 const cards=[...ill.querySelectorAll('.sk:not(.ghost)')], ghosts=[...ill.querySelectorAll('.sk.ghost')];
-const SCAT=[[14,18],[330,0],[620,30],[0,190],[300,170],[630,200],[20,350],[320,340],[610,370],[10,510],[300,520],[620,500]];
+const SCAT=[[14,10],[330,0],[620,20],[0,150],[300,140],[630,160],[20,290],[320,280],[610,300],[10,440],[300,450],[620,430]];
 const place=(el,x,y)=>{ el.style.left=x+'px'; el.style.top=y+'px'; };
 cards.forEach((c,i)=>place(c,SCAT[i][0],SCAT[i][1]));
 ghosts.forEach((g,j)=>{ const s=SCAT[GHOSTS[j][0]]; place(g,s[0],s[1]); });
@@ -249,7 +249,7 @@ function organize(){
   ill.classList.add('g');
   cap.classList.remove('hint');
   setTimeout(()=>document.getElementById('cA').classList.add('ready'),REDUCE?0:1700);
-  cap.style.opacity=0; setTimeout(()=>{cap.textContent='מיומנויות מתארגנות סביב מטרות, ומיומנות אחת יכולה לשרת כמה אשכולות';cap.style.opacity=1;},350);
+  cap.style.opacity=0; setTimeout(()=>{cap.textContent='שפה אחידה, זה עושה לנו סדר פשוט יותר להנגיש, לתכנן, לתעדף ולעקוב';cap.style.opacity=1;},350);
 }
 ill.addEventListener('click',organize);
 cap.addEventListener('click',organize);

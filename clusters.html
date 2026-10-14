@@ -46,21 +46,20 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .fold{display:grid;grid-template-rows:1fr;transition:grid-template-rows .6s var(--ease),opacity .5s;opacity:1}
 .fold>div{overflow:hidden;min-height:0}
 .dia.a-open .fold.ill{grid-template-rows:0fr;opacity:0}
-.fold.second{grid-template-rows:0fr;opacity:0}
-.dia.a-open .fold.second{grid-template-rows:1fr;opacity:1}
 
 /* illustration of skill cards that move into clusters */
-.ill-box{position:relative;width:870px;height:340px;direction:ltr;margin-top:0}
+.ill-box{cursor:pointer;position:relative;width:870px;height:340px;direction:ltr;margin-top:0}
 .zone{position:absolute;top:0;width:262px;height:340px;border:3px dashed var(--accent);border-radius:30px;background:rgba(36,67,224,.05);opacity:0;transform:scale(.92);transition:opacity .7s var(--ease),transform .7s var(--ease);direction:rtl}
 .zone small{position:absolute;top:8px;inset-inline:0;text-align:center;font-weight:800;font-size:1.15rem;color:var(--accent-deep);opacity:.75}
 .ill-box.g .zone{opacity:1;transform:none}
 .sk{position:absolute;width:220px;height:44px;transition:left 1.3s var(--ease),top 1.3s var(--ease),opacity .6s;direction:rtl}
-.sk i{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:var(--tile);border-radius:24px;border:2px solid var(--line);border-inline-start:8px solid var(--k);font-style:normal;font-weight:700;font-size:1.3rem;box-shadow:0 6px 16px rgba(17,24,56,.09);animation:drift var(--t,4.4s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
-@keyframes drift{from{transform:translate(-5px,-6px) rotate(-1.5deg)}to{transform:translate(6px,6px) rotate(1.5deg)}}
-.ill-box.g .sk i{animation-duration:6s}
+.sk i{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:var(--tile);border-radius:24px;border:2px solid var(--line);border-inline-start:8px solid var(--k);font-style:normal;font-weight:700;font-size:1.3rem;box-shadow:0 6px 16px rgba(17,24,56,.09);transform:rotate(var(--r,0deg));transition:transform 1.3s var(--ease)}
+.ill-box.g .sk i{transform:none}
 .sk.ghost{opacity:0}
 .sk.ghost i{border-style:dashed}
 .sk.ghost.on{opacity:1}
+.ill-cap.hint{animation:hint 1.8s ease-in-out infinite}
+@keyframes hint{0%,100%{opacity:1}50%{opacity:.45}}
 .ill-cap{height:44px;display:flex;align-items:center;font-size:1.55rem;font-weight:700;color:var(--accent-deep);margin-top:10px;transition:opacity .35s}
 
 /* example 1: the cluster */
@@ -78,8 +77,8 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .ex-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
 .card.open>.ex-body{grid-template-rows:1fr}
 .ex-in{overflow:hidden;min-height:0}
-.ex-in>div{padding:0 32px 24px}
-.row{background:var(--tile);border-radius:22px;padding:14px 24px;margin-top:10px;border:1.5px solid var(--line)}
+.ex-in>div{padding:0 26px 22px}
+.row{background:var(--tile);border-radius:20px;padding:10px 22px;margin-top:10px;border:1.5px solid var(--line)}
 .row small{display:block;font-size:1.25rem;font-weight:800;color:var(--muted);margin-bottom:4px}
 .row .t{font-size:1.8rem;font-weight:600;line-height:1.35}
 .chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:2px}
@@ -105,6 +104,25 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .d b{white-space:nowrap}.d.k1 b{color:var(--c1)}.d.k2 b{color:var(--c2)}.d.k3 b{color:var(--c3)}
 .card.open .d{opacity:1;transform:none}
 .card.open .d:nth-child(1){transition-delay:.35s}.card.open .d:nth-child(2){transition-delay:.75s}.card.open .d:nth-child(3){transition-delay:1.15s}
+
+/* single example card: cluster, then its implementation */
+.ex-btn h3{font-size:2.6rem;color:var(--ink)}
+.clu{border:3px solid var(--accent);border-radius:26px;background:rgba(36,67,224,.06);padding:16px 20px 18px}
+.clu-h{display:flex;align-items:center;gap:16px}
+.clu-h .tag{background:var(--accent);color:#fff;font-weight:800;font-size:1.3rem;border-radius:22px;padding:4px 18px}
+.clu-h b{font-family:var(--f-display);font-weight:400;font-size:2.6rem;color:var(--accent-deep)}
+.impl{padding:2px 6px 0}
+.impl-h{display:flex;align-items:baseline;gap:16px;margin-bottom:6px}
+.impl-h .cap{font-size:1.3rem;font-weight:800;color:var(--muted)}
+.impl-h b{font-family:var(--f-display);font-weight:400;font-size:2.2rem}
+.impl p{margin:0 0 10px;font-size:1.45rem;line-height:1.45;color:var(--muted);opacity:0;transition:opacity .5s 1.1s}
+.card.open .impl p{opacity:1}
+.stem{opacity:0;transition:opacity .4s .9s;margin:0 auto 8px}
+.card.open .stem{opacity:1}
+.card.open .clu-h{animation:up .5s var(--ease) backwards .15s}
+.card.open .clu .row:nth-of-type(1){animation-delay:.3s}.card.open .clu .row:nth-of-type(2){animation-delay:.5s}
+.card.open .chip:nth-child(1){animation-delay:.7s}.card.open .chip:nth-child(2){animation-delay:.85s}.card.open .chip:nth-child(3){animation-delay:1s}
+.card.open .d:nth-child(1){transition-delay:1.5s}.card.open .d:nth-child(2){transition-delay:1.9s}.card.open .d:nth-child(3){transition-delay:2.3s}
 
 /* bottom band: names from earlier models */
 .band{padding:0 90px;display:flex;flex-direction:column;justify-content:center;gap:12px}
@@ -144,44 +162,39 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 
       <div class="dia" id="dia">
         <div class="fold ill"><div>
-          <div class="ill-box" id="ill" aria-hidden="true"></div>
-          <div class="ill-cap" id="illCap"></div>
+          <div class="ill-box" id="ill" role="button" tabindex="0" aria-label="ארגון המיומנויות באשכולות"></div>
+          <div class="ill-cap" id="illCap">לחצו כדי לארגן את המיומנויות באשכולות</div>
         </div></div>
 
-        <div class="card in" id="cA" style="--d:1.2s">
-          <button class="ex-btn" type="button" aria-expanded="false" aria-controls="bodyA" data-card="cA">
-            <span><span class="cap">דוגמה לאשכול, לחצו לפתיחה</span><h3>אדם, טבע וסביבה</h3></span>
+        <div class="card in" id="cA" style="--d:.9s">
+          <button class="ex-btn" type="button" aria-expanded="false" aria-controls="bodyA">
+            <h3>דוגמה למימוש אשכול</h3>
             <span class="plus" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
           </button>
           <div class="ex-body" id="bodyA"><div class="ex-in"><div>
-            <div class="row"><small>מטרה</small><span class="t">חיזוק יחסי הגומלין בין התלמיד, הטבע והסביבה</span></div>
-            <div class="row"><small>מיומנויות וערכים במיקוד</small>
-              <div class="chips">
-                <span class="chip k1" data-k="1">שיתוף פעולה</span>
-                <span class="chip k2" data-k="2">תכנון</span>
-                <span class="chip k3" data-k="3">אחריות</span>
+            <div class="clu">
+              <div class="clu-h"><span class="tag">אשכול</span><b>אדם, טבע וסביבה</b></div>
+              <div class="row"><small>מטרה</small><span class="t">חיזוק יחסי הגומלין בין התלמיד, הטבע והסביבה</span></div>
+              <div class="row"><small>מיומנויות וערכים במיקוד</small>
+                <div class="chips">
+                  <span class="chip k1" data-k="1">שיתוף פעולה</span>
+                  <span class="chip k2" data-k="2">תכנון</span>
+                  <span class="chip k3" data-k="3">אחריות</span>
+                </div>
               </div>
             </div>
-          </div></div></div>
-        </div>
-
-        <div class="fold second"><div>
-          <div class="stem" aria-hidden="true"></div>
-          <div class="card ex" id="cB">
-            <button class="ex-btn" type="button" aria-expanded="false" aria-controls="bodyB" data-card="cB">
-              <span><span class="cap">דוגמה למימוש, לחצו לפתיחה</span><h3>גינת בית הספר</h3></span>
-              <span class="plus" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-            </button>
-            <div class="ex-body" id="bodyB"><div class="ex-in"><div>
+            <div class="stem" aria-hidden="true"></div>
+            <div class="impl">
+              <div class="impl-h"><span class="cap">מימוש בבית הספר</span><b>גינת בית הספר</b></div>
               <p>כיתה ג' מטפחת את הגינה לאורך השנה ומזמינה את הגן הסמוך לקטיף.</p>
               <div class="der">
                 <div class="d k1"><b>שיתוף פעולה</b><span>מתחלקים בתורנויות ועובדים יחד</span></div>
                 <div class="d k2"><b>תכנון</b><span>מחליטים מה לשתול ומתי</span></div>
                 <div class="d k3"><b>אחריות (ערך)</b><span>דואגים לגינה לאורך כל השנה</span></div>
               </div>
-            </div></div></div>
-          </div>
-        </div></div>
+            </div>
+          </div></div></div>
+        </div>
       </div>
     </main>
 
@@ -205,75 +218,57 @@ function fit(){
 }
 addEventListener('resize',fit); fit();
 
-/* ---- illustration: generic skill cards drift, sort into unnamed clusters, regroup differently ---- */
+/* ---- illustration: generic skill cards; one click moves them into unnamed clusters, once ---- */
 const SK=[["שיתוף פעולה",1],["תכנון",2],["אחריות",3],["יצירתיות",4],["חשיבה ביקורתית",1],["סקרנות",2],
           ["תקשורת",3],["חוסן",4],["מנהיגות",1],["למידה עצמאית",2],["אמפתיה",3],["אוריינות דיגיטלית",4]];
-/* which cluster each card joins in the two arrangements (index = card) */
-const GA=[0,1,2,0,1,2,0,1,2,0,1,2];
-const GB=[1,0,2,2,0,1,1,2,0,2,0,1];
-const GHOSTS=[[0,2],[4,1],[7,0]]; /* [card, extra cluster] in arrangement B: a skill serving more than one cluster */
+const GA=[0,1,2,0,1,2,0,1,2,0,1,2];                 /* cluster of each card */
+const GHOSTS=[[0,2],[4,1],[7,0]];                    /* [card, extra cluster]: one skill serving more than one cluster */
 const ill=document.getElementById('ill'), cap=document.getElementById('illCap');
 const ZW=262, ZG=42, X0=(870-(3*ZW+2*ZG))/2;
 const zx=i=>X0+i*(ZW+ZG);
+const TILT=[-3,2,-2,3,-1,2,-3,1,3,-2,2,-1];
 ill.innerHTML=[0,1,2].map(i=>`<div class="zone" style="left:${zx(i)}px"><small>אשכול</small></div>`).join('')+
-  SK.map((s,i)=>`<div class="sk" data-i="${i}" style="--k:var(--c${s[1]});--t:${(3.8+(i%5)*.45).toFixed(2)}s;--dl:${-(i*.7).toFixed(1)}s"><i>${s[0]}</i></div>`).join('')+
-  GHOSTS.map((g,j)=>`<div class="sk ghost" data-g="${j}" style="--k:var(--c${SK[g[0]][1]});--t:5s;--dl:${-j}s"><i>${SK[g[0]][0]}</i></div>`).join('');
+  SK.map((s,i)=>`<div class="sk" style="--k:var(--c${s[1]});--r:${TILT[i]}deg"><i>${s[0]}</i></div>`).join('')+
+  GHOSTS.map((g,j)=>`<div class="sk ghost" style="--k:var(--c${SK[g[0]][1]});--r:0deg"><i>${SK[g[0]][0]}</i></div>`).join('');
 const cards=[...ill.querySelectorAll('.sk:not(.ghost)')], ghosts=[...ill.querySelectorAll('.sk.ghost')];
-function place(el,x,y){ el.style.left=x+'px'; el.style.top=y+'px'; }
 const SCAT=[[20,10],[290,34],[560,6],[110,92],[400,100],[620,84],[10,176],[250,198],[500,190],[640,170],[130,268],[400,284]];
-function scatter(){ cards.forEach((c,i)=>place(c,SCAT[i][0],SCAT[i][1])); ghosts.forEach(g=>place(g,SCAT[3][0]+60,SCAT[3][1]+40)); ghosts.forEach(g=>g.classList.remove('on')); ill.classList.remove('g'); }
-function group(G,withGhosts){
+const place=(el,x,y)=>{ el.style.left=x+'px'; el.style.top=y+'px'; };
+cards.forEach((c,i)=>place(c,SCAT[i][0],SCAT[i][1]));
+ghosts.forEach((g,j)=>{ const s=SCAT[GHOSTS[j][0]]; place(g,s[0],s[1]); });
+let organized=false;
+cap.classList.add('hint');
+function organize(){
+  if(organized) return; organized=true;
   const cnt=[0,0,0];
-  cards.forEach((c,i)=>{ const z=G[i]; place(c,zx(z)+21,40+cnt[z]*54); cnt[z]++; });
-  ghosts.forEach((g,j)=>{
-    if(!withGhosts){ g.classList.remove('on'); return; }
-    const z=GHOSTS[j][1]; place(g,zx(z)+21,40+cnt[z]*54); cnt[z]++; g.classList.add('on');
-  });
+  cards.forEach((c,i)=>{ const z=GA[i]; place(c,zx(z)+21,40+cnt[z]*54); cnt[z]++; });
+  ghosts.forEach((g,j)=>{ const z=GHOSTS[j][1]; place(g,zx(z)+21,40+cnt[z]*54); cnt[z]++; g.classList.add('on'); });
   ill.classList.add('g');
+  cap.classList.remove('hint');
+  cap.style.opacity=0; setTimeout(()=>{cap.textContent='מיומנויות מתארגנות סביב מטרות, ומיומנות אחת יכולה לשרת כמה אשכולות';cap.style.opacity=1;},350);
 }
-const PH=[
-  ()=>{scatter(); setCap('מיומנויות רבות');},
-  ()=>{group(GA,false); setCap('מתארגנות סביב מטרות חינוכיות');},
-  ()=>{scatter(); setCap('ומתארגנות מחדש');},
-  ()=>{group(GB,true); setCap('מיומנות אחת יכולה לשרת כמה אשכולות');}
-];
-const DUR=[2200,3800,1900,4600];
-function setCap(t){ cap.style.opacity=0; setTimeout(()=>{cap.textContent=t;cap.style.opacity=1;},300); }
-let ph=0, loop=null;
-function step(){ PH[ph](); const d=DUR[ph]; ph=(ph+1)%PH.length; loop=setTimeout(step,d); }
-function startIll(){ clearTimeout(loop); ph=0; if(REDUCE){ group(GA,false); cap.textContent='מיומנויות מתארגנות סביב מטרות חינוכיות'; } else { scatter(); setTimeout(step,900); } }
-startIll();
+ill.addEventListener('click',organize);
+cap.addEventListener('click',organize);
+ill.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); organize(); } });
 
-/* ---- click 1 opens the cluster example, click 2 opens the implementation example ---- */
-const dia=document.getElementById('dia');
+/* ---- the example opens on click and hides the illustration; its skills light up with the implementation lines ---- */
+const dia=document.getElementById('dia'), card=document.getElementById('cA'), btn=card.querySelector('.ex-btn');
 let timers=[];
 function lightSkills(on){
   timers.forEach(clearTimeout); timers=[];
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('hot'));
   if(!on) return;
   [1,2,3].forEach((k,i)=>{
-    const t=REDUCE?0:(350+i*400+150);
+    const t=REDUCE?0:(1500+i*400+150);
     const chip=document.querySelector('.chip[data-k="'+k+'"]');
     timers.push(setTimeout(()=>chip.classList.add('hot'),t));
     timers.push(setTimeout(()=>chip.classList.remove('hot'),t+900));
   });
 }
-function toggle(id){
-  const card=document.getElementById(id), on=!card.classList.contains('open');
-  card.classList.toggle('open',on);
-  const b=card.querySelector('.ex-btn'); b.setAttribute('aria-expanded',on);
-  const cp=b.querySelector('.cap');
-  if(id==='cA'){
-    dia.classList.toggle('a-open',on);
-    cp.textContent=on?'דוגמה לאשכול':'דוגמה לאשכול, לחצו לפתיחה';
-    if(on){ clearTimeout(loop); }
-    else { document.getElementById('cB').classList.remove('open'); lightSkills(false); startIll(); }
-  } else {
-    cp.textContent=on?'דוגמה למימוש':'דוגמה למימוש, לחצו לפתיחה';
-    lightSkills(on);
-  }
-}
-document.querySelectorAll('.ex-btn').forEach(b=>b.addEventListener('click',()=>toggle(b.dataset.card)));
+btn.addEventListener('click',()=>{
+  const on=!card.classList.contains('open');
+  card.classList.toggle('open',on); dia.classList.toggle('a-open',on);
+  btn.setAttribute('aria-expanded',on); lightSkills(on);
+});
 addEventListener('keydown',e=>{ if(e.key==='r'||e.key==='R'||e.key==='ר') location.reload(); });
 </script>
 </body>

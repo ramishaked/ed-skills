@@ -249,18 +249,18 @@ addEventListener('resize',fit); fit();
 /* ---- illustration: generic skill cards; one click moves them into unnamed clusters, once ---- */
 const SK=[["אוריינות מדעית",1],["התנהלות חברתית",2],["הכוונה עצמית",3],["אוריינות גופנית-בריאותית",4],
           ["חשיבה ביקורתית",1],["חשיבה יצירתית",2],["אוריינות דיגיטלית",3],["אוריינות מתמטית",4],
-          ["מודעות עצמית",1],["מודעות חברתית",2],["אוריינות גלובלית",3],["אוריינות לשונית",4]];
-const GA=[2,2,2,2,1,1,1,1,0,0,0,0];                 /* cluster of each card */
-const GHOSTS=[];                    /* [card, extra cluster]: one skill serving more than one cluster */
+          ["מודעות עצמית",1],["מודעות חברתית",2],["אוריינות גלובלית",3],["אוריינות לשונית",4],["אוריינות מידע",1]];
+const GA=[2,2,2,2,1,1,1,1,0,0,0,0,1];                 /* cluster of each card */
+const GHOSTS=[[12,2]];                    /* [card, extra cluster]: one skill serving more than one cluster */
 const ill=document.getElementById('ill'), cap=document.getElementById('illCap');
 const ZW=270, ZG=30, X0=(870-(3*ZW+2*ZG))/2;
 const zx=i=>X0+i*(ZW+ZG);
-const TILT=[-11,7,-5,12,-8,4,10,-13,6,-4,9,-9];
+const TILT=[-11,7,-5,12,-8,4,10,-13,6,-4,9,-9,-6];
 ill.innerHTML=[0,1,2].map(i=>`<div class="zone" style="left:${zx(i)}px"><small>אשכול ${["ג'","ב'","א'"][i]}</small></div>`).join('')+
   SK.map((s,i)=>`<div class="sk" style="--k:var(--c${s[1]});--r:${TILT[i]}deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${s[0]}</i></div>`).join('')+
   GHOSTS.map((g,j)=>`<div class="sk ghost" style="--k:var(--c${SK[g[0]][1]});--r:0deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${SK[g[0]][0]}</i></div>`).join('');
 const cards=[...ill.querySelectorAll('.sk:not(.ghost)')], ghosts=[...ill.querySelectorAll('.sk.ghost')];
-const SCAT=[[40,30],[250,90],[560,10],[430,170],[110,190],[600,250],[300,300],[10,350],[470,380],[190,440],[620,440],[380,20]];
+const SCAT=[[40,30],[250,90],[560,10],[430,170],[110,190],[600,250],[300,300],[10,350],[470,380],[190,440],[620,440],[380,20],[200,520]];
 const place=(el,x,y)=>{ el.style.left=x+'px'; el.style.top=y+'px'; };
 cards.forEach((c,i)=>place(c,SCAT[i][0],SCAT[i][1]));
 ghosts.forEach((g,j)=>{ const s=SCAT[GHOSTS[j][0]]; place(g,s[0],s[1]); });

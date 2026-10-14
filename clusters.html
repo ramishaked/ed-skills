@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>אשכול: שקופית הגדרה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;500;700;800&display=swap">
+<style>
+/* One 1920x1080 slide, scaled to fit any screen. */
+:root{
+  --ground:#f3f5fc; --tile:#ffffff; --ink:#111838; --muted:#5b6590; --line:#d3d9ee;
+  --accent:#2443e0; --accent-deep:#1b34b8; --accent-soft:#e6eafc;
+  --amber:#a35f10; --amber-soft:#fdf0d9;
+  --f-display:"Secular One","Heebo",sans-serif;
+  --f-body:"Heebo","Segoe UI","Arial Hebrew",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);overflow:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.frame{position:fixed;inset:0;overflow:hidden}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;
+  background:radial-gradient(900px 600px at 30% 60%,rgba(36,67,224,.10),transparent 65%),
+             radial-gradient(700px 500px at 85% 10%,rgba(245,176,65,.14),transparent 60%),var(--ground);
+  display:grid;grid-template-rows:110px 1fr 100px;overflow:hidden}
+
+.top{display:flex;align-items:center;justify-content:space-between;padding:0 90px}
+.brand{font-size:1.5rem;font-weight:700;color:var(--muted)}
+.back{font-size:1.25rem;color:var(--muted);text-decoration:none;border:1.5px solid var(--line);border-radius:30px;padding:8px 22px;background:var(--tile)}
+.back:hover{color:var(--ink);border-color:var(--ink)}
+
+main{padding:0 90px;display:flex;flex-direction:column;justify-content:center;gap:70px}
+.head h1{font-family:var(--f-display);font-weight:400;font-size:7.5rem;line-height:1;margin:0;color:var(--accent-deep)}
+.head p{margin:22px 0 0;font-size:2.9rem;line-height:1.35;max-width:1500px;font-weight:500;text-wrap:balance}
+
+/* schematic: activity -> cluster -> skills and values */
+.flow{display:grid;grid-template-columns:auto 1fr auto 1fr auto;align-items:center}
+.cap{font-size:1.45rem;font-weight:800;color:var(--muted);margin-bottom:14px;letter-spacing:.02em}
+.act{background:var(--tile);border:2px solid var(--line);border-radius:30px;padding:34px 38px;width:540px;box-shadow:0 10px 30px rgba(17,24,56,.06)}
+.act .ic{width:76px;height:76px;border-radius:22px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent);margin-bottom:18px}
+.act b{display:block;font-family:var(--f-display);font-weight:400;font-size:3rem;line-height:1.1}
+.act span{display:block;margin-top:12px;font-size:1.55rem;line-height:1.45;color:var(--muted)}
+
+.cn{position:relative;height:4px;background:var(--accent);border-radius:2px;margin:0 18px}
+.cn::after{content:"";position:absolute;left:-6px;top:50%;transform:translateY(-50%);border-right:22px solid var(--accent);border-top:13px solid transparent;border-bottom:13px solid transparent}
+
+.hub{display:flex;flex-direction:column;align-items:center;gap:22px;width:450px}
+.circle{width:400px;height:400px;border-radius:50%;background:var(--accent);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
+  box-shadow:0 0 0 16px rgba(36,67,224,.12),0 24px 50px rgba(36,67,224,.30)}
+.circle small{font-size:1.5rem;font-weight:700;opacity:.85;margin-bottom:8px}
+.circle b{font-family:var(--f-display);font-weight:400;font-size:3.4rem;line-height:1.15}
+.goal{font-size:1.5rem;line-height:1.4;color:var(--muted);text-align:center;max-width:430px}
+
+.out{display:flex;flex-direction:column;gap:18px;width:430px}
+.grp{display:flex;flex-direction:column;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:12px}
+.chip{font-size:2rem;font-weight:700;padding:14px 28px;border-radius:40px;background:var(--accent-soft);color:var(--accent-deep)}
+.chip.val{background:var(--amber-soft);color:var(--amber)}
+.also{margin-top:6px;font-size:1.5rem;line-height:1.4;color:var(--muted);border:2px dashed var(--line);border-radius:22px;padding:16px 22px}
+
+footer{display:flex;align-items:center;padding:0 90px;font-size:1.6rem;color:var(--muted);gap:36px}
+footer b{color:var(--ink)}
+footer i{width:6px;height:6px;border-radius:50%;background:var(--line);display:inline-block}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="stage" id="stage">
+    <div class="top">
+      <div class="brand">מינהל חינוך חולון · תשפ"ז</div>
+      <a class="back" href="./">חזרה למפת המיומנויות</a>
+    </div>
+
+    <main>
+      <div class="head">
+        <h1>אשכול</h1>
+        <p>מסגרת שמארגנת למידה סביב מטרה חינוכית אחת, ומחברת ידע, מיומנויות וערכים.</p>
+      </div>
+
+      <div class="flow" role="img" aria-label="דוגמה: פעילות בגינת בית הספר משרתת את האשכול אדם, טבע וסביבה ומקדמת מיומנויות וערכים">
+        <div>
+          <div class="cap">פעילות בבית הספר</div>
+          <div class="act">
+            <div class="ic" aria-hidden="true"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 12C12 8 9.5 6 5 6c0 4 2.5 6 7 6z"/><path d="M12 14c0-3.2 2-5 6-5 0 3.2-2 5-6 5z"/></svg></div>
+            <b>גינת בית הספר</b>
+            <span>כיתה ג' מטפחת אותה ומזמינה את הגן הסמוך לקטיף</span>
+          </div>
+        </div>
+        <div class="cn" aria-hidden="true"></div>
+        <div class="hub">
+          <div class="circle"><small>אשכול</small><b>אדם, טבע וסביבה</b></div>
+          <div class="goal">מטרה: חיזוק יחסי הגומלין בין התלמיד, הטבע והסביבה</div>
+        </div>
+        <div class="cn" aria-hidden="true"></div>
+        <div class="out">
+          <div class="grp"><div class="cap">מיומנויות</div><div class="chips"><span class="chip">שיתוף פעולה</span><span class="chip">תכנון</span></div></div>
+          <div class="grp"><div class="cap">ערך</div><div class="chips"><span class="chip val">אחריות</span></div></div>
+          <div class="also">הפעילות משרתת גם את האשכול החברתי-רגשי</div>
+        </div>
+      </div>
+    </main>
+
+    <footer><span><b>עד שישה אשכולות</b> בעיר</span><i></i><span>את השמות נגבש יחד איתכם</span></footer>
+  </div>
+</div>
+<script>
+function fit(){
+  const s=Math.min(innerWidth/1920, innerHeight/1080);
+  document.getElementById('stage').style.transform='translate(-50%,-50%) scale('+s+')';
+}
+addEventListener('resize',fit); fit();
+</script>
+</body>
+</html>

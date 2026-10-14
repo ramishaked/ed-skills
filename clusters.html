@@ -95,8 +95,8 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .row{background:var(--tile);border-radius:20px;padding:10px 22px;margin-top:10px;border:1.5px solid var(--line)}
 .row small{display:block;font-size:1.25rem;font-weight:800;color:var(--muted);margin-bottom:4px}
 .row .t{font-size:1.8rem;font-weight:600;line-height:1.35}
-.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:2px}
-.chip{font-size:1.8rem;font-weight:800;padding:8px 26px;border-radius:40px;color:#fff;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:2px}
+.chip{font-size:1.5rem;font-weight:800;padding:8px 20px;border-radius:40px;color:#fff;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
 .k1{background:var(--c1)}.k2{background:var(--c2)}.k3{background:var(--c3)}
 .chip.hot{transform:scale(1.14)}
 .chip.k1.hot{box-shadow:0 0 0 8px rgba(36,67,224,.22)}
@@ -201,9 +201,9 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
               <div class="row"><small>זיקה לתחומי דעת</small><span class="t">מדעים, גאוגרפיה, אמנות</span></div>
               <div class="row"><small>מיומנויות וערכים במיקוד</small>
                 <div class="chips">
-                  <span class="chip k1" data-k="1">שיתוף פעולה</span>
-                  <span class="chip k2" data-k="2">תכנון</span>
-                  <span class="chip k3" data-k="3">אחריות</span>
+                  <span class="chip k1" data-k="1">התנהלות חברתית</span>
+                  <span class="chip k2" data-k="2">אוריינות מדעית</span>
+                  <span class="chip k3" data-k="3">הכוונה עצמית</span>
                 </div>
               </div>
             </div>
@@ -212,9 +212,9 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
               <div class="impl-h"><span class="cap">מימוש בבית הספר</span><b>גינת בית הספר</b></div>
               <p>כיתה ג' מטפחת את הגינה לאורך השנה ומזמינה את הגן הסמוך לקטיף.</p>
               <div class="der">
-                <div class="d k1"><b>שיתוף פעולה</b><span>מתחלקים בתורנויות ועובדים יחד</span></div>
-                <div class="d k2"><b>תכנון</b><span>מחליטים מה לשתול ומתי</span></div>
-                <div class="d k3"><b>אחריות (ערך)</b><span>דואגים לגינה לאורך כל השנה</span></div>
+                <div class="d k1"><b>התנהלות חברתית</b><span>מתחלקים בתורנויות ועובדים יחד</span></div>
+                <div class="d k2"><b>אוריינות מדעית</b><span>מחליטים מה לשתול ומתי, ועוקבים אחרי הצמיחה</span></div>
+                <div class="d k3"><b>הכוונה עצמית</b><span>מתמידים ודואגים לגינה לאורך כל השנה</span></div>
               </div>
             </div>
           </div></div></div>
@@ -247,9 +247,10 @@ function fit(){
 addEventListener('resize',fit); fit();
 
 /* ---- illustration: generic skill cards; one click moves them into unnamed clusters, once ---- */
-const SK=[["שיתוף פעולה",1],["תכנון",2],["אחריות",3],["יצירתיות",4],["חשיבה ביקורתית",1],["סקרנות",2],
-          ["תקשורת",3],["חוסן",4],["מנהיגות",1],["למידה עצמאית",2],["מודעות חברתית",3],["אוריינות דיגיטלית",4]];
-const GA=[2,2,2,1,1,2,0,0,0,1,0,1];                 /* cluster of each card */
+const SK=[["אוריינות מדעית",1],["התנהלות חברתית",2],["הכוונה עצמית",3],["אוריינות גופנית-בריאותית",4],
+          ["חשיבה ביקורתית",1],["חשיבה יצירתית",2],["אוריינות דיגיטלית",3],["אוריינות מתמטית",4],
+          ["מודעות עצמית",1],["מודעות חברתית",2],["אוריינות גלובלית",3],["אוריינות לשונית",4]];
+const GA=[2,2,2,2,1,1,1,1,0,0,0,0];                 /* cluster of each card */
 const GHOSTS=[];                    /* [card, extra cluster]: one skill serving more than one cluster */
 const ill=document.getElementById('ill'), cap=document.getElementById('illCap');
 const ZW=270, ZG=30, X0=(870-(3*ZW+2*ZG))/2;

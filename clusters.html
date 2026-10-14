@@ -63,6 +63,10 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .ill-box:not(.g) .sk .moe-ico{opacity:0}
 .ill-box.g .sk:not(.ghost){opacity:1}
 .ill-box.g .sk:not(.ghost) i{border-color:color-mix(in srgb,var(--accent) 70%,transparent);box-shadow:0 1px 0 var(--line),0 8px 18px rgba(17,24,56,.08)}
+.sk:not(.ghost){transition:left 1.3s var(--ease),top 1.3s var(--ease),opacity .5s}
+.ill-box:not(.g):hover .sk:not(.ghost){opacity:1}
+.ill-box:not(.g):hover .sk:not(.ghost) i{border-color:color-mix(in srgb,var(--accent) 70%,transparent);box-shadow:0 1px 0 var(--line),0 8px 18px rgba(17,24,56,.08)}
+.ill-box:not(.g):hover .sk .moe-ico{opacity:1}
 .sk.ghost{opacity:0}
 .sk.ghost i{border-style:dashed;background:rgba(255,255,255,.85)}
 .sk.ghost.on{opacity:1}

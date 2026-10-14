@@ -8,63 +8,97 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;500;700;800&display=swap">
 <style>
-/* One 1920x1080 slide, scaled to fit any screen. */
+/* One 1920x1080 slide, scaled to fit any screen. Click the example card to open it. R replays the entrance. */
 :root{
   --ground:#f3f5fc; --tile:#ffffff; --ink:#111838; --muted:#5b6590; --line:#d3d9ee;
   --accent:#2443e0; --accent-deep:#1b34b8; --accent-soft:#e6eafc;
-  --amber:#a35f10; --amber-soft:#fdf0d9;
+  --c1:#2443e0; --c2:#0f8f6e; --c3:#b86a10;
   --f-display:"Secular One","Heebo",sans-serif;
   --f-body:"Heebo","Segoe UI","Arial Hebrew",sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);overflow:hidden}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .frame{position:fixed;inset:0;overflow:hidden}
 .stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;
-  background:radial-gradient(900px 600px at 30% 60%,rgba(36,67,224,.10),transparent 65%),
+  background:radial-gradient(900px 600px at 30% 55%,rgba(36,67,224,.10),transparent 65%),
              radial-gradient(700px 500px at 85% 10%,rgba(245,176,65,.14),transparent 60%),var(--ground);
-  display:grid;grid-template-rows:110px 1fr 100px;overflow:hidden}
+  display:grid;grid-template-rows:96px 1fr 178px;overflow:hidden}
 
 .top{display:flex;align-items:center;justify-content:space-between;padding:0 90px}
 .brand{font-size:1.5rem;font-weight:700;color:var(--muted)}
 .back{font-size:1.25rem;color:var(--muted);text-decoration:none;border:1.5px solid var(--line);border-radius:30px;padding:8px 22px;background:var(--tile)}
 .back:hover{color:var(--ink);border-color:var(--ink)}
 
-
-main{padding:0 90px;display:grid;grid-template-columns:790px 1fr;gap:80px;align-items:center}
-.head h1{font-family:var(--f-display);font-weight:400;font-size:7.5rem;line-height:1;margin:0;color:var(--accent-deep)}
-.lead{text-wrap:balance;margin:26px 0 0;font-size:2.35rem;line-height:1.4;font-weight:700}
-.pts{margin:34px 0 0;display:grid;gap:22px}
-.pt{border-inline-start:6px solid var(--accent);padding-inline-start:22px;font-size:1.7rem;line-height:1.5;color:var(--ink)}
+main{padding:0 90px;display:grid;grid-template-columns:790px 1fr;gap:80px;align-items:start;padding-top:14px}
+.head h1{font-family:var(--f-display);font-weight:400;font-size:6.6rem;line-height:1;margin:0;color:var(--accent-deep)}
+.lead{text-wrap:balance;margin:18px 0 0;font-size:2.2rem;line-height:1.38;font-weight:700}
+.pts{margin:26px 0 0;display:grid;gap:18px}
+.pt{border-inline-start:6px solid var(--accent);padding-inline-start:22px;font-size:1.6rem;line-height:1.48}
 .pt b{color:var(--accent-deep)}
 
-/* the cluster as a frame that holds its parts, with one implementation example that grows out of it */
-.dia{display:flex;flex-direction:column;align-items:center}
-.frame2{width:100%;border:4px solid var(--accent);border-radius:38px;background:rgba(36,67,224,.06);padding:30px 38px 34px;position:relative}
+/* the cluster as a frame that holds its parts; one example grows out of it on click */
+.dia{display:flex;flex-direction:column;align-items:center;padding-top:6px}
+.frame2{width:100%;border:4px solid var(--accent);border-radius:38px;background:rgba(36,67,224,.06);padding:26px 38px 28px;position:relative;animation:glow 4.5s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(36,67,224,.0)}50%{box-shadow:0 0 0 14px rgba(36,67,224,.09)}}
 .frame2 .tag{position:absolute;top:-22px;inset-inline-start:34px;background:var(--accent);color:#fff;font-weight:800;font-size:1.4rem;border-radius:22px;padding:6px 22px}
-.frame2 h2{font-family:var(--f-display);font-weight:400;font-size:3.5rem;margin:10px 0 18px;color:var(--accent-deep)}
-.row{background:var(--tile);border-radius:22px;padding:18px 24px;margin-top:14px}
-.row small{display:block;font-size:1.3rem;font-weight:800;color:var(--muted);margin-bottom:6px}
-.row span.t{font-size:1.9rem;font-weight:600;line-height:1.35}
-.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
-.chip{font-size:1.9rem;font-weight:800;padding:10px 26px;border-radius:40px;color:#fff}
-.c1{background:#2443e0}.c2{background:#0f8f6e}.c3{background:#b86a10}
-.stem{width:5px;height:38px;background:var(--accent);border-radius:3px}
-.ex{width:100%;background:var(--tile);border:2px solid var(--line);border-radius:30px;padding:26px 32px;box-shadow:0 10px 30px rgba(17,24,56,.07)}
-.ex .cap{font-size:1.3rem;font-weight:800;color:var(--muted)}
-.ex h3{font-family:var(--f-display);font-weight:400;font-size:2.6rem;margin:2px 0 6px}
-.ex p{margin:0 0 14px;font-size:1.55rem;line-height:1.45;color:var(--muted)}
-.der{display:grid;gap:10px}
-.d{display:flex;gap:16px;align-items:baseline;font-size:1.6rem;line-height:1.4;border-inline-start:8px solid;padding-inline-start:16px}
-.d b{white-space:nowrap}
-.d.c1{border-color:#2443e0}.d.c2{border-color:#0f8f6e}.d.c3{border-color:#b86a10}
-.d.c1 b{color:#2443e0}.d.c2 b{color:#0f8f6e}.d.c3 b{color:#b86a10}
-.d{background:none;color:var(--ink)}
+.frame2 h2{font-family:var(--f-display);font-weight:400;font-size:3.3rem;margin:6px 0 12px;color:var(--accent-deep)}
+.row{background:var(--tile);border-radius:22px;padding:14px 24px;margin-top:12px}
+.row small{display:block;font-size:1.25rem;font-weight:800;color:var(--muted);margin-bottom:4px}
+.row .t{font-size:1.8rem;font-weight:600;line-height:1.35}
+.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:2px}
+.chip{font-size:1.8rem;font-weight:800;padding:8px 26px;border-radius:40px;color:#fff;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.k1{background:var(--c1)}.k2{background:var(--c2)}.k3{background:var(--c3)}
+.chip.hot{transform:scale(1.14);box-shadow:0 0 0 7px color-mix(in srgb,currentColor 0%,transparent),0 10px 26px rgba(17,24,56,.28)}
+.chip.k1.hot{box-shadow:0 0 0 8px rgba(36,67,224,.22)}
+.chip.k2.hot{box-shadow:0 0 0 8px rgba(15,143,110,.25)}
+.chip.k3.hot{box-shadow:0 0 0 8px rgba(184,106,16,.25)}
 
-footer{display:flex;align-items:center;padding:0 90px;font-size:1.6rem;color:var(--muted);gap:36px}
-footer b{color:var(--ink)}
-footer i{width:6px;height:6px;border-radius:50%;background:var(--line);display:inline-block}
+.stem{width:5px;height:0;background:var(--accent);border-radius:3px;transition:height .45s var(--ease)}
+.open .stem{height:30px}
+.ex{width:100%;background:var(--tile);border:2px solid var(--line);border-radius:30px;box-shadow:0 10px 30px rgba(17,24,56,.07);overflow:hidden;margin-top:18px;transition:margin .45s var(--ease),border-color .3s}
+.open .ex{margin-top:0;border-color:var(--accent)}
+.ex-btn{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:18px;padding:22px 32px;cursor:pointer}
+.ex-btn:focus-visible{outline:3px solid var(--accent);outline-offset:-3px;border-radius:30px}
+.ex-btn .cap{font-size:1.3rem;font-weight:800;color:var(--muted);display:block}
+.ex-btn h3{font-family:var(--f-display);font-weight:400;font-size:2.4rem;margin:0;line-height:1.15}
+.plus{margin-inline-start:auto;width:60px;height:60px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;flex:none;transition:transform .4s var(--ease);animation:pulse 2s ease-in-out infinite}
+.open .plus{transform:rotate(45deg);animation:none}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(36,67,224,.45)}60%{box-shadow:0 0 0 16px rgba(36,67,224,0)}}
+.ex-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.open .ex-body{grid-template-rows:1fr}
+.ex-in{overflow:hidden;min-height:0}
+.ex-in>div{padding:0 32px 26px}
+.ex p{margin:0 0 14px;font-size:1.5rem;line-height:1.45;color:var(--muted)}
+.der{display:grid;gap:10px}
+.d{display:flex;gap:16px;align-items:baseline;font-size:1.55rem;line-height:1.4;border-inline-start:8px solid;padding-inline-start:16px;opacity:0;transform:translateX(30px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.d.k1{border-color:var(--c1);background:none}.d.k2{border-color:var(--c2);background:none}.d.k3{border-color:var(--c3);background:none}
+.d b{white-space:nowrap}.d.k1 b{color:var(--c1)}.d.k2 b{color:var(--c2)}.d.k3 b{color:var(--c3)}
+.open .d{opacity:1;transform:none}
+.open .d:nth-child(1){transition-delay:.35s}.open .d:nth-child(2){transition-delay:.75s}.open .d:nth-child(3){transition-delay:1.15s}
+.ex p{opacity:0;transition:opacity .5s .2s}.open .ex p{opacity:1}
+
+/* bottom band: names from earlier models */
+.band{padding:0 90px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.band-h{display:flex;justify-content:space-between;align-items:baseline;font-size:1.35rem;color:var(--muted)}
+.band-h b{color:var(--ink);font-size:1.45rem}
+.names{display:flex;flex-wrap:wrap;gap:10px 12px}
+.names span{font-size:1.45rem;font-weight:700;padding:8px 20px;border-radius:30px;background:var(--tile);border:1.5px solid var(--line);color:var(--accent-deep)}
+.names span.cur{background:var(--accent-soft);border-color:var(--accent)}
+
+/* entrance */
+.in{animation:up .8s var(--ease) backwards;animation-delay:var(--d,0s)}
+@keyframes up{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+.in-x{animation:left .8s var(--ease) backwards;animation-delay:var(--d,0s)}
+@keyframes left{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+.pop{animation:pop .6s var(--ease) backwards;animation-delay:var(--d,0s)}
+@keyframes pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.frame2.in-x{animation:left .8s var(--ease) backwards,glow 4.5s 1.6s ease-in-out infinite}
+.still *,.still{animation:none!important}
+.still .d,.still .ex p{transition-duration:.01s;transition-delay:0s!important}
 </style>
 </head>
 <body>
@@ -77,45 +111,86 @@ footer i{width:6px;height:6px;border-radius:50%;background:var(--line);display:i
 
     <main>
       <div class="head">
-        <h1>אשכול</h1>
-        <p class="lead">מסגרת רעיונית שמארגנת את הלמידה סביב מטרה חינוכית אחת, ומחברת ידע, מיומנויות, גישות וערכים הרלוונטיים ללומד במציאות משתנה.</p>
+        <h1 class="in" style="--d:.05s">אשכול</h1>
+        <p class="lead in" style="--d:.25s">מסגרת רעיונית שמארגנת את הלמידה סביב מטרה חינוכית אחת, ומחברת ידע, מיומנויות, גישות וערכים הרלוונטיים ללומד במציאות משתנה.</p>
         <div class="pts">
-          <div class="pt">לכל אשכול <b>מטרה מוגדרת</b>, <b>סל מצומצם של מיומנויות וערכים במיקוד</b>, זיקה לתחומי דעת ומגוון דרכי מימוש בפדגוגיה מתקדמת.</div>
-          <div class="pt">אשכול אינו מקום פיזי ואינו מקצוע: שיעור מתמטיקה, טיול או הפסקה פעילה יכולים להשתייך לאשכול, ופעילות אחת יכולה לשרת עד שלושה אשכולות.</div>
-          <div class="pt">בית הספר נותן ביטוי לכל האשכולות ובוחר באילו להעמיק. השאיפה: כל תלמיד עובר בכמה שיותר אשכולות במהלך השנה.</div>
+          <div class="pt in" style="--d:.6s">לכל אשכול <b>מטרה מוגדרת</b>, <b>סל מצומצם של מיומנויות וערכים במיקוד</b>, זיקה לתחומי דעת ומגוון דרכי מימוש בפדגוגיה מתקדמת.</div>
+          <div class="pt in" style="--d:.85s">אשכול אינו מקום פיזי ואינו מקצוע: שיעור מתמטיקה, טיול או הפסקה פעילה יכולים להשתייך לאשכול, ופעילות אחת יכולה לשרת עד שלושה אשכולות.</div>
+          <div class="pt in" style="--d:1.1s">בית הספר נותן ביטוי לכל האשכולות ובוחר באילו להעמיק. השאיפה: כל תלמיד עובר בכמה שיותר אשכולות במהלך השנה.</div>
         </div>
       </div>
 
-      <div class="dia">
-        <div class="frame2">
+      <div class="dia" id="dia">
+        <div class="frame2 in-x" style="--d:.4s">
           <span class="tag">אשכול</span>
           <h2>אדם, טבע וסביבה</h2>
-          <div class="row"><small>מטרה</small><span class="t">חיזוק יחסי הגומלין בין התלמיד, הטבע והסביבה</span></div>
-          <div class="row"><small>מיומנויות וערכים במיקוד</small><div class="chips"><span class="chip c1">שיתוף פעולה</span><span class="chip c2">תכנון</span><span class="chip c3">אחריות</span></div></div>
+          <div class="row pop" style="--d:.9s"><small>מטרה</small><span class="t">חיזוק יחסי הגומלין בין התלמיד, הטבע והסביבה</span></div>
+          <div class="row pop" style="--d:1.1s"><small>מיומנויות וערכים במיקוד</small>
+            <div class="chips">
+              <span class="chip k1 pop" data-k="1" style="--d:1.4s">שיתוף פעולה</span>
+              <span class="chip k2 pop" data-k="2" style="--d:1.6s">תכנון</span>
+              <span class="chip k3 pop" data-k="3" style="--d:1.8s">אחריות</span>
+            </div>
+          </div>
         </div>
         <div class="stem" aria-hidden="true"></div>
-        <div class="ex">
-          <div class="cap">דוגמה למימוש</div>
-          <h3>גינת בית הספר</h3>
-          <p>כיתה ג' מטפחת את הגינה לאורך השנה ומזמינה את הגן הסמוך לקטיף.</p>
-          <div class="der">
-            <div class="d c1"><b>שיתוף פעולה</b><span>מתחלקים בתורנויות ועובדים יחד</span></div>
-            <div class="d c2"><b>תכנון</b><span>מחליטים מה לשתול ומתי</span></div>
-            <div class="d c3"><b>אחריות (ערך)</b><span>דואגים לגינה לאורך כל השנה</span></div>
-          </div>
+        <div class="ex in" style="--d:1.9s">
+          <button class="ex-btn" id="exBtn" type="button" aria-expanded="false" aria-controls="exBody">
+            <span><span class="cap" id="exCap">דוגמה למימוש, לחצו לפתיחה</span><h3>גינת בית הספר</h3></span>
+            <span class="plus" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </button>
+          <div class="ex-body" id="exBody"><div class="ex-in"><div>
+            <p>כיתה ג' מטפחת את הגינה לאורך השנה ומזמינה את הגן הסמוך לקטיף.</p>
+            <div class="der">
+              <div class="d k1" data-k="1"><b>שיתוף פעולה</b><span>מתחלקים בתורנויות ועובדים יחד</span></div>
+              <div class="d k2" data-k="2"><b>תכנון</b><span>מחליטים מה לשתול ומתי</span></div>
+              <div class="d k3" data-k="3"><b>אחריות (ערך)</b><span>דואגים לגינה לאורך כל השנה</span></div>
+            </div>
+          </div></div></div>
         </div>
       </div>
     </main>
 
-    <footer><span><b>עד שישה אשכולות</b> בעיר</span><i></i><span>את השמות נגבש יחד איתכם</span></footer>
+    <div class="band">
+      <div class="band-h"><b>שמות להשראה ממודלים קודמים</b><span>עד שישה אשכולות בעיר. את השמות נגבש יחד איתכם</span></div>
+      <div class="names" id="names"></div>
+    </div>
   </div>
 </div>
 <script>
+const NAMES=["שלומות גוף ונפש","עתיד דיגיטלי","מנהיגות ואזרחות","האשכול הערכי","חברתי-רגשי (SEL)","אדם, טבע וסביבה","האשכול המדעי-טכנולוגי","ספורט, גוף ונפש","האשכול האומנותי","אדם וחברה"];
+const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]fx=1/.test(location.search);
+document.getElementById('names').innerHTML=NAMES.map((n,i)=>
+  `<span class="${n==='אדם, טבע וסביבה'?'cur ':''}pop" style="--d:${(2.2+i*.08).toFixed(2)}s">${n}</span>`).join('');
+if(REDUCE) document.documentElement.classList.add('still');
+
+/* fit the 16:9 slide to the window */
 function fit(){
   const s=Math.min(innerWidth/1920, innerHeight/1080);
   document.getElementById('stage').style.transform='translate(-50%,-50%) scale('+s+')';
 }
 addEventListener('resize',fit); fit();
+
+/* example opens on click; each skill chip lights up when its line appears */
+const dia=document.getElementById('dia'), btn=document.getElementById('exBtn');
+let timers=[];
+function setOpen(on){
+  dia.classList.toggle('open',on); btn.setAttribute('aria-expanded',on);
+  document.getElementById('exCap').textContent=on?'דוגמה למימוש':'דוגמה למימוש, לחצו לפתיחה';
+  timers.forEach(clearTimeout); timers=[];
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('hot'));
+  if(on){
+    [1,2,3].forEach((k,i)=>{
+      const t=REDUCE?0:(350+i*400+150);
+      timers.push(setTimeout(()=>document.querySelector('.chip[data-k="'+k+'"]').classList.add('hot'),t));
+      timers.push(setTimeout(()=>document.querySelector('.chip[data-k="'+k+'"]').classList.remove('hot'),t+900));
+    });
+  }
+}
+btn.addEventListener('click',()=>setOpen(!dia.classList.contains('open')));
+addEventListener('keydown',e=>{
+  if(e.key==='r'||e.key==='R'||e.key==='ר'){ location.reload(); }
+});
 </script>
 </body>
 </html>

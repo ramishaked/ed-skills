@@ -117,6 +117,16 @@ h3{font-size:1.15rem;font-weight:800;margin:0}
 .out{background:var(--tile);border-radius:14px;padding:12px 14px;font-weight:600}
 .qs{margin:0;padding:0;list-style:none;display:grid;gap:8px}
 .qs li{background:var(--ground);border-radius:14px;padding:12px 14px}
+.teams{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.team{background:var(--tile);border:1px solid var(--line);border-radius:18px;padding:14px 16px;display:grid;gap:10px;align-content:start}
+.team-h{display:flex;align-items:center;gap:10px}
+.team-n{flex:none;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:800}
+.team-f{flex:1;min-width:0;line-height:1.35}.team-f small{display:block;color:var(--muted);font-size:.78rem}.team-f b{font-weight:700}
+.team-c{flex:none;font-size:.82rem;color:var(--muted);background:var(--ground);border-radius:999px;padding:3px 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}.chips li{background:var(--ground);border-radius:999px;padding:4px 10px;font-size:.85rem}
+.team.open{border-style:dashed;background:transparent}.team.open .team-n{background:var(--muted)}.team.open .chips li{background:var(--tile)}
+.qbig{margin:0 0 12px;background:var(--tile);border-inline-start:5px solid var(--accent);border-radius:18px;padding:18px 20px;font-size:1.08rem;line-height:1.8;max-width:80ch}
+.qbig strong{display:block;margin-top:8px;color:var(--accent)}
 .qs li b.qn{display:block;color:var(--accent);font-size:.85rem;margin-bottom:4px}
 .txt{margin:0 0 12px;line-height:1.7;max-width:80ch}
 .txt+.qs,.qs+.txt{margin-top:4px}
@@ -410,7 +420,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
           <h3>הסדנה בקצרה</h3>
           <div class="facts">
             <div class="fact"><b>60</b><span>דקות</span></div>
-            <div class="fact"><b>8-10</b><span>משתתפים בשולחן</span></div>
+            <div class="fact"><b>10</b><span>צוותים, 6-8 משתתפים בכל אחד</span></div>
             <div class="fact"><b>50-60</b><span>דיסקיות מיומנות</span></div>
           </div>
           <p class="lead">כל שולחן מרכז מנהלים מכל רצף הגילאים של אותה שכונה: גן, יסודי, על-יסודי וחינוך מיוחד. הקבוצות לא מקבלות מודל מוכן. הן ממיינות בעצמן את המיומנויות לאשכולות, ואחר כך מסמנות אילו מיומנויות צריכות להיות במיקוד ואילו מאתגרות במיוחד.</p>
@@ -421,15 +431,11 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     </details>
 
     <details class="sub">
-      <summary><span class="s-num">2</span><h3 class="sub-t">לפני המפגש: שאלה מקדימה למנהלים</h3><span class="s-note">תיבחר שאלה אחת משלוש</span><span class="chev" aria-hidden="true"></span></summary>
+      <summary><span class="s-num">2</span><h3 class="sub-t">לפני המפגש: שאלה מקדימה למנהלים</h3><span class="s-note">שאלה אחת</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
       <p class="goal"><b>המטרה:</b> לפתוח את המפגש מהקול של המנהלים עצמם. השאלה נשלחת לפני המפגש, והתשובות מוצגות כענן מילים בזמן ההתכנסות.</p>
-      <p class="txt"><b>השאלות האפשריות:</b></p>
-      <ul class="qs">
-        <li><b class="qn">טביעת האצבע</b>לכל בית ספר יש "טביעת אצבע" משלו. אם היינו בוחנים היום בוגר או בוגרת שלכם, באיזו מיומנות חיים יש להם "יתרון לא הוגן" על פני אחרים, בזכות הדגשים של הצוות שלכם?</li>
-        <li><b class="qn">בזמן אמת</b>איזו מיומנות אתם רואים את התלמידים שלכם מיישמים הכי הרבה "בזמן אמת", ובאיזו פעילות שגרתית בבית הספר זרעתם את הזרעים לה?</li>
-        <li><b class="qn">האורח הסמוי</b>דמיינו שאדם זר לגמרי חוצה מחר בבוקר את שער בית הספר שלכם. הוא לא קורא את מצעד הערכים שבכניסה ולא מחליף מילה עם אף איש צוות. הוא פשוט משוטט יום שלם כרואה ואינו נראה, מתבונן בתלמידים בפעולה ורושם. איזו מיומנות מרכזית הוא יזהה מיד ככזו שמקודמת חזק בבית הספר שלכם, ובאיזו סיטואציה מדויקת הוא יראה אותה קורמת עור וגידים?</li>
-      </ul>
+      <p class="txt"><b>השאלה:</b></p>
+      <blockquote class="qbig">דמיינו שאדם זר לחלוטין חוצה מחר בבוקר את שער בית הספר שלכם. הוא לא קורא את מצעד הערכים שבכניסה, ולא מחליף מילה עם אף איש צוות. הוא פשוט משוטט כרואה ואינו נראה במשך יום שלם, מתבונן בתלמידים בפעולה, ורושם.<strong>איזו מיומנות מרכזית הוא יזהה מיד ככזו שמקודמת חזק בבית הספר שלכם?</strong></blockquote>
       <p class="note">איסוף התשובות והצגתן כענן מילים: בתכנון, כנראה דף WEB קטן בסגנון Mentimeter.</p>
       </div>
     </details>
@@ -482,7 +488,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
           <summary class="part-head"><span class="tag">חלק ראשון</span><h3>שיום מיומנויות וקטלוגן לאשכולות</h3><span class="min">30 דקות</span><span class="chev" aria-hidden="true"></span></summary>
           <div class="part-grid">
           <div class="part-main">
-            <p class="intro"><b>אופן העבודה בקבוצה (8-10 משתתפים):</b></p>
+            <p class="intro"><b>אופן העבודה בקבוצה (6-8 משתתפים):</b></p>
             <ol class="steps">
               <li><div>מתחילים עם <b>הגדרת אשכול משותפת</b>: מה זה אשכול/מיומנות-על. בראש הבריסטול יהיה מקום להגדרה משותפת של הקבוצה. לאורך כל הסדנה עומד לרשות המשתתפים כלי דיגיטלי שמרכז את כל הידע הרלוונטי למשימה: פירוט המיומנויות והגדרת האשכול (<a href="./">מפת המיומנויות והערכים</a>).</div></li>
               <li><div>מניחים על השולחן את כל 50-60 דיסקיות המיומנות המכילות את שמות המיומנויות ותתי-המיומנויות.</div></li>
@@ -543,7 +549,27 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     </details>
 
     <details class="sub">
-      <summary><span class="s-num">6</span><h3 class="sub-t">דיסקית אחת, שלושה שלבים</h3><span class="s-note">כך נראית מיומנות אחת לאורך הסדנה.</span><span class="chev" aria-hidden="true"></span></summary>
+      <summary><span class="s-num">6</span><h3 class="sub-t">הצוותים</h3><span class="s-note">10 צוותים, 70 משתתפים</span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sub-body">
+      <p class="txt">כל צוות עובד סביב שולחן אחד, עם מנחה מטעם המינהל. האולם של כל צוות ייקבע בהמשך.</p>
+      <div class="teams">
+        <article class="team"><div class="team-h"><span class="team-n">1</span><div class="team-f"><small>מנחה</small><b>אהרון</b></div><span class="team-c">7 משתתפים</span></div><ul class="chips"><li>התבור</li><li>שנקר</li><li>רביבים</li><li>אורט</li><li>רעים</li><li>עוז</li></ul></article>
+        <article class="team"><div class="team-h"><span class="team-n">2</span><div class="team-f"><small>מנחה</small><b>רמי</b></div><span class="team-c">7 משתתפים</span></div><ul class="chips"><li>הס</li><li>אשכול</li><li>שנקר</li><li>התבור</li><li>אילון</li><li>מיטרני</li></ul></article>
+        <article class="team"><div class="team-h"><span class="team-n">3</span><div class="team-f"><small>מנחה</small><b>מייקל</b></div><span class="team-c">7 משתתפים</span></div><ul class="chips"><li>שרת</li><li>ניצנים</li><li>אלון</li><li>קמפוס פרס</li><li>פז קדרי (גננת)</li><li>נעמת</li></ul></article>
+        <article class="team"><div class="team-h"><span class="team-n">4</span><div class="team-f"><small>מנחה</small><b>אסנת</b></div><span class="team-c">7 משתתפים</span></div><ul class="chips"><li>שער האריות</li><li>ניב</li><li>ארן</li><li>דרכים</li><li>מיתרים</li><li>עמל</li><li>וולפסון</li></ul></article>
+        <article class="team"><div class="team-h"><span class="team-n">5</span><div class="team-f"><small>מנחים</small><b>אורלי שנרך, עדי בכר</b></div><span class="team-c">7 משתתפים</span></div><ul class="chips"><li>עלומים</li><li>המגינים</li><li>כצנלסון</li><li>הרצוג</li><li>ענבר אנג׳ל</li><li>חני כריכלי</li><li>טומשין</li></ul></article>
+        <article class="team"><div class="team-h"><span class="team-n">6</span><div class="team-f"><small>מנחים</small><b>חגית גוטדינר, רויטל</b></div><span class="team-c">7 משתתפים</span></div><ul class="chips"><li>גולדטק</li><li>ביאליק</li><li>גורדון</li><li>יוני נתניהו</li><li>שחקים</li><li>הרצפלד</li><li>הילה כהן (גננת)</li></ul></article>
+        <article class="team"><div class="team-h"><span class="team-n">7</span><div class="team-f"><small>מנחים</small><b>אתי רביאן, טלי</b></div><span class="team-c">8 משתתפים</span></div><ul class="chips"><li>אמירים</li><li>בן גוריון</li><li>גורדון</li><li>יחד</li><li>אשלים</li><li>שמגר</li><li>נבון</li></ul></article>
+        <article class="team"><div class="team-h"><span class="team-n">8</span><div class="team-f"><small>מנחה</small><b>מיכל פלהיימר</b></div><span class="team-c">7 משתתפים</span></div><ul class="chips"><li>ישעיהו</li><li>דינור</li><li>שז״ר</li><li>יחד</li><li>עתידים</li><li>גננת מובילה</li></ul></article>
+        <article class="team"><div class="team-h"><span class="team-n">9</span><div class="team-f"><small>מנחים</small><b>גילה יצחקי, מורן</b></div><span class="team-c">6 משתתפים</span></div><ul class="chips"><li>שמיר</li><li>שרון</li><li>בן צבי</li><li>קוגל</li><li>אודליה פרץ (גננת)</li></ul></article>
+        <article class="team"><div class="team-h"><span class="team-n">10</span><div class="team-f"><small>מנחה</small><b>משה עיני</b></div><span class="team-c">7 משתתפים</span></div><ul class="chips"><li>ישורון</li><li>דביר</li><li>הראל</li><li>יבנה</li><li>גננת מובילה</li></ul></article>
+        <article class="team open"><div class="team-h"><span class="team-n">?</span><div class="team-f"><small>עדיין לא שובצו</small><b>ממתינים לשיבוץ</b></div></div><ul class="chips"><li>מרב עבאדי (בן גוריון)</li><li>רבין</li><li>אשכול יהלום (בן גוריון)</li><li>אשכול אופק (נאות שושנים)</li><li>אשכול לב (פיכמן)</li><li>חרדי</li></ul></article>
+      </div>
+      </div>
+    </details>
+
+    <details class="sub">
+      <summary><span class="s-num">7</span><h3 class="sub-t">דיסקית אחת, שלושה שלבים</h3><span class="s-note">כך נראית מיומנות אחת לאורך הסדנה.</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
       <div class="ill-grid">
         <figure class="fig"><svg viewBox="0 0 300 250" role="img" class="ill"><rect class="tbl" x="0" y="0" width="300" height="250" rx="18"/><circle class="cir faint" cx="62" cy="58" r="40"/><text class="lbl2" x="62" y="62" text-anchor="middle" direction="rtl" font-size="12">עבודת צוות</text><circle class="cir faint" cx="250" cy="70" r="36"/><text class="lbl2" x="250" y="74" text-anchor="middle" direction="rtl" font-size="12">טיעון</text><circle class="cir faint" cx="238" cy="200" r="38"/><text class="lbl2" x="238" y="204" text-anchor="middle" direction="rtl" font-size="12">יצירתיות</text><circle class="cir faint" cx="52" cy="196" r="40"/><text class="lbl2" x="52" y="200" text-anchor="middle" direction="rtl" font-size="12">הנעה עצמית</text><circle class="cir main" cx="150" cy="128" r="62"/><text class="lbl" x="150" y="133" text-anchor="middle" direction="rtl" font-size="17">ויסות עצמי</text></svg>
@@ -567,7 +593,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
     </details>
 
     <details class="sub">
-      <summary><span class="s-num">7</span><h3 class="sub-t">ציוד לכל שולחן</h3><span class="s-note">מסוכם מתוך מהלך הסדנה.</span><span class="chev" aria-hidden="true"></span></summary>
+      <summary><span class="s-num">8</span><h3 class="sub-t">ציוד לכל שולחן</h3><span class="s-note">מסוכם מתוך מהלך הסדנה.</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
       <ul class="kit">
         <li><b>1</b><span>בריסטול גדול עם הצעות לאשכולות ואשכולות ריקים</span></li>
@@ -581,7 +607,7 @@ footer{margin-top:48px;font-size:.86rem;color:var(--muted)}
       </div>
     </details>
     <details class="sub">
-      <summary><span class="s-num">8</span><h3 class="sub-t">הנחיות למנחה קבוצה</h3><span class="s-note">טיוטה</span><span class="chev" aria-hidden="true"></span></summary>
+      <summary><span class="s-num">9</span><h3 class="sub-t">הנחיות למנחה קבוצה</h3><span class="s-note">טיוטה</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="sub-body">
         <div class="guide">
           <article class="card">

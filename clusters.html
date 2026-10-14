@@ -31,34 +31,36 @@ a{color:inherit}
 .back{font-size:1.25rem;color:var(--muted);text-decoration:none;border:1.5px solid var(--line);border-radius:30px;padding:8px 22px;background:var(--tile)}
 .back:hover{color:var(--ink);border-color:var(--ink)}
 
-main{padding:0 90px;display:flex;flex-direction:column;justify-content:center;gap:70px}
+
+main{padding:0 90px;display:grid;grid-template-columns:790px 1fr;gap:80px;align-items:center}
 .head h1{font-family:var(--f-display);font-weight:400;font-size:7.5rem;line-height:1;margin:0;color:var(--accent-deep)}
-.head p{margin:22px 0 0;font-size:2.9rem;line-height:1.35;max-width:1500px;font-weight:500;text-wrap:balance}
+.lead{text-wrap:balance;margin:26px 0 0;font-size:2.35rem;line-height:1.4;font-weight:700}
+.pts{margin:34px 0 0;display:grid;gap:22px}
+.pt{border-inline-start:6px solid var(--accent);padding-inline-start:22px;font-size:1.7rem;line-height:1.5;color:var(--ink)}
+.pt b{color:var(--accent-deep)}
 
-/* schematic: activity -> cluster -> skills and values */
-.flow{display:grid;grid-template-columns:auto 1fr auto 1fr auto;align-items:center}
-.cap{font-size:1.45rem;font-weight:800;color:var(--muted);margin-bottom:14px;letter-spacing:.02em}
-.act{background:var(--tile);border:2px solid var(--line);border-radius:30px;padding:34px 38px;width:540px;box-shadow:0 10px 30px rgba(17,24,56,.06)}
-.act .ic{width:76px;height:76px;border-radius:22px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent);margin-bottom:18px}
-.act b{display:block;font-family:var(--f-display);font-weight:400;font-size:3rem;line-height:1.1}
-.act span{display:block;margin-top:12px;font-size:1.55rem;line-height:1.45;color:var(--muted)}
-
-.cn{position:relative;height:4px;background:var(--accent);border-radius:2px;margin:0 18px}
-.cn::after{content:"";position:absolute;left:-6px;top:50%;transform:translateY(-50%);border-right:22px solid var(--accent);border-top:13px solid transparent;border-bottom:13px solid transparent}
-
-.hub{display:flex;flex-direction:column;align-items:center;gap:22px;width:450px}
-.circle{width:400px;height:400px;border-radius:50%;background:var(--accent);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;
-  box-shadow:0 0 0 16px rgba(36,67,224,.12),0 24px 50px rgba(36,67,224,.30)}
-.circle small{font-size:1.5rem;font-weight:700;opacity:.85;margin-bottom:8px}
-.circle b{font-family:var(--f-display);font-weight:400;font-size:3.4rem;line-height:1.15}
-.goal{font-size:1.5rem;line-height:1.4;color:var(--muted);text-align:center;max-width:430px}
-
-.out{display:flex;flex-direction:column;gap:18px;width:430px}
-.grp{display:flex;flex-direction:column;gap:10px}
-.chips{display:flex;flex-wrap:wrap;gap:12px}
-.chip{font-size:2rem;font-weight:700;padding:14px 28px;border-radius:40px;background:var(--accent-soft);color:var(--accent-deep)}
-.chip.val{background:var(--amber-soft);color:var(--amber)}
-.also{margin-top:6px;font-size:1.5rem;line-height:1.4;color:var(--muted);border:2px dashed var(--line);border-radius:22px;padding:16px 22px}
+/* the cluster as a frame that holds its parts, with one implementation example that grows out of it */
+.dia{display:flex;flex-direction:column;align-items:center}
+.frame2{width:100%;border:4px solid var(--accent);border-radius:38px;background:rgba(36,67,224,.06);padding:30px 38px 34px;position:relative}
+.frame2 .tag{position:absolute;top:-22px;inset-inline-start:34px;background:var(--accent);color:#fff;font-weight:800;font-size:1.4rem;border-radius:22px;padding:6px 22px}
+.frame2 h2{font-family:var(--f-display);font-weight:400;font-size:3.5rem;margin:10px 0 18px;color:var(--accent-deep)}
+.row{background:var(--tile);border-radius:22px;padding:18px 24px;margin-top:14px}
+.row small{display:block;font-size:1.3rem;font-weight:800;color:var(--muted);margin-bottom:6px}
+.row span.t{font-size:1.9rem;font-weight:600;line-height:1.35}
+.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.chip{font-size:1.9rem;font-weight:800;padding:10px 26px;border-radius:40px;color:#fff}
+.c1{background:#2443e0}.c2{background:#0f8f6e}.c3{background:#b86a10}
+.stem{width:5px;height:38px;background:var(--accent);border-radius:3px}
+.ex{width:100%;background:var(--tile);border:2px solid var(--line);border-radius:30px;padding:26px 32px;box-shadow:0 10px 30px rgba(17,24,56,.07)}
+.ex .cap{font-size:1.3rem;font-weight:800;color:var(--muted)}
+.ex h3{font-family:var(--f-display);font-weight:400;font-size:2.6rem;margin:2px 0 6px}
+.ex p{margin:0 0 14px;font-size:1.55rem;line-height:1.45;color:var(--muted)}
+.der{display:grid;gap:10px}
+.d{display:flex;gap:16px;align-items:baseline;font-size:1.6rem;line-height:1.4;border-inline-start:8px solid;padding-inline-start:16px}
+.d b{white-space:nowrap}
+.d.c1{border-color:#2443e0}.d.c2{border-color:#0f8f6e}.d.c3{border-color:#b86a10}
+.d.c1 b{color:#2443e0}.d.c2 b{color:#0f8f6e}.d.c3 b{color:#b86a10}
+.d{background:none;color:var(--ink)}
 
 footer{display:flex;align-items:center;padding:0 90px;font-size:1.6rem;color:var(--muted);gap:36px}
 footer b{color:var(--ink)}
@@ -76,28 +78,31 @@ footer i{width:6px;height:6px;border-radius:50%;background:var(--line);display:i
     <main>
       <div class="head">
         <h1>אשכול</h1>
-        <p>מסגרת שמארגנת למידה סביב מטרה חינוכית אחת, ומחברת ידע, מיומנויות וערכים.</p>
+        <p class="lead">מסגרת רעיונית שמארגנת את הלמידה סביב מטרה חינוכית אחת, ומחברת ידע, מיומנויות, גישות וערכים הרלוונטיים ללומד במציאות משתנה.</p>
+        <div class="pts">
+          <div class="pt">לכל אשכול <b>מטרה מוגדרת</b>, <b>סל מצומצם של מיומנויות וערכים במיקוד</b>, זיקה לתחומי דעת ומגוון דרכי מימוש בפדגוגיה מתקדמת.</div>
+          <div class="pt">אשכול אינו מקום פיזי ואינו מקצוע: שיעור מתמטיקה, טיול או הפסקה פעילה יכולים להשתייך לאשכול, ופעילות אחת יכולה לשרת עד שלושה אשכולות.</div>
+          <div class="pt">בית הספר נותן ביטוי לכל האשכולות ובוחר באילו להעמיק. השאיפה: כל תלמיד עובר בכמה שיותר אשכולות במהלך השנה.</div>
+        </div>
       </div>
 
-      <div class="flow" role="img" aria-label="דוגמה: פעילות בגינת בית הספר משרתת את האשכול אדם, טבע וסביבה ומקדמת מיומנויות וערכים">
-        <div>
-          <div class="cap">פעילות בבית הספר</div>
-          <div class="act">
-            <div class="ic" aria-hidden="true"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 12C12 8 9.5 6 5 6c0 4 2.5 6 7 6z"/><path d="M12 14c0-3.2 2-5 6-5 0 3.2-2 5-6 5z"/></svg></div>
-            <b>גינת בית הספר</b>
-            <span>כיתה ג' מטפחת אותה ומזמינה את הגן הסמוך לקטיף</span>
+      <div class="dia">
+        <div class="frame2">
+          <span class="tag">אשכול</span>
+          <h2>אדם, טבע וסביבה</h2>
+          <div class="row"><small>מטרה</small><span class="t">חיזוק יחסי הגומלין בין התלמיד, הטבע והסביבה</span></div>
+          <div class="row"><small>מיומנויות וערכים במיקוד</small><div class="chips"><span class="chip c1">שיתוף פעולה</span><span class="chip c2">תכנון</span><span class="chip c3">אחריות</span></div></div>
+        </div>
+        <div class="stem" aria-hidden="true"></div>
+        <div class="ex">
+          <div class="cap">דוגמה למימוש</div>
+          <h3>גינת בית הספר</h3>
+          <p>כיתה ג' מטפחת את הגינה לאורך השנה ומזמינה את הגן הסמוך לקטיף.</p>
+          <div class="der">
+            <div class="d c1"><b>שיתוף פעולה</b><span>מתחלקים בתורנויות ועובדים יחד</span></div>
+            <div class="d c2"><b>תכנון</b><span>מחליטים מה לשתול ומתי</span></div>
+            <div class="d c3"><b>אחריות (ערך)</b><span>דואגים לגינה לאורך כל השנה</span></div>
           </div>
-        </div>
-        <div class="cn" aria-hidden="true"></div>
-        <div class="hub">
-          <div class="circle"><small>אשכול</small><b>אדם, טבע וסביבה</b></div>
-          <div class="goal">מטרה: חיזוק יחסי הגומלין בין התלמיד, הטבע והסביבה</div>
-        </div>
-        <div class="cn" aria-hidden="true"></div>
-        <div class="out">
-          <div class="grp"><div class="cap">מיומנויות</div><div class="chips"><span class="chip">שיתוף פעולה</span><span class="chip">תכנון</span></div></div>
-          <div class="grp"><div class="cap">ערך</div><div class="chips"><span class="chip val">אחריות</span></div></div>
-          <div class="also">הפעילות משרתת גם את האשכול החברתי-רגשי</div>
         </div>
       </div>
     </main>

@@ -27,7 +27,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;
   background:radial-gradient(900px 600px at 30% 55%,rgba(36,67,224,.10),transparent 65%),
              radial-gradient(700px 500px at 85% 10%,rgba(245,176,65,.14),transparent 60%),var(--ground);
-  display:grid;grid-template-rows:96px 1fr 178px;overflow:hidden}
+  display:grid;grid-template-rows:96px 1fr 186px;overflow:hidden}
 
 .top{display:flex;align-items:center;justify-content:space-between;padding:0 90px}
 .brand{font-size:1.5rem;font-weight:700;color:var(--muted)}
@@ -139,7 +139,7 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .card.open .d:nth-child(1){transition-delay:1.5s}.card.open .d:nth-child(2){transition-delay:1.9s}.card.open .d:nth-child(3){transition-delay:2.3s}
 
 /* bottom band: names from earlier models */
-.band{padding:0 90px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.band{padding:6px 90px 40px;display:flex;flex-direction:column;justify-content:flex-start;gap:12px}
 .band-h{display:flex;justify-content:space-between;align-items:baseline;font-size:1.35rem;color:var(--muted)}
 .band-h b{color:var(--ink);font-size:1.45rem}
 .nm-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:14px;border-radius:30px}
@@ -152,7 +152,7 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .band.open .names{clip-path:inset(0 0 0 0)}
 .names span{opacity:0;transform:translateX(30px);transition:opacity .5s,transform .6s var(--ease);transition-delay:calc(var(--i)*.07s)}
 .band.open .names span{opacity:1;transform:none}
-.names span{font-size:1.45rem;font-weight:700;padding:8px 20px;border-radius:30px;background:var(--tile);border:1.5px solid var(--line);color:var(--accent-deep)}
+.names span{font-size:1.35rem;font-weight:700;padding:6px 18px;border-radius:30px;background:var(--tile);border:1.5px solid var(--line);color:var(--accent-deep)}
 .names span.cur{background:var(--accent-soft);border-color:var(--accent)}
 
 /* entrance */

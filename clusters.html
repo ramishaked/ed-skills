@@ -53,6 +53,10 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .zone{position:absolute;top:0;width:270px;height:570px;border:3px dashed var(--accent);border-radius:30px;background:rgba(36,67,224,.05);opacity:0;transform:scale(.92);transition:opacity .7s var(--ease),transform .7s var(--ease);direction:rtl}
 .zone small{position:absolute;top:14px;inset-inline:0;text-align:center;font-weight:800;font-size:1.3rem;color:var(--accent-deep);opacity:.75}
 .ill-box.g .zone{opacity:1;transform:none}
+.zone:not(.named){border-color:#bcc3d9;background:rgba(110,120,150,.07)}
+.zone:not(.named) small{color:#7c86a8}
+html .ill-box.g .sk.gen i{border-color:#cdd2e3;color:#8a93b2;box-shadow:0 1px 0 var(--line)}
+html .ill-box.g .sk.gen .moe-ico{opacity:.45}
 .zone.named{background:rgba(36,67,224,.10);border-width:4px}
 .zone.named small{opacity:1;font-size:1.45rem}
 .sk{position:absolute;width:240px;height:76px;transition:left 1.3s var(--ease),top 1.3s var(--ease),opacity .6s;direction:rtl}
@@ -260,8 +264,8 @@ const ZW=270, ZG=30, X0=(870-(3*ZW+2*ZG))/2;
 const zx=i=>X0+i*(ZW+ZG);
 const TILT=[-11,7,-5,12,-8,4,10,-13,6,-4,9,-9,-6];
 ill.innerHTML=[0,1,2].map(i=>`<div class="zone${i===1?' named':''}" style="left:${zx(i)}px"><small>${ZLAB[i]}</small></div>`).join('')+
-  SK.map((s,i)=>`<div class="sk" style="--k:var(--c${s[1]});--r:${TILT[i]}deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${s[0]}</i></div>`).join('')+
-  GHOSTS.map((g,j)=>`<div class="sk ghost" style="--k:var(--c${SK[g[0]][1]});--r:0deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${SK[g[0]][0]}</i></div>`).join('');
+  SK.map((s,i)=>`<div class="sk${GA[i]===1?'':' gen'}" style="--k:var(--c${s[1]});--r:${TILT[i]}deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${s[0]}</i></div>`).join('')+
+  GHOSTS.map((g,j)=>`<div class="sk ghost gen" style="--k:var(--c${SK[g[0]][1]});--r:0deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${SK[g[0]][0]}</i></div>`).join('');
 const cards=[...ill.querySelectorAll('.sk:not(.ghost)')], ghosts=[...ill.querySelectorAll('.sk.ghost')];
 const SCAT=[[40,30],[250,90],[560,10],[430,170],[110,190],[600,250],[300,300],[10,350],[470,380],[190,440],[620,440],[380,20],[200,520]];
 const place=(el,x,y)=>{ el.style.left=x+'px'; el.style.top=y+'px'; };

@@ -53,6 +53,8 @@ main{padding:14px 90px 0;display:grid;grid-template-columns:790px 1fr;gap:80px;a
 .zone{position:absolute;top:0;width:270px;height:570px;border:3px dashed var(--accent);border-radius:30px;background:rgba(36,67,224,.05);opacity:0;transform:scale(.92);transition:opacity .7s var(--ease),transform .7s var(--ease);direction:rtl}
 .zone small{position:absolute;top:14px;inset-inline:0;text-align:center;font-weight:800;font-size:1.3rem;color:var(--accent-deep);opacity:.75}
 .ill-box.g .zone{opacity:1;transform:none}
+.zone.named{background:rgba(36,67,224,.10);border-width:4px}
+.zone.named small{opacity:1;font-size:1.45rem}
 .sk{position:absolute;width:240px;height:76px;transition:left 1.3s var(--ease),top 1.3s var(--ease),opacity .6s;direction:rtl}
 .sk i{position:relative;display:flex;align-items:center;width:100%;height:100%;background:var(--tile);border-radius:22px;border:2px solid color-mix(in srgb,var(--accent) 70%,transparent);padding:8px 16px;padding-inline-end:44px;font-style:normal;font-family:var(--f-display);font-weight:400;font-size:1.55rem;line-height:1.1;text-wrap:balance;text-align:start;box-shadow:0 1px 0 var(--line),0 8px 18px rgba(17,24,56,.08);transform:rotate(var(--r,0deg));transition:transform 1.3s var(--ease)}
 .sk .moe-ico{position:absolute;top:10px;inset-inline-end:10px;background:#fff;border-radius:50%;box-shadow:0 0 0 1px rgba(17,24,56,.14)}
@@ -249,14 +251,15 @@ addEventListener('resize',fit); fit();
 /* ---- illustration: generic skill cards; one click moves them into unnamed clusters, once ---- */
 const SK=[["מיומנות א'",1],["מיומנות ב'",2],["מיומנות ג'",3],["מיומנות ד'",4],
           ["מיומנות ה'",1],["מיומנות ו'",2],["מיומנות ז'",3],["מיומנות ח'",4],
-          ["מיומנות י'",1],["מיומנות י\"א",2],["מיומנות י\"ב",3],["מיומנות י\"ג",4],["מיומנות ט'",1]];
-const GA=[2,2,2,2,1,1,1,1,0,0,0,0,1];                 /* cluster of each card */
-const GHOSTS=[[12,2]];                    /* [card, extra cluster]: one skill serving more than one cluster */
+          ["התנהלות חברתית",1],["אוריינות מדעית",2],["הכוונה עצמית",3]];
+const GA=[2,2,2,2,0,0,0,0,1,1,1];                     /* cluster of each card: 2 right, 1 middle (the worked example), 0 left */
+const GHOSTS=[[3,0]];                    /* [card, extra cluster]: one skill serving more than one cluster */
+const ZLAB=["אשכול ב'","אדם, טבע וסביבה","אשכול א'"];
 const ill=document.getElementById('ill'), cap=document.getElementById('illCap');
 const ZW=270, ZG=30, X0=(870-(3*ZW+2*ZG))/2;
 const zx=i=>X0+i*(ZW+ZG);
 const TILT=[-11,7,-5,12,-8,4,10,-13,6,-4,9,-9,-6];
-ill.innerHTML=[0,1,2].map(i=>`<div class="zone" style="left:${zx(i)}px"><small>אשכול ${["ג'","ב'","א'"][i]}</small></div>`).join('')+
+ill.innerHTML=[0,1,2].map(i=>`<div class="zone${i===1?' named':''}" style="left:${zx(i)}px"><small>${ZLAB[i]}</small></div>`).join('')+
   SK.map((s,i)=>`<div class="sk" style="--k:var(--c${s[1]});--r:${TILT[i]}deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${s[0]}</i></div>`).join('')+
   GHOSTS.map((g,j)=>`<div class="sk ghost" style="--k:var(--c${SK[g[0]][1]});--r:0deg"><i><svg class="moe-ico" width="22" height="22" viewBox="-1.6 -1.6 27.2 27.2" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#4FADC2"/><circle cx="18.15" cy="5.85" r="3" fill="#9DBE3A"/><circle cx="18.15" cy="18.15" r="3" fill="#4EB3D0"/><circle cx="5.85" cy="18.15" r="3" fill="#E0553D"/><circle cx="5.85" cy="5.85" r="3" fill="#F0B33A"/></svg>${SK[g[0]][0]}</i></div>`).join('');
 const cards=[...ill.querySelectorAll('.sk:not(.ghost)')], ghosts=[...ill.querySelectorAll('.sk.ghost')];

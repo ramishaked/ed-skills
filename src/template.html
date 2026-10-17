@@ -186,6 +186,9 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
   .open{scroll-margin-top:12px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+#pageOv{position:fixed;inset:0;z-index:1000;background:var(--ground)}
+#pageOv[hidden]{display:none}
+#pageOv iframe{width:100%;height:100%;border:0;display:block}
 </style>
 
 <div class="wrap" dir="rtl" lang="he">
@@ -525,7 +528,18 @@ function renderAbout(){
 const dlg=document.getElementById("about");
 document.getElementById("aboutBtn").addEventListener("click",()=>{ renderAbout(); dlg.showModal(); });
 document.getElementById("aboutClose").addEventListener("click",()=>dlg.close());
-document.getElementById("spacesBtn").addEventListener("click",()=>{ location.href="clusters.html"; });
+/* in full screen, sister pages open in an overlay frame: a real navigation always drops full screen */
+function openPage(url){
+  if(!document.fullscreenElement){ location.href=url; return; }
+  let ov=document.getElementById("pageOv");
+  if(!ov){ ov=document.createElement("div"); ov.id="pageOv"; ov.innerHTML='<iframe title="עמוד" allow="fullscreen"></iframe>'; document.body.appendChild(ov); }
+  ov.querySelector("iframe").src=url; ov.hidden=false; document.body.style.overflow="hidden";
+  ov.querySelector("iframe").focus();
+}
+function closePage(){ const ov=document.getElementById("pageOv"); if(!ov) return; ov.hidden=true; ov.querySelector("iframe").src="about:blank"; document.body.style.overflow=""; }
+addEventListener("message",e=>{ if(e.data==="ed-close") closePage(); else if(e.data==="ed-fs") (document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()); });
+document.getElementById("spacesBtn").addEventListener("click",()=>openPage("clusters.html"));
+document.querySelectorAll('a[href="process.html"]').forEach(a=>a.addEventListener("click",e=>{ if(document.fullscreenElement){ e.preventDefault(); openPage("process.html"); } }));
 dlg.addEventListener("click",e=>{ if(e.target===dlg) dlg.close(); });
 
 function parseCSV(t){

@@ -308,5 +308,12 @@ btn.addEventListener('click',()=>{
 });
 addEventListener('keydown',e=>{ if(e.key==='r'||e.key==='R'||e.key==='ר') location.reload(); });
 </script>
+<script>
+/* opened inside the skills map's full-screen overlay: going back closes the overlay instead of navigating, F toggles full screen */
+if(window.parent!==window){
+  document.addEventListener("click",e=>{ const a=e.target.closest('a[href="./"]'); if(a){ e.preventDefault(); parent.postMessage("ed-close","*"); } });
+  document.addEventListener("keydown",e=>{ if((e.key==="f"||e.key==="F"||e.key==="א")&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)){ e.preventDefault(); parent.postMessage("ed-fs","*"); } });
+}
+</script>
 </body>
 </html>

@@ -735,5 +735,12 @@ if(/^#m\d$/.test(location.hash)) openMeet(location.hash.slice(1));
 const r=(n-s)/(e-s);const pc=Math.max(0,Math.min(1,r))*100;g.style.setProperty("--past",pc+"%");
 const nw=g.querySelector(".gx-now");if(nw)nw.style.insetInlineStart=pc+"%";})();
 </script>
+<script>
+/* opened inside the skills map's full-screen overlay: going back closes the overlay instead of navigating, F toggles full screen */
+if(window.parent!==window){
+  document.addEventListener("click",e=>{ const a=e.target.closest('a[href="./"]'); if(a){ e.preventDefault(); parent.postMessage("ed-close","*"); } });
+  document.addEventListener("keydown",e=>{ if((e.key==="f"||e.key==="F"||e.key==="א")&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)){ e.preventDefault(); parent.postMessage("ed-fs","*"); } });
+}
+</script>
 </body>
 </html>

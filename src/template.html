@@ -209,6 +209,7 @@ footer{margin-top:48px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:
       <button type="button" class="tbtn" id="spacesBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>אשכולות</button>
       <button type="button" class="tbtn" id="aboutBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>אודות</button>
       <button type="button" class="tbtn icon" id="themeBtn" aria-pressed="false"></button>
+      <button type="button" class="tbtn icon" id="fsBtn" aria-pressed="false"></button>
     </div>
   </header>
   <p class="lede">כל המיומנויות והערכים של דמות הבוגר, לצד כשירויות וערכים ממסגרות משלימות. לחצו על אריח כדי לפתוח אותו: הגדרה, יכולות ליבה וקשרים לפריטים אחרים.</p>
@@ -497,6 +498,21 @@ function setTheme(m){
 setTheme("light");
 if(!SHOW_CLUSTERS){ document.getElementById("catBtn").hidden=true; document.getElementById("cats").hidden=true; }
 document.getElementById("themeBtn").addEventListener("click",()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));
+// full screen
+const FS_IN='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+const FS_OUT='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
+(function(){
+  const b=document.getElementById("fsBtn"), root=document.documentElement;
+  if(!root.requestFullscreen){ b.hidden=true; return; }
+  const sync=()=>{ const on=!!document.fullscreenElement, l=on?"יציאה ממסך מלא (F)":"מסך מלא (F)";
+    b.innerHTML=on?FS_OUT:FS_IN; b.title=l; b.setAttribute("aria-label",l); b.setAttribute("aria-pressed",on); };
+  const toggle=()=>document.fullscreenElement?document.exitFullscreen():root.requestFullscreen();
+  b.addEventListener("click",toggle);
+  document.addEventListener("fullscreenchange",sync);
+  document.addEventListener("keydown",e=>{
+    if((e.key==="f"||e.key==="F"||e.key==="א")&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)){ e.preventDefault(); toggle(); } });
+  sync();
+})();
 // about
 function renderAbout(){
   const ids=Object.keys(DB.sources).sort();

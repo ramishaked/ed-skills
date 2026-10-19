@@ -64,6 +64,11 @@ button{font:inherit;color:inherit;cursor:pointer}
 .kpi b{display:block;font-family:var(--f-display);font-weight:400;font-size:3rem;line-height:1;color:var(--ink)}
 .kpi b.am{color:var(--amber)}
 .kpi span{display:block;color:var(--muted);margin-top:6px;font-size:.95rem}
+
+#toast{position:absolute;left:50%;bottom:120px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:12px 26px;border-radius:26px;font-weight:700;font-size:1.15rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:60}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.topkey{display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--amber-deep);margin-inline-end:14px}
+.topkey i{width:14px;height:14px;border-radius:4px;background:var(--amber);box-shadow:0 0 12px var(--amber-glow)}
 .legend{display:flex;flex-direction:column;gap:8px;font-size:1rem;color:var(--muted)}
 .legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-inline-end:10px;vertical-align:-1px}
 .legend .b i{background:var(--accent);box-shadow:0 0 12px var(--glow)}
@@ -93,6 +98,11 @@ button{font:inherit;color:inherit;cursor:pointer}
   50%{text-shadow:0 0 60px rgba(36,67,224,.55),0 0 120px rgba(36,67,224,.25)}}
 .w.bank{color:#2a44c4;text-shadow:0 0 18px rgba(36,67,224,.12)}
 .w.bank.lead{color:#142a9e;text-shadow:0 0 28px rgba(36,67,224,.30)}
+.w.bank.hot{color:var(--amber-deep);text-shadow:0 0 22px rgba(196,116,26,.22)}
+.w.bank.lead.hot{color:#a35f10;text-shadow:0 0 28px rgba(196,116,26,.34)}
+.w.lead.hot.in>span:first-child{animation:drift 9s ease-in-out infinite alternate,breatheA 3.4s ease-in-out 1.4s infinite}
+@keyframes breatheA{0%,100%{text-shadow:0 0 28px rgba(196,116,26,.30)}
+  50%{text-shadow:0 0 60px rgba(196,116,26,.55),0 0 120px rgba(196,116,26,.25)}}
 .w.other{color:var(--amber);text-shadow:0 0 18px rgba(196,116,26,.14)}
 .w:hover,.w.sel{filter:brightness(.85);background:rgba(36,67,224,.08);transition:filter .2s,background .25s,transform .9s cubic-bezier(.2,.9,.3,1.25),opacity .6s}
 .w .n{position:absolute;top:-6px;inset-inline-end:-4px;font-family:var(--f-mono);font-size:14px;background:var(--tile2);border:1px solid var(--line);border-radius:12px;padding:1px 8px;color:var(--muted);opacity:0;transition:opacity .2s}
@@ -102,12 +112,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 .bars{display:flex;flex-direction:column;gap:10px;height:100%;justify-content:center;padding:0 10px}
 .bar{display:grid;grid-template-columns:290px 1fr 110px;align-items:center;gap:18px;font-size:1.3rem;animation:barIn .8s cubic-bezier(.2,.8,.2,1) both}
 .bar .lab{font-weight:800;text-align:start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bar .lab.other{color:var(--amber)}
+.bar .lab.other,.bar .lab.hot{color:var(--amber-deep)}
 .bar .tr{height:34px;background:var(--tile);border:1px solid var(--line);border-radius:17px;overflow:hidden}
 .bar .fl{position:relative;overflow:hidden;height:100%;width:0;border-radius:17px;background:linear-gradient(90deg,var(--accent-deep),var(--accent));box-shadow:0 0 18px var(--glow);transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
 .bar .fl::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(130%);animation:sheen 3s ease-in-out 1.8s infinite}
 @keyframes sheen{0%{transform:translateX(130%)}55%,100%{transform:translateX(-130%)}}
 @keyframes barIn{from{opacity:0;transform:translateX(80px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.bar .fl.hot{background:linear-gradient(90deg,var(--amber-deep),var(--amber));box-shadow:0 0 18px var(--amber-glow)}
 .bar .fl.other{background:linear-gradient(90deg,var(--amber-deep),var(--amber));box-shadow:0 0 18px var(--amber-glow)}
 .bar .num{font-family:var(--f-mono);color:var(--muted);display:flex;gap:10px;align-items:baseline}
 .bar .num b{color:var(--ink);font-size:1.5rem}
@@ -267,7 +278,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         <button id="v-bars" aria-pressed="false">דירוג</button>
         <button id="v-stg" aria-pressed="false">לפי שלב</button>
       </div>
-      <button class="ibtn" id="rp" title="הפעלה מחדש (R)" aria-label="הפעלה מחדש"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5"/></svg></button>
+      <button class="ibtn" id="rp" title="רענון נתונים והפעלה מחדש (U)" aria-label="רענון נתונים"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5"/></svg></button>
       <button class="ibtn" id="fs" title="מסך מלא (F)" aria-label="מסך מלא"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
     </div>
   </header>
@@ -283,7 +294,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         <div class="kpi"><b id="k-k">0</b><span>מיומנויות שונות זוהו</span></div>
         <div class="kpi" style="grid-column:1/-1"><b id="k-top" style="font-size:1.6rem;margin-top:8px">–</b><span>המיומנות הבולטת בעיר</span></div>
       </div>
-      <p class="hint">לחיצה על מילה פותחת את התיאורים שמאחוריה. <kbd>1</kbd> ענן <kbd>2</kbd> דירוג <kbd>3</kbd> לפי שלב <kbd>R</kbd> הפעלה מחדש <kbd>F</kbd> מסך מלא</p>
+      <p class="hint"><span class="topkey"><i></i>שלוש הבולטות</span> לחיצה על מילה פותחת את התיאורים שמאחוריה. <kbd>1</kbd> ענן <kbd>2</kbd> דירוג <kbd>3</kbd> לפי שלב <kbd>R</kbd> הפעלה מחדש <kbd>U</kbd> רענון נתונים <kbd>F</kbd> מסך מלא</p>
     </aside>
 
     <main class="main">
@@ -481,7 +492,7 @@ function cloud(a,quick,gen){
       const t=max===min?1:(Math.sqrt(it.n)-Math.sqrt(min))/(Math.sqrt(max)-Math.sqrt(min));
       const fs=Math.round((34+t*126)*scale);
       const el=document.createElement('button');
-      el.className='w '+(it.b?'bank':'other')+(i===0?' lead':'');
+      el.className='w '+(it.b?'bank':'other')+(i===0?' lead':'')+(i<3?' hot':'');
       el.style.fontSize=fs+'px';
       el.innerHTML=`<span style="--dur:${(6+Math.random()*4).toFixed(1)}s;--dl:${(-Math.random()*6).toFixed(1)}s">${it.s}</span><span class="n">${it.n}</span>`;
       el.setAttribute('aria-label',`${it.s}, ${it.n} מנהלים`);
@@ -510,7 +521,7 @@ function bars(a,gen){
   const total=a.mg, max=a.items[0]?a.items[0].n:1;
   a.items.slice(0,12).forEach((it,i)=>{
     const row=document.createElement('div'); row.className='bar'; row.style.animationDelay=(REDUCE?0:.12+i*.07)+'s';
-    row.innerHTML=`<div class="lab ${it.b?'':'other'}">${it.s}</div><div class="tr"><div class="fl ${it.b?'':'other'}"></div></div><div class="num"><b>0</b><span>${Math.round(it.n/total*100)}%</span></div>`;
+    row.innerHTML=`<div class="lab ${it.b?'':'other'}${i<3?' hot':''}">${it.s}</div><div class="tr"><div class="fl ${it.b?'':'other'}${i<3?' hot':''}"></div></div><div class="num"><b>0</b><span>${Math.round(it.n/total*100)}%</span></div>`;
     row.querySelector('.lab').onclick=()=>openDrawer(it,row);
     box.appendChild(row);
     setTimeout(()=>{ if(gen!==revealGen) return; row.querySelector('.fl').style.width=(it.n/max*100)+'%'; countTo(row.querySelector('.num b'),it.n,1100); },REDUCE?0:300+i*70);
@@ -593,7 +604,29 @@ function setView(v){ if(!entered||view===v) return; view=v; render({quick:true,f
 document.getElementById('v-cloud').onclick=()=>setView('cloud');
 document.getElementById('v-bars').onclick=()=>setView('bars');
 document.getElementById('v-stg').onclick=()=>setView('stg');
-document.getElementById('rp').onclick=()=>{ if(entered) render({}); };
+/* refresh: pull the latest published copy of this page, swap in its DATA, and rebuild without leaving full screen */
+const toastEl=document.createElement('div'); toastEl.id='toast'; stageEl.appendChild(toastEl);
+function toast(t){ toastEl.textContent=t; toastEl.classList.add('on'); clearTimeout(toast.h); toast.h=setTimeout(()=>toastEl.classList.remove('on'),3200); }
+async function refreshData(){
+  if(!entered) return;
+  try{
+    const r=await fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw 0;
+    const txt=await r.text();
+    const m=txt.match(/const DATA = (\[[\s\S]*?\n\]);/);
+    if(!m) throw 0;
+    const fresh=new Function('return '+m[1])();
+    if(!fresh.length) throw 0;
+    const before=mcount(DATA);
+    DATA.length=0; fresh.forEach(x=>DATA.push(x)); DATA.forEach(x=>{x.b=1;});
+    const ts=txt.match(/class="ts">([^<]+)</); if(ts) document.querySelector('.ts').textContent=ts[1];
+    document.getElementById('intro-n').textContent=mcount(DATA);
+    closeDrawer(); render({fresh:true});
+    const now=mcount(DATA);
+    toast(now===before?'הנתונים מעודכנים: '+now+' מנהלים':'עודכן: '+now+' מנהלים (היו '+before+')');
+  }catch(e){ render({}); toast('לא ניתן למשוך נתונים חדשים כרגע'); }
+}
+document.getElementById('rp').onclick=refreshData;
 document.getElementById('dx').onclick=closeDrawer;
 document.getElementById('intro-n').textContent=mcount(DATA);
 
@@ -622,6 +655,7 @@ addEventListener('keydown',e=>{
   if(e.key==='2') setView('bars');
   if(e.key==='3') setView('stg');
   if(e.key==='r'||e.key==='R'||e.key==='ר') render({});
+  if(e.key==='u'||e.key==='U') refreshData();
   if(e.key==='f'||e.key==='F'||e.key==='כ') document.getElementById('fs').click();
   if(e.key==='Escape') closeDrawer();
 });

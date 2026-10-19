@@ -607,19 +607,50 @@ document.getElementById('v-stg').onclick=()=>setView('stg');
 /* refresh: pull the latest published copy of this page, swap in its DATA, and rebuild without leaving full screen */
 const toastEl=document.createElement('div'); toastEl.id='toast'; stageEl.appendChild(toastEl);
 function toast(t){ toastEl.textContent=t; toastEl.classList.add('on'); clearTimeout(toast.h); toast.h=setTimeout(()=>toastEl.classList.remove('on'),3200); }
+const SHEET_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vRpsUiGs01apb-uLwZiZ9aS8K2pxakbGE_jHgxcygqKWQ1nHXtSdR6YYu4GScav8brIIGoyLd8dZv3a/pub?output=csv';
+function parseCSV(t){
+  const rows=[]; let row=[], cur='', q=false;
+  for(let i=0;i<t.length;i++){
+    const c=t[i];
+    if(q){ if(c==='"'){ if(t[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else if(c==='"') q=true;
+    else if(c===','){ row.push(cur); cur=''; }
+    else if(c==='\n'||c==='\r'){ if(c==='\r'&&t[i+1]==='\n') i++; row.push(cur); cur=''; if(row.some(x=>x.trim()!=='')) rows.push(row); row=[]; }
+    else cur+=c;
+  }
+  if(cur!==''||row.length){ row.push(cur); if(row.some(x=>x.trim()!=='')) rows.push(row); }
+  return rows;
+}
+const STAGES=['גן','יסודי','על-יסודי','חינוך מיוחד'];
+/* primary source: the published sheet of mapped answers (no names). Fallback: the DATA embedded in the latest published copy of this page. */
+async function loadFresh(){
+  try{
+    const r=await fetch(SHEET_CSV+'&_='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw 0;
+    const t=parseCSV(await r.text()); t.shift();
+    const rows=t.map(c=>({m:+c[0],s:(c[1]||'').trim(),b:1,st:(c[3]||'').trim().replace(/^גנים$/,'גן'),t:(c[4]||'').trim()}))
+      .filter(x=>Number.isFinite(x.m)&&x.s&&STAGES.includes(x.st));
+    if(rows.length) return {rows,src:'הגיליון'};
+  }catch(e){}
+  const r=await fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'});
+  if(!r.ok) throw 0;
+  const txt=await r.text();
+  const m=txt.match(/const DATA = (\[[\s\S]*?\n\]);/);
+  if(!m) throw 0;
+  const rows=new Function('return '+m[1])();
+  if(!rows.length) throw 0;
+  const ts=txt.match(/class="ts">([^<]+)</);
+  return {rows,src:'העמוד',ts:ts&&ts[1]};
+}
 async function refreshData(){
   if(!entered) return;
   try{
-    const r=await fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'});
-    if(!r.ok) throw 0;
-    const txt=await r.text();
-    const m=txt.match(/const DATA = (\[[\s\S]*?\n\]);/);
-    if(!m) throw 0;
-    const fresh=new Function('return '+m[1])();
-    if(!fresh.length) throw 0;
+    const {rows,src,ts}=await loadFresh();
     const before=mcount(DATA);
-    DATA.length=0; fresh.forEach(x=>DATA.push(x)); DATA.forEach(x=>{x.b=1;});
-    const ts=txt.match(/class="ts">([^<]+)</); if(ts) document.querySelector('.ts').textContent=ts[1];
+    DATA.length=0; rows.forEach(x=>DATA.push(x)); DATA.forEach(x=>{x.b=1;});
+    const now0=new Date(); const tsEl=document.querySelector('.ts');
+    if(src==='הגיליון') tsEl.textContent='עודכן '+String(now0.getDate()).padStart(2,'0')+'.'+String(now0.getMonth()+1).padStart(2,'0')+'.'+now0.getFullYear()+' '+String(now0.getHours()).padStart(2,'0')+':'+String(now0.getMinutes()).padStart(2,'0');
+    else if(ts) tsEl.textContent=ts;
     document.getElementById('intro-n').textContent=mcount(DATA);
     closeDrawer(); render({fresh:true});
     const now=mcount(DATA);

@@ -12,7 +12,7 @@
 :root{
   --ground:#f3f5fc; --tile:#ffffff; --tile2:#eaeefb; --ink:#111838; --muted:#5b6590; --line:#d3d9ee;
   --accent:#2443e0; --accent-deep:#1b34b8; --glow:rgba(36,67,224,.28);
-  --amber:#c4741a; --amber-deep:#a35f10; --amber-glow:rgba(196,116,26,.28);
+  --amber:#15a34a; --amber-deep:#0d7f3a; --amber-glow:rgba(21,163,74,.28);
   --f-display:"Secular One","Heebo",sans-serif;
   --f-body:"Heebo","Segoe UI","Arial Hebrew",sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
@@ -98,12 +98,12 @@ button{font:inherit;color:inherit;cursor:pointer}
   50%{text-shadow:0 0 60px rgba(36,67,224,.55),0 0 120px rgba(36,67,224,.25)}}
 .w.bank{color:#2a44c4;text-shadow:0 0 18px rgba(36,67,224,.12)}
 .w.bank.lead{color:#142a9e;text-shadow:0 0 28px rgba(36,67,224,.30)}
-.w.bank.hot{color:var(--amber-deep);text-shadow:0 0 22px rgba(196,116,26,.22)}
-.w.bank.lead.hot{color:#a35f10;text-shadow:0 0 28px rgba(196,116,26,.34)}
+.w.bank.hot{color:var(--amber-deep);text-shadow:0 0 22px rgba(21,163,74,.22)}
+.w.bank.lead.hot{color:#0d7f3a;text-shadow:0 0 28px rgba(21,163,74,.34)}
 .w.lead.hot.in>span:first-child{animation:drift 9s ease-in-out infinite alternate,breatheA 3.4s ease-in-out 1.4s infinite}
-@keyframes breatheA{0%,100%{text-shadow:0 0 28px rgba(196,116,26,.30)}
-  50%{text-shadow:0 0 60px rgba(196,116,26,.55),0 0 120px rgba(196,116,26,.25)}}
-.w.other{color:var(--amber);text-shadow:0 0 18px rgba(196,116,26,.14)}
+@keyframes breatheA{0%,100%{text-shadow:0 0 28px rgba(21,163,74,.30)}
+  50%{text-shadow:0 0 60px rgba(21,163,74,.55),0 0 120px rgba(21,163,74,.25)}}
+.w.other{color:var(--amber);text-shadow:0 0 18px rgba(21,163,74,.14)}
 .w:hover,.w.sel{filter:brightness(.85);background:rgba(36,67,224,.08);transition:filter .2s,background .25s,transform .9s cubic-bezier(.2,.9,.3,1.25),opacity .6s}
 .w .n{position:absolute;top:-6px;inset-inline-end:-4px;font-family:var(--f-mono);font-size:14px;background:var(--tile2);border:1px solid var(--line);border-radius:12px;padding:1px 8px;color:var(--muted);opacity:0;transition:opacity .2s}
 .w:hover .n,.w.sel .n{opacity:1}
@@ -130,7 +130,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .sc::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:7px;background:var(--accent)}
 .sc.am::before{background:var(--amber)}
 .sc::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px 220px at 85% 0%,rgba(36,67,224,.09),transparent 70%)}
-.sc.am::after{background:radial-gradient(420px 220px at 85% 0%,rgba(196,116,26,.10),transparent 70%)}
+.sc.am::after{background:radial-gradient(420px 220px at 85% 0%,rgba(21,163,74,.10),transparent 70%)}
 @keyframes cardIn{from{opacity:0;transform:translateY(50px) scale(.94);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
 .sc .hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;position:relative;z-index:1}
 .sc .hd b{font-size:1.25rem;font-weight:800;color:var(--muted);letter-spacing:.02em}
@@ -212,7 +212,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 #fx{position:absolute;left:0;top:0;width:1920px;height:1080px;pointer-events:none;z-index:25}
 .shock{position:absolute;left:0;top:0;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:4px solid rgba(36,67,224,.8);
   box-shadow:0 0 80px var(--glow),inset 0 0 80px var(--glow);opacity:0;pointer-events:none;z-index:30}
-.shock.s2{border-color:rgba(196,116,26,.85);box-shadow:0 0 80px var(--amber-glow),inset 0 0 80px var(--amber-glow)}
+.shock.s2{border-color:rgba(21,163,74,.85);box-shadow:0 0 80px var(--amber-glow),inset 0 0 80px var(--amber-glow)}
 .shock.go{animation:shock 1.3s cubic-bezier(.15,.7,.2,1) forwards}
 .shock.s2.go{animation-delay:.2s}
 @keyframes shock{0%{opacity:1;transform:scale(.3)}100%{opacity:0;transform:scale(34)}}
@@ -238,7 +238,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .src{display:flex;align-items:center;gap:14px;min-width:0}
 .src .dot{width:10px;height:10px;border-radius:50%;background:#12b886;box-shadow:0 0 10px rgba(18,184,134,.5);flex:none}
 .src b{color:var(--ink)}
-.demo{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:15px;background:rgba(196,116,26,.12);color:var(--amber);border:1px solid rgba(196,116,26,.45);font-weight:800;flex:none}
+.demo{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:15px;background:rgba(21,163,74,.12);color:var(--amber);border:1px solid rgba(21,163,74,.45);font-weight:800;flex:none}
 .foot .ts{font-family:var(--f-mono);flex:none}
 </style>
 </head>
@@ -294,7 +294,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         <div class="kpi"><b id="k-k">0</b><span>מיומנויות שונות זוהו</span></div>
         <div class="kpi" style="grid-column:1/-1"><b id="k-top" style="font-size:1.6rem;margin-top:8px">–</b><span>המיומנות הבולטת בעיר</span></div>
       </div>
-      <p class="hint"><span class="topkey"><i></i>שלוש הבולטות</span> לחיצה על מילה פותחת את התיאורים שמאחוריה. <kbd>1</kbd> ענן <kbd>2</kbd> דירוג <kbd>3</kbd> לפי שלב <kbd>R</kbd> הפעלה מחדש <kbd>U</kbd> רענון נתונים <kbd>F</kbd> מסך מלא</p>
+      <p class="hint"><span class="topkey"><i></i>חמש הבולטות</span> לחיצה על מילה פותחת את התיאורים שמאחוריה. <kbd>1</kbd> ענן <kbd>2</kbd> דירוג <kbd>3</kbd> לפי שלב <kbd>R</kbd> הפעלה מחדש <kbd>U</kbd> רענון נתונים <kbd>F</kbd> מסך מלא</p>
     </aside>
 
     <main class="main">
@@ -463,7 +463,7 @@ function stagePos(el){
 
 /* particles: slow ambient glow plus bursts when a word lands */
 const fx=document.getElementById('fx'), ctx=fx.getContext('2d');
-const amb=Array.from({length:56},()=>({x:Math.random()*1920,y:Math.random()*1080,r:1+Math.random()*2.4,v:.12+Math.random()*.38,a:.12+Math.random()*.3,c:Math.random()<.22?'196,116,26':'36,67,224',ph:Math.random()*6.28}));
+const amb=Array.from({length:56},()=>({x:Math.random()*1920,y:Math.random()*1080,r:1+Math.random()*2.4,v:.12+Math.random()*.38,a:.12+Math.random()*.3,c:Math.random()<.22?'21,163,74':'36,67,224',ph:Math.random()*6.28}));
 const sparks=[];
 function burst(x,y,rgb,n,power){
   for(let i=0;i<n;i++){const a=Math.random()*6.283, s=(.4+Math.random())*power;
@@ -512,7 +512,7 @@ function reveal(list,quick,gen){
       if(gen!==revealGen) return;
       el.classList.add('in');
       if(REDUCE) return;
-      const p=stagePos(el), rgb=it.b?'36,67,224':'196,116,26';
+      const p=stagePos(el), rgb=it.b?'36,67,224':'21,163,74';
       if(i===0){ burst(p.x,p.y,rgb,quick?45:120,quick?6:10); ring(p); } else burst(p.x,p.y,rgb,7,2.6);
     },d);
   });
@@ -532,7 +532,7 @@ function cloud(a,quick,gen){
       const t=max===min?1:(Math.sqrt(it.n)-Math.sqrt(min))/(Math.sqrt(max)-Math.sqrt(min));
       const fs=Math.round((34+t*126)*scale);
       const el=document.createElement('button');
-      el.className='w '+(it.b?'bank':'other')+(i===0?' lead':'')+(i<3?' hot':'');
+      el.className='w '+(it.b?'bank':'other')+(i===0?' lead':'')+(isHot(a,i)?' hot':'');
       el.style.fontSize=fs+'px';
       el.innerHTML=`<span style="--dur:${(6+Math.random()*4).toFixed(1)}s;--dl:${(-Math.random()*6).toFixed(1)}s">${it.s}</span><span class="n">${it.n}</span>`;
       el.setAttribute('aria-label',`${it.s}, ${it.n} מנהלים`);
@@ -556,12 +556,14 @@ function cloud(a,quick,gen){
   return 0;
 }
 
+/* top 5 by count; a skill tied with the 5th is included too (only if counted by more than one manager) */
+function isHot(a,i){const it=a.items, k=it[Math.min(4,it.length-1)]; if(!k) return false; return i<5 || (it[i].n===k.n && k.n>1);}
 function bars(a,gen){
   const box=document.getElementById('bars'); box.innerHTML='';
   const total=a.mg, max=a.items[0]?a.items[0].n:1;
   a.items.slice(0,12).forEach((it,i)=>{
     const row=document.createElement('div'); row.className='bar'; row.style.animationDelay=(REDUCE?0:.12+i*.07)+'s';
-    row.innerHTML=`<div class="lab ${it.b?'':'other'}${i<3?' hot':''}">${it.s}</div><div class="tr"><div class="fl ${it.b?'':'other'}${i<3?' hot':''}"></div></div><div class="num"><b>0</b><span>${Math.round(it.n/total*100)}%</span></div>`;
+    row.innerHTML=`<div class="lab ${it.b?'':'other'}${isHot(a,i)?' hot':''}">${it.s}</div><div class="tr"><div class="fl ${it.b?'':'other'}${isHot(a,i)?' hot':''}"></div></div><div class="num"><b>0</b><span>${Math.round(it.n/total*100)}%</span></div>`;
     row.querySelector('.lab').onclick=()=>openDrawer(it,row);
     box.appendChild(row);
     setTimeout(()=>{ if(gen!==revealGen) return; row.querySelector('.fl').style.width=(it.n/max*100)+'%'; countTo(row.querySelector('.num b'),it.n,1100); },REDUCE?0:300+i*70);
@@ -586,7 +588,7 @@ function stagesView(gen){
     card.querySelector('.lead').onclick=()=>openDrawer(top);
     box.appendChild(card);
     setTimeout(()=>{ if(gen!==revealGen) return; card.querySelectorAll('.t i').forEach(i=>i.style.width=i.dataset.w+'%'); },REDUCE?0:900+ci*160);
-    if(!REDUCE) setTimeout(()=>{ if(gen!==revealGen) return; const p=stagePos(card.querySelector('.lead')); burst(p.x,p.y,top.b?'36,67,224':'196,116,26',26,5); ring(p); },650+ci*160);
+    if(!REDUCE) setTimeout(()=>{ if(gen!==revealGen) return; const p=stagePos(card.querySelector('.lead')); burst(p.x,p.y,top.b?'36,67,224':'21,163,74',26,5); ring(p); },650+ci*160);
   });
 }
 
@@ -708,7 +710,7 @@ function leaveIntro(){
   if(!REDUCE){
     const g=stagePos(document.getElementById('go'));
     ['shock','shock2'].forEach(id=>{const s=document.getElementById(id); s.style.left=g.x+'px'; s.style.top=g.y+'px'; s.classList.add('go');});
-    burst(g.x,g.y,'36,67,224',150,12); burst(g.x,g.y,'196,116,26',70,8);
+    burst(g.x,g.y,'36,67,224',150,12); burst(g.x,g.y,'21,163,74',70,8);
   }
   intro.classList.add('off');
   setTimeout(()=>stageEl.classList.add('entered'),REDUCE?0:350);
